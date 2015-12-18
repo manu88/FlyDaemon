@@ -30,12 +30,13 @@
  */
 
 
-#include "UAVTalk.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-extern "C"
-{
-    #include "Dispatch.h"
-}
+#include "UAVTalk.h"
+#include "Dispatch.h"
+
 static GrandDispatcher *instance = NULL;
 
 
@@ -50,7 +51,13 @@ int runFromNewThread(void);
 
 int isConnected( void );
 
-int sendObject( const UAV_Object * obj);
+int sendObject( const UAVObject * obj);
+    
+    
+#ifdef __cplusplus
+} // closing brace for extern "C"
+
+#endif
 
 
 #endif /* FlyLabAPI_h */
