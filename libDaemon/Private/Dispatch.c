@@ -24,7 +24,7 @@ GrandDispatcher* GD_init()
     
     if (ret != NULL)
     {
-        ret->running = 0;
+        ret->state = 0;
 
         ret->_callBack1 = NULL;
         ret->_callBackUserData1 = NULL;
@@ -51,7 +51,7 @@ void GD_release( GrandDispatcher* dispatch)
 
 uint8_t GD_stop( GrandDispatcher* dispatch)
 {
-    if (dispatch->running == 0)
+    if (dispatch->state == 0)
     {
         return 0;
     }
@@ -63,8 +63,8 @@ uint8_t GD_stop( GrandDispatcher* dispatch)
     if( dispatch->threadedLoop == 1)
          ret = waitForThreadTerminaison( &dispatch->_thread );
     
-    dispatch->running = 0;
-//    dispatch->_thread.shouldQuit = 0;
+    dispatch->state = 0;
+
     return ret;
 }
 
@@ -72,7 +72,7 @@ uint8_t GD_stop( GrandDispatcher* dispatch)
 
 uint8_t GD_runFromThread( GrandDispatcher *dispatch)
 {
-    if( dispatch->running != 0)
+    if( dispatch->state != 0)
         return 0;
     
     const int r = pthread_create ( &dispatch->_thread.thread_id, NULL,startMainLoop, dispatch );
@@ -87,7 +87,7 @@ uint8_t GD_runFromThread( GrandDispatcher *dispatch)
 
 uint8_t GD_runFromLoop( GrandDispatcher *dispatch)
 {
-    if( dispatch->running != 0)
+    if( dispatch->state != 0)
         return 0;
     
     dispatch->threadedLoop = 0;
@@ -101,20 +101,20 @@ uint8_t GD_runFromLoop( GrandDispatcher *dispatch)
 enum
 {
     MAXCOUNT = 10000, // total waited time = MAXCOUNT * SLEEP_TIME
-    SLEEP_TIME = 100 // uS
+    SLEEP_TIME = 1000 // uS
 };
 
 uint8_t GD_waitForCreation(GrandDispatcher *dispatch )
 {
     uint16_t maxCount = 0;
-    while( dispatch->running != 1)
+    while( dispatch->state < 1)
     {
         usleep( SLEEP_TIME );
         if(maxCount++ > MAXCOUNT)
             break;
     }
     
-    if( dispatch->running == 1)
+    if( dispatch->state >= 1)
         return 1;
     
     // timeout here

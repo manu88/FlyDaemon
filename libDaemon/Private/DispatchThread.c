@@ -84,12 +84,11 @@ void dispatch_MainLoop( void* dispatcher )
 
     const pid_t pid = getpid();
 
-    printf(" My PID : %i \n" , pid );
-    
     /**/
     GrandDispatcher *dispatch = (GrandDispatcher*) dispatcher;
     
-
+    dispatch->state = 1;
+    
     Message_buf  rbuf;
     Message_buf  sbuf;
     
@@ -104,8 +103,6 @@ void dispatch_MainLoop( void* dispatcher )
     
     if( sendIPCMessage( &dispatch->_thread, &sbuf ) == 0)
     {
-        printf("Error while sending IPC_ProcessRegistration message \n");
-
     }
     
     /* Wait for reply ... */
@@ -131,7 +128,7 @@ void dispatch_MainLoop( void* dispatcher )
     
     if( didReply == 0)
     {
-//        printf(" TimeOut : Server did not reply .. \n");
+        printf(" TimeOut : Server did not reply .. \n");
         GD_unlockDispatch( dispatch );
         dispatch->_callBack1( ConnectionError , dispatch->_callBackUserData1 );
         GD_lockDispatch( dispatch );
@@ -140,7 +137,8 @@ void dispatch_MainLoop( void* dispatcher )
     else // we're good!
     {
         
-        dispatch->running = 1;
+
+        dispatch->state = 2;
         
         GD_unlockDispatch( dispatch );
         dispatch->_callBack1( DidRegisterToDispatcher , dispatch->_callBackUserData1 );
@@ -192,7 +190,11 @@ void dispatch_MainLoop( void* dispatcher )
             
         } // end of while
         
-
+        GD_unlockDispatch( dispatch );
+        dispatch->_callBack1( WillTerminateConnection , dispatch->_callBackUserData1 );
+        GD_lockDispatch( dispatch );
+        
+        
         sbuf.pid = pid;
         
         sbuf.mtype = IPC_ProcessDeregistration;
@@ -202,7 +204,7 @@ void dispatch_MainLoop( void* dispatcher )
         }
     }
     
-    dispatch->running = 0;
+    dispatch->state = 0;
 
 }
 

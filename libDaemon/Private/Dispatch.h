@@ -13,20 +13,17 @@
 #include "DispatchThread.h"
 
 /*
- PUBLIC HEADER
+ PRIVATE HEADER
  */
 
-
-
 typedef void (*event_cb_t)(int reason, void *userdata);
-
 typedef void (*event_userTask)( void *userdata);
 
 typedef struct _GrandDispatcher
 {
     DispatchThread _thread;
     
-    uint8_t running; // flag : 0/1
+    uint8_t state; // flag : 0 : not ready 1 : starting 2 : running;
     uint8_t threadedLoop; // 0 -> run from main thread, 1 -> run from dedicated thread;
    
     event_cb_t _callBack1;
@@ -39,10 +36,16 @@ typedef struct _GrandDispatcher
 
 enum DispatcherNotifications
 {
+    /*
+     notifs < DidReceiveData are notifications , notifs >= DidReceiveData are Value dispatch
+     */
     ConnectionError         = -1,
-    
     DidRegisterToDispatcher = 1,
-    DidReceiveData          = 2
+    WillTerminateConnection = 2,
+    
+    /* Limit*/
+    
+    DidReceiveData          = 20
 };
 
 GrandDispatcher* GD_init( void );

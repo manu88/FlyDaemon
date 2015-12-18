@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 #include "../FlyLabAPI.h"
-#include "../Dispatch.h"
+#include "Dispatch.h"
 
 
 static GrandDispatcher *instance = NULL;
@@ -38,6 +38,9 @@ uint8_t initializeConnection( const FlyLabParameters *parameters )
 
 void cleanup(void)
 {
+    if( instance->state > 0)
+        GD_stop( instance);
+    
     if (instance != NULL)
         GD_release( instance );
 }
@@ -61,12 +64,12 @@ uint8_t runFromNewThread(void)
     if( GD_waitForCreation( instance ) == 0 )
         return 0;
         
-    return instance->running;
+    return instance->state >= 1;
 }
 
 uint8_t isConnected( void )
 {
-    return instance->running;
+    return instance->state >= 1;
 }
 
 uint8_t sendObject( const UAVObject * obj)
@@ -90,6 +93,17 @@ void eventReceived( int reason, void* data)
     
     static int count = 0;
     
+    if( reason < DidReceiveData )
+    {
+        if( params.notificationsCallBack )
+            params.notificationsCallBack( reason , params.userData );
+    }
+    else if (reason == DidReceiveData)
+    {
+        if( params.function )
+            params.function(NULL , params.userData);
+    }
+    /*
     if( reason == DidRegisterToDispatcher )
     {
         printf("DidRegisterToDispatcher \n");
@@ -98,12 +112,16 @@ void eventReceived( int reason, void* data)
     else if( reason == ConnectionError )
     {
         printf("Connection error quit\n");
+        if( params.notificationsCallBack )
+            params.notificationsCallBack( reason , params.userData );
     }
     
     else if( reason == DidReceiveData )
     {
-        params.function(NULL);
+        if( params.function )
+            params.function(NULL , params.userData);
     }
+     */
     else
     {
         printf("Other Reason %i" , reason);

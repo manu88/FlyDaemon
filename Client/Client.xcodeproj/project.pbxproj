@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		5998AFAA1C007FF900D26FD8 /* libDispatcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F4DBCA1BF61B3D001D8230 /* libDispatcher.a */; };
 		59B0D16C1C24513D00F6C50F /* FlyLab.c in Sources */ = {isa = PBXBuildFile; fileRef = 59B0D16B1C24513D00F6C50F /* FlyLab.c */; };
+		59B0D16E1C24664D00F6C50F /* Dispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 59B0D16D1C24664D00F6C50F /* Dispatch.h */; };
 		59E439761C244365002A2A55 /* Dispatch.c in Sources */ = {isa = PBXBuildFile; fileRef = 59E439711C244365002A2A55 /* Dispatch.c */; };
 		59E439771C244365002A2A55 /* DispatchThread.c in Sources */ = {isa = PBXBuildFile; fileRef = 59E439721C244365002A2A55 /* DispatchThread.c */; };
 		59E439781C244365002A2A55 /* DispatchThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E439731C244365002A2A55 /* DispatchThread.h */; };
 		59E439791C244365002A2A55 /* UAVTalk.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E439741C244365002A2A55 /* UAVTalk.h */; };
-		59E4397E1C2443C1002A2A55 /* Dispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E4397C1C2443C1002A2A55 /* Dispatch.h */; };
 		59E4397F1C2443C1002A2A55 /* FlyLabAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E4397D1C2443C1002A2A55 /* FlyLabAPI.h */; };
 		59E439811C2444DF002A2A55 /* IPCMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E439801C2444DF002A2A55 /* IPCMessage.h */; };
 		59F4DBD81BF61B52001D8230 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 59F4DBD71BF61B52001D8230 /* main.c */; };
@@ -33,11 +33,11 @@
 
 /* Begin PBXFileReference section */
 		59B0D16B1C24513D00F6C50F /* FlyLab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = FlyLab.c; sourceTree = "<group>"; };
+		59B0D16D1C24664D00F6C50F /* Dispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dispatch.h; sourceTree = "<group>"; };
 		59E439711C244365002A2A55 /* Dispatch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Dispatch.c; sourceTree = "<group>"; };
 		59E439721C244365002A2A55 /* DispatchThread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DispatchThread.c; sourceTree = "<group>"; };
 		59E439731C244365002A2A55 /* DispatchThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchThread.h; sourceTree = "<group>"; };
 		59E439741C244365002A2A55 /* UAVTalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UAVTalk.h; sourceTree = "<group>"; };
-		59E4397C1C2443C1002A2A55 /* Dispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dispatch.h; sourceTree = "<group>"; };
 		59E4397D1C2443C1002A2A55 /* FlyLabAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlyLabAPI.h; sourceTree = "<group>"; };
 		59E439801C2444DF002A2A55 /* IPCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPCMessage.h; sourceTree = "<group>"; };
 		59F4DBCA1BF61B3D001D8230 /* libDispatcher.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libDispatcher.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +69,6 @@
 			children = (
 				59E4397D1C2443C1002A2A55 /* FlyLabAPI.h */,
 				59E439741C244365002A2A55 /* UAVTalk.h */,
-				59E4397C1C2443C1002A2A55 /* Dispatch.h */,
 				59E439701C244365002A2A55 /* Private */,
 			);
 			name = libDaemon;
@@ -79,6 +78,7 @@
 		59E439701C244365002A2A55 /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				59B0D16D1C24664D00F6C50F /* Dispatch.h */,
 				59B0D16B1C24513D00F6C50F /* FlyLab.c */,
 				59E439801C2444DF002A2A55 /* IPCMessage.h */,
 				59E439711C244365002A2A55 /* Dispatch.c */,
@@ -122,7 +122,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				59E439811C2444DF002A2A55 /* IPCMessage.h in Headers */,
-				59E4397E1C2443C1002A2A55 /* Dispatch.h in Headers */,
+				59B0D16E1C24664D00F6C50F /* Dispatch.h in Headers */,
 				59E439781C244365002A2A55 /* DispatchThread.h in Headers */,
 				59E4397F1C2443C1002A2A55 /* FlyLabAPI.h in Headers */,
 				59E439791C244365002A2A55 /* UAVTalk.h in Headers */,

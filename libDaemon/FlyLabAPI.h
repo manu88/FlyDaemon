@@ -36,20 +36,41 @@ extern "C" {
 
 #include "UAVTalk.h"
 
-typedef void (*event_uav)( const UAVObject *obj);
-typedef void (*event_error)( int errorNum );
+/* *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
     
+typedef void (*event_uav)( const UAVObject *obj , void* userData);
+typedef void (*event_error)( int errorNum , void* userData);
+    
+    
+/* *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
+
 struct _FlyLabParameters
 {
     event_uav function;
-    event_error errorCallBack;
+    event_error notificationsCallBack;
     
     void *userData;
 };
     
 typedef struct _FlyLabParameters FlyLabParameters;
 
-//static event_uav function = NULL;
+/* *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
+    
+    
+enum NotificationId
+{
+    /*
+        Must match DispatcherNotifications in Dispatch.h !
+     Do not reorder
+     */
+    Connection_Error         = -1,
+    Connection_OK            = 1,
+    Connection_WillEnd       = 2,
+    /* Limit*/
+//    DidReceiveData          = 20
+};
+    
+/* *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
 
 uint8_t initializeConnection( const FlyLabParameters *parameters );
 void cleanup(void);

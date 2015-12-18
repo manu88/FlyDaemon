@@ -6,24 +6,33 @@
 #include "../../libDaemon/FlyLabAPI.h"
 
 
+uint8_t connected = 0;
 
-/*
-void userTask( void* data )
+static void onNotification(int errorNum, void *userData)
 {
-    static int counter = 0;
+
     
-    GrandDispatcher *dispatch = ( GrandDispatcher*)data;
-    
-    printf("Send data request %i\n", counter);
-    
-    const char test[] = "hello";
-    
-    if(GD_sendMessage( dispatch ,(void*)test , 6))
-        counter++;
+    if( errorNum == Connection_Error )
+    {
+        printf("ConnectionError \n");
+    }
+    else if( errorNum == Connection_WillEnd )
+    {
+        printf("WillTerminateConnection \n");
+    }
+    else if( errorNum == Connection_OK )
+    {
+        printf("IsConnected \n");
+        
+        connected = 1;
+    }
+    else
+    {
+        printf("Notification received %i\n" , errorNum );
+    }
 }
 
-*/
-static void uavObjectReceived( const UAVObject *obj )
+static void uavObjectReceived( const UAVObject *obj , void* userData )
 {
     printf("UAV object received \n");
 }
@@ -31,52 +40,25 @@ int main (void)
 {
     FlyLabParameters params;
     params.function = uavObjectReceived;
+    params.notificationsCallBack = onNotification;
     
     initializeConnection( &params );
     
-
-    
-    
-//    runFromThisThread();
-    runFromNewThread();
-    
-    
-    while ( isConnected() )
+    if( runFromNewThread() == 1)
     {
-        usleep(10000);
-        sendObjectRequest( 1);
+
+        while ( isConnected() )
+        {
+
+            sendObjectRequest( 1);
+        }
+        printf("thread ended\n");
     }
-    /*
-    GrandDispatcher* dispatch = GD_init();
-
-    GD_setCallBack1( dispatch, testCall, dispatch );
+    else
+        printf("Error creation thread\n");
     
-
-    GD_setUserTaskCallBack( dispatch , userTask, dispatch );
     
-    GD_runFromLoop( dispatch );
-     */
-/*
-
-    GD_runFromThread( dispatch );
-    
-    if(GD_waitForCreation( dispatch ) == 0)
-        printf("Error !\n");
-
-    while( dispatch->running == 1)
-    {
-        userTask( dispatch );
-        
-        usleep(10000);
-        
-    }
-*/
-
-    printf("thread ended\n");
-
     cleanup();
-//    GD_release( dispatch );
-    
     
     return EXIT_SUCCESS;
 }

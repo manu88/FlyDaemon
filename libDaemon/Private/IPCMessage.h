@@ -16,7 +16,7 @@
 #include "../UAVTalk.h"
 
 // this is PRIVATE !!
-#define IPC_KEY  (key_t) 1234
+#define IPC_KEY  (key_t) 1235
 
 
 #define MSGSZ     sizeof( struct UAV_Object)
