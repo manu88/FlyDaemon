@@ -15,7 +15,7 @@
 		59E4397E1C2443C1002A2A55 /* Dispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E4397C1C2443C1002A2A55 /* Dispatch.h */; };
 		59E4397F1C2443C1002A2A55 /* FlyLabAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E4397D1C2443C1002A2A55 /* FlyLabAPI.h */; };
 		59E439811C2444DF002A2A55 /* IPCMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 59E439801C2444DF002A2A55 /* IPCMessage.h */; };
-		59F4DBD81BF61B52001D8230 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59F4DBD71BF61B52001D8230 /* main.cpp */; };
+		59F4DBD81BF61B52001D8230 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 59F4DBD71BF61B52001D8230 /* main.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,7 +40,7 @@
 		59E439801C2444DF002A2A55 /* IPCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPCMessage.h; sourceTree = "<group>"; };
 		59F4DBCA1BF61B3D001D8230 /* libDispatcher.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libDispatcher.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59F4DBD51BF61B52001D8230 /* TestDispatch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestDispatch; sourceTree = BUILT_PRODUCTS_DIR; };
-		59F4DBD71BF61B52001D8230 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		59F4DBD71BF61B52001D8230 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,7 @@
 		59F4DBD61BF61B52001D8230 /* TestDispatch */ = {
 			isa = PBXGroup;
 			children = (
-				59F4DBD71BF61B52001D8230 /* main.cpp */,
+				59F4DBD71BF61B52001D8230 /* main.c */,
 			);
 			path = TestDispatch;
 			sourceTree = "<group>";
@@ -212,7 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59F4DBD81BF61B52001D8230 /* main.cpp in Sources */,
+				59F4DBD81BF61B52001D8230 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

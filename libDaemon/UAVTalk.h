@@ -11,6 +11,10 @@
 
 /*
  PUBLIC HEADER
+ 
+ global definitions for UAVTalk implementation.
+ See https://github.com/TauLabs/TauLabs/wiki/Development-UAVTalk-Protocol
+
  */
 
 #define UAV_DATA_MAX_SIZE 255
@@ -52,5 +56,30 @@ enum UAV_Object_TYPE
     
     Type_TimeStamped = 0x80
 };
+
+typedef struct UAV_Object UAVObject;
+
+
+//! \brief Initialize empty UAVObject instance
+/*!
+    Everything will be set to zero in order to prevent garbage values
+ 
+    \param obj must _not_ be NULL!
+ */
+static inline void initUAVObject( UAVObject *obj)
+{
+    obj->sync = 0;
+    obj->type = 0;
+    obj->length = 0;
+    obj->objectID = 0;
+    obj->instanceID = 0;
+    obj->timestamp = 0;
+    obj->checksum = 0;
+    
+    for ( uint16_t i = 0; i< UAV_DATA_MAX_SIZE; i++)
+        obj->data[i] = 0;
+    
+    
+}
 
 #endif /* UAVTalk_h */

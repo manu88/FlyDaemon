@@ -8,23 +8,33 @@
 
 #ifndef FlyLabAPI_h
 #define FlyLabAPI_h
+
+
+/* DOC STYLE */
+
+//! \brief Initialize empty UAVObject instance
+/*!
+ Everything will be set to zero in order to prevent garbage values
+ 
+ \param obj must _not_ be NULL!
+ 
+ \return void
+ */
+
+
+
 /*
  PUBLIC HEADER
- */
-
-
-
-/*
- 
+    
  This is the main Header for the API
- 
  */
+
 
 #include "UAVTalk.h"
 
 extern "C"
 {
-#include "Dispatch.h"
+    #include "Dispatch.h"
 }
 static GrandDispatcher *instance = NULL;
 

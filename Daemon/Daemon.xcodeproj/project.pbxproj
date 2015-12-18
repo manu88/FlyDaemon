@@ -24,6 +24,9 @@
 
 /* Begin PBXFileReference section */
 		59013DE41C12472F0042D95A /* Daemon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Daemon; sourceTree = BUILT_PRODUCTS_DIR; };
+		59B0D1681C244E9500F6C50F /* UAVTalk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UAVTalk.h; path = ../libDaemon/UAVTalk.h; sourceTree = "<group>"; };
+		59B0D1691C244E9500F6C50F /* FlyLabAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FlyLabAPI.h; path = ../libDaemon/FlyLabAPI.h; sourceTree = "<group>"; };
+		59B0D16A1C244E9500F6C50F /* IPCMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IPCMessage.h; path = ../libDaemon/Private/IPCMessage.h; sourceTree = "<group>"; };
 		59E4396C1C2442AF002A2A55 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = src/main.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -41,6 +44,9 @@
 		59013DDB1C12472F0042D95A = {
 			isa = PBXGroup;
 			children = (
+				59B0D1681C244E9500F6C50F /* UAVTalk.h */,
+				59B0D1691C244E9500F6C50F /* FlyLabAPI.h */,
+				59B0D16A1C244E9500F6C50F /* IPCMessage.h */,
 				59013DE61C12472F0042D95A /* src */,
 				59013DE51C12472F0042D95A /* Products */,
 			);

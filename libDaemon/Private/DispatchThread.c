@@ -20,8 +20,6 @@
  */
 
 
-
-
 int initDispatchThread( DispatchThread *dispatch )
 {
     if( dispatch == NULL)
