@@ -7,39 +7,7 @@
 
 
 
-static void testCall( int reason, void* data)
-{
-    GrandDispatcher* dispatch = (GrandDispatcher*) data;
-    
-    static int count = 0;
-    
-    if( reason == ConnectionError )
-    {
-        printf("Connection error quit\n");
-    }
-
-    else if( reason == DidReceiveData )
-    {
-        printf("Haz data %i \n" , count);
-    }
-    else if( reason == DidRegisterToDispatcher )
-    {
-        printf("DidRegisterToDispatcher \n");
-    }
-    else
-    {
-        printf("Other Reason %i" , reason);
-    }
-    count++;
-
-
-    if( count > 100)
-    {
-        GD_stop( dispatch);
-    }
-
-}
-
+/*
 void userTask( void* data )
 {
     static int counter = 0;
@@ -54,12 +22,31 @@ void userTask( void* data )
         counter++;
 }
 
-
+*/
+static void uavObjectReceived( const UAVObject *obj )
+{
+    printf("UAV object received \n");
+}
 int main (void)
 {
+    FlyLabParameters params;
+    params.function = uavObjectReceived;
+    
+    initializeConnection( &params );
     
 
     
+    
+//    runFromThisThread();
+    runFromNewThread();
+    
+    
+    while ( isConnected() )
+    {
+        usleep(10000);
+        sendObjectRequest( 1);
+    }
+    /*
     GrandDispatcher* dispatch = GD_init();
 
     GD_setCallBack1( dispatch, testCall, dispatch );
@@ -68,6 +55,7 @@ int main (void)
     GD_setUserTaskCallBack( dispatch , userTask, dispatch );
     
     GD_runFromLoop( dispatch );
+     */
 /*
 
     GD_runFromThread( dispatch );
@@ -86,8 +74,8 @@ int main (void)
 
     printf("thread ended\n");
 
-
-    GD_release( dispatch );
+    cleanup();
+//    GD_release( dispatch );
     
     
     return EXIT_SUCCESS;

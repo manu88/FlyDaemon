@@ -125,12 +125,9 @@ int main()
     
 
 
-    int i = 2;
     while (1)
     {
         sbuf.mtype = IPC_DataSend;
-
-
 
 
         if (msgrcv( msqid, &rbuf, buf_length , 0, IPC_NOWAIT ) > 0)
@@ -189,9 +186,7 @@ int main()
 
         }
 
-        i++;
-        if ( i > 5)
-            i = 2;
+
         
         usleep( 100 );
     }

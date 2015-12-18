@@ -17,6 +17,9 @@
 
  */
 
+
+#include <stdint.h>
+
 #define UAV_DATA_MAX_SIZE 255
 
 struct UAV_Object

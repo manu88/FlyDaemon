@@ -35,28 +35,40 @@ extern "C" {
 #endif
 
 #include "UAVTalk.h"
-#include "Dispatch.h"
 
-static GrandDispatcher *instance = NULL;
+typedef void (*event_uav)( const UAVObject *obj);
+typedef void (*event_error)( int errorNum );
+    
+struct _FlyLabParameters
+{
+    event_uav function;
+    event_error errorCallBack;
+    
+    void *userData;
+};
+    
+typedef struct _FlyLabParameters FlyLabParameters;
 
+//static event_uav function = NULL;
 
-int initializeConnection( void );
+uint8_t initializeConnection( const FlyLabParameters *parameters );
+void cleanup(void);
+    
 
-int setCallback( event_cb_t function);
+uint8_t disconnect( void );
 
-int disconnect( void );
+uint8_t runFromThisThread( void );
+uint8_t runFromNewThread(void);
 
-int runFromThisThread( void );
-int runFromNewThread(void);
+uint8_t isConnected( void );
 
-int isConnected( void );
-
-int sendObject( const UAVObject * obj);
+uint8_t sendObject( const UAVObject * obj);
+    
+uint8_t sendObjectRequest( uint32_t objectID);
     
     
 #ifdef __cplusplus
 } // closing brace for extern "C"
-
 #endif
 
 
