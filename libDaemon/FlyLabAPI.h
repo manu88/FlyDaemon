@@ -46,7 +46,7 @@ typedef void (*event_error)( int errorNum , void* userData);
 
 struct _FlyLabParameters
 {
-    event_uav function;
+    event_uav parseObjectsCallBack;
     event_error notificationsCallBack;
     
     void *userData;

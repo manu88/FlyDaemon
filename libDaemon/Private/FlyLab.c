@@ -106,8 +106,6 @@ int8_t respondNacknowledge( uint16_t instanceID )
 void eventReceived( int reason, const void* msg, void* data)
 {
     
-    static int count = 0;
-    
     if( reason < DidReceiveData )
     {
         if( params.notificationsCallBack )
@@ -115,42 +113,17 @@ void eventReceived( int reason, const void* msg, void* data)
     }
     else if (reason == DidReceiveData)
     {
-        if( params.function )
+        if( params.parseObjectsCallBack )
         {
             UAVObject obj;
             initUAVObject( &obj );
             parseIPC( msg, &obj);
-            params.function(&obj , data);
+            params.parseObjectsCallBack(&obj , data);
         }
     }
-    /*
-    if( reason == DidRegisterToDispatcher )
-    {
-        printf("DidRegisterToDispatcher \n");
-    }
-    
-    else if( reason == ConnectionError )
-    {
-        printf("Connection error quit\n");
-        if( params.notificationsCallBack )
-            params.notificationsCallBack( reason , params.userData );
-    }
-    
-    else if( reason == DidReceiveData )
-    {
-        if( params.function )
-            params.function(NULL , params.userData);
-    }
-     */
     else
     {
         printf("Other Reason %i" , reason);
     }
-    count++;
-    
-    
-    if( count > 100)
-    {
-        GD_stop( instance );
-    }
+
 }

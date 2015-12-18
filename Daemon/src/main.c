@@ -177,7 +177,7 @@ int main()
                 
                 if ( (findPid(rbuf.pid) != -1) && msgsnd(msqid, &sbuf, buf_length, IPC_NOWAIT) == 0)
                 {
-                    printf("Respond to data Request %u ... \n" , obj.objectID);
+                    //printf("Respond to data Request %u ... \n" , obj.objectID);
                 }
             }
             

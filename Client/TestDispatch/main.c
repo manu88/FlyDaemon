@@ -11,14 +11,7 @@ uint8_t connected = 0;
 
 void printUAVObject( const UAVObject *obj )
 {
-    /*
-     obj->sync       = 0;
-     obj->type       = 0;
-     obj->length     = 0;
-     obj->objectID   = 0;
-     obj->instanceID = 0;
-     obj->timestamp  = 0;
-     obj->checksum   = 0;*/
+
     printf("***************\n");
     printf("sync %i \n" , obj->sync );
     printf("type %i \n" , obj->type );
@@ -33,14 +26,15 @@ void printUAVObject( const UAVObject *obj )
 static void onNotification(int errorNum, void *userData)
 {
 
-    
     if( errorNum == Connection_Error )
     {
         printf("ConnectionError \n");
+        connected = 0;
     }
     else if( errorNum == Connection_WillEnd )
     {
         printf("WillTerminateConnection \n");
+        connected = 0;
     }
     else if( errorNum == Connection_OK )
     {
@@ -56,13 +50,23 @@ static void onNotification(int errorNum, void *userData)
 
 static void uavObjectReceived( const UAVObject *obj , void* userData )
 {
-    printUAVObject( obj);
+    static int count = 0;
+    static uint32_t lastID = 0;
+//    printUAVObject( obj);
+  
+    if( (obj->objectID - 1) != lastID )
+        printf("Error Counting at %i (last is %i ) \n" , obj->objectID , lastID );
+    
+    lastID = obj->objectID;
+
+    if( count++ > 1000)
+        disconnect();
 }
 
 int main (void)
 {
     FlyLabParameters params;
-    params.function = uavObjectReceived;
+    params.parseObjectsCallBack = uavObjectReceived;
     params.notificationsCallBack = onNotification;
     
     initializeConnection( &params );
@@ -77,7 +81,7 @@ int main (void)
         while ( isConnected() )
         {
             sendObjectRequest( objectID++ );
-            usleep( 100000 );
+            usleep( 1000 );
         }
         printf("thread ended\n");
     }
