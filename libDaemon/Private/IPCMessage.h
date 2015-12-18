@@ -10,7 +10,7 @@
 #define IPCMessage_h
 
 /*
-    PUBLIC HEADER
+    PRIVATE HEADER
  */
 
 #include "../UAVTalk.h"

@@ -14,6 +14,10 @@
 
 #include "IPCMessage.h"
 
+/*
+ PRIVATE FILE
+ */
+
 GrandDispatcher* GD_init()
 {
     GrandDispatcher * ret =(GrandDispatcher*) malloc( sizeof(GrandDispatcher ));
