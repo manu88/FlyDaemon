@@ -83,10 +83,11 @@ uint8_t runFromNewThread(void);
 
 uint8_t isConnected( void );
 
-uint8_t sendObject( const UAVObject * obj);
+int8_t sendObject(const UAVObject * obj);
+int8_t sendObjectRequest( uint32_t objectID);
     
-uint8_t sendObjectRequest( uint32_t objectID);
-    
+int8_t respondAcknowledge( uint16_t instanceID );
+int8_t respondNacknowledge( uint16_t instanceID );
     
 #ifdef __cplusplus
 } // closing brace for extern "C"

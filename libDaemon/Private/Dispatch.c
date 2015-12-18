@@ -150,7 +150,7 @@ void GD_setUserTaskCallBack(GrandDispatcher* dispatch, event_userTask function ,
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-int GD_sendMessage(GrandDispatcher* dispatch, void* message , size_t size )
+int8_t GD_sendMessage(GrandDispatcher* dispatch, void* message , size_t size )
 {
     Message_buf msg;
     
@@ -160,7 +160,7 @@ int GD_sendMessage(GrandDispatcher* dispatch, void* message , size_t size )
     memcpy(msg.data.buffer , message , size );
     
     GD_lockDispatch( dispatch );
-        const int ret = sendIPCMessage( &dispatch->_thread, &msg );
+        const int8_t ret = sendIPCMessage( &dispatch->_thread, &msg );
     GD_unlockDispatch( dispatch );
     return ret;
 }

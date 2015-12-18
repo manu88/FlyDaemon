@@ -52,7 +52,7 @@ void dispatch_MainLoop( void* dispatcher );
 
 uint8_t waitForThreadTerminaison( DispatchThread *dispatch );
 
-int sendIPCMessage(DispatchThread *dispatch, const void *message );
+int8_t sendIPCMessage(DispatchThread *dispatch, const void *message );
 
 
 #endif /* DispatchThread_h */

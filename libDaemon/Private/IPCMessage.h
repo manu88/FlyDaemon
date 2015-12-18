@@ -12,7 +12,7 @@
 /*
     PRIVATE HEADER
  */
-
+#include <string.h>
 #include "../UAVTalk.h"
 
 // this is PRIVATE !!
@@ -43,14 +43,11 @@ enum IPC_Message_Types
     IPC_ProcessDidRegister    = 5
 };
 
-/* **** **** **** **** **** **** **** **** **** **** */
-
-typedef union
+static inline void parseIPC( const Message_buf *message, UAVObject *obj)
 {
-    pid_t pid;
-    uint8_t bytes[4];
-} PID_DATA;
+    memcpy(obj, message->data.buffer, sizeof( UAVObject ));
 
+}
 
 
 /* **** **** **** **** **** **** **** **** **** **** */

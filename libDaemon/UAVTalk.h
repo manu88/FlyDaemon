@@ -62,6 +62,7 @@ enum UAV_Object_TYPE
 
 typedef struct UAV_Object UAVObject;
 
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 //! \brief Initialize empty UAVObject instance
 /*!
@@ -71,18 +72,58 @@ typedef struct UAV_Object UAVObject;
  */
 static inline void initUAVObject( UAVObject *obj)
 {
-    obj->sync = 0;
-    obj->type = 0;
-    obj->length = 0;
-    obj->objectID = 0;
+    obj->sync       = 0;
+    obj->type       = 0;
+    obj->length     = 0;
+    obj->objectID   = 0;
     obj->instanceID = 0;
-    obj->timestamp = 0;
-    obj->checksum = 0;
+    obj->timestamp  = 0;
+    obj->checksum   = 0;
     
     for ( uint16_t i = 0; i< UAV_DATA_MAX_SIZE; i++)
         obj->data[i] = 0;
     
+}
+
+
+static inline void createREQ( UAVObject *obj , uint32_t objectID )
+{
+    initUAVObject(obj);
+    obj->type = Type_NACK;
+    obj->objectID = objectID;
+}
+
+static inline void createNACK( UAVObject *obj , uint16_t instanceID )
+{
+    initUAVObject(obj);
+    obj->type = Type_NACK;
+    obj->instanceID = instanceID;
+}
+
+static inline void createACK( UAVObject *obj , uint16_t instanceID )
+{
+    initUAVObject(obj);
+    obj->type = Type_ACK;
+    obj->instanceID = instanceID;
+}
+
+static inline void dumbUAVObject( UAVObject *obj)
+{
+    obj->sync       = 1;
+    obj->type       = 2;
+    obj->length     = 3;
+    obj->objectID   = 4;
+    obj->instanceID = 5;
+    obj->timestamp  = 6;
+    obj->checksum   = 7;
+    
+    for ( uint16_t i = 0; i< UAV_DATA_MAX_SIZE; i++)
+        obj->data[i] = (uint8_t )i;
     
 }
 
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 #endif /* UAVTalk_h */

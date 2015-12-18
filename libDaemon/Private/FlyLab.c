@@ -16,13 +16,13 @@
 #include <stdio.h>
 #include "../FlyLabAPI.h"
 #include "Dispatch.h"
-
+#include "IPCMessage.h"
 
 static GrandDispatcher *instance = NULL;
 
 static FlyLabParameters params;
 
-void eventReceived( int reason, void* data);
+void eventReceived( int reason, const void* msg, void* data);
 
 uint8_t initializeConnection( const FlyLabParameters *parameters )
 {
@@ -31,7 +31,7 @@ uint8_t initializeConnection( const FlyLabParameters *parameters )
     
     instance = GD_init();
     
-    GD_setCallBack1( instance, eventReceived, NULL );
+    GD_setCallBack1( instance, eventReceived, parameters->userData );
 
     return instance != NULL;
 }
@@ -72,23 +72,38 @@ uint8_t isConnected( void )
     return instance->state >= 1;
 }
 
-uint8_t sendObject( const UAVObject * obj)
+int8_t sendObject( const UAVObject * obj)
 {
-    return 1;
+    return GD_sendMessage( instance ,&obj , sizeof( UAVObject ))  ;
 }
 
-uint8_t sendObjectRequest( uint32_t objectID)
+int8_t sendObjectRequest( uint32_t objectID)
 {
+    UAVObject obj;
+    createREQ(&obj, objectID);
     
-    const char test[] = "hello";
-    return GD_sendMessage( instance ,(void*)test , 6) ;
+    return GD_sendMessage( instance ,&obj , sizeof( UAVObject ))  ; //
 
 }
 
+int8_t respondAcknowledge( uint16_t instanceID )
+{
+    UAVObject obj;
+    createACK(&obj, instanceID );
+    
+    return GD_sendMessage( instance ,&obj , sizeof( UAVObject ));
+}
+
+int8_t respondNacknowledge( uint16_t instanceID )
+{
+    UAVObject obj;
+    createNACK(&obj, instanceID );
+    
+    return GD_sendMessage( instance ,&obj , sizeof( UAVObject ));
+}
 
 
-
-void eventReceived( int reason, void* data)
+void eventReceived( int reason, const void* msg, void* data)
 {
     
     static int count = 0;
@@ -96,12 +111,17 @@ void eventReceived( int reason, void* data)
     if( reason < DidReceiveData )
     {
         if( params.notificationsCallBack )
-            params.notificationsCallBack( reason , params.userData );
+            params.notificationsCallBack( reason , data );
     }
     else if (reason == DidReceiveData)
     {
         if( params.function )
-            params.function(NULL , params.userData);
+        {
+            UAVObject obj;
+            initUAVObject( &obj );
+            parseIPC( msg, &obj);
+            params.function(&obj , data);
+        }
     }
     /*
     if( reason == DidRegisterToDispatcher )

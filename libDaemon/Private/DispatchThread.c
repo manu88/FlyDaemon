@@ -130,7 +130,7 @@ void dispatch_MainLoop( void* dispatcher )
     {
         printf(" TimeOut : Server did not reply .. \n");
         GD_unlockDispatch( dispatch );
-        dispatch->_callBack1( ConnectionError , dispatch->_callBackUserData1 );
+        dispatch->_callBack1( ConnectionError ,NULL,  dispatch->_callBackUserData1 );
         GD_lockDispatch( dispatch );
 
     }
@@ -141,7 +141,7 @@ void dispatch_MainLoop( void* dispatcher )
         dispatch->state = 2;
         
         GD_unlockDispatch( dispatch );
-        dispatch->_callBack1( DidRegisterToDispatcher , dispatch->_callBackUserData1 );
+        dispatch->_callBack1( DidRegisterToDispatcher ,NULL, dispatch->_callBackUserData1 );
         GD_lockDispatch( dispatch );
         
         while ( dispatch->_thread.shouldQuit == 0 )
@@ -156,7 +156,7 @@ void dispatch_MainLoop( void* dispatcher )
                     if( rbuf.mtype == IPC_DataSend )
                     {
                         GD_unlockDispatch( dispatch );
-                        dispatch->_callBack1( DidReceiveData , dispatch->_callBackUserData1 );
+                        dispatch->_callBack1( DidReceiveData ,&rbuf, dispatch->_callBackUserData1 );
                         GD_lockDispatch( dispatch );
                     }
                     /*
@@ -183,15 +183,17 @@ void dispatch_MainLoop( void* dispatcher )
                     if( dispatch->_userTaskCallBack != NULL)
                         dispatch->_userTaskCallBack(dispatch->_userTaskData );
                 }
+                /*
                 else
                     usleep(100);
+                 */
                 GD_lockDispatch( dispatch );
             }
             
         } // end of while
         
         GD_unlockDispatch( dispatch );
-        dispatch->_callBack1( WillTerminateConnection , dispatch->_callBackUserData1 );
+        dispatch->_callBack1( WillTerminateConnection , NULL , dispatch->_callBackUserData1 );
         GD_lockDispatch( dispatch );
         
         
@@ -222,7 +224,7 @@ uint8_t waitForThreadTerminaison( DispatchThread *dispatch )
 
 
 
-int sendIPCMessage(DispatchThread *dispatch, const void *message )
+int8_t sendIPCMessage(DispatchThread *dispatch, const void *message )
 {
     const size_t msgSize = sizeof( Message_buf ) - sizeof(long);
     

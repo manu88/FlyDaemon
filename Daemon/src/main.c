@@ -163,14 +163,21 @@ int main()
             }
             else if( rbuf.mtype == IPC_DataRequest)
             {
+                
+                UAVObject obj;// =(UAVObject*) &rbuf.data.buffer ;
+                initUAVObject( &obj );
+                parseIPC(&rbuf, &obj);
+                
+                dumbUAVObject( (UAVObject*) &sbuf.data.buffer );
+                
+                strcpy( ((char*)((UAVObject*) &sbuf.data.buffer)->data), "Hello World");
+                
+                
+                ((UAVObject*) &sbuf.data.buffer)->objectID = obj.objectID;
+                
                 if ( (findPid(rbuf.pid) != -1) && msgsnd(msqid, &sbuf, buf_length, IPC_NOWAIT) == 0)
                 {
-                    char buf[10];
-                    strncpy(buf,  (char*)rbuf.data.buffer , 6);
-                    
-
-                    
-                    printf("Respond to data Request'%s' ... \n" , buf);
+                    printf("Respond to data Request %u ... \n" , obj.objectID);
                 }
             }
             
@@ -188,7 +195,7 @@ int main()
 
 
         
-        usleep( 100 );
+
     }
 
 }

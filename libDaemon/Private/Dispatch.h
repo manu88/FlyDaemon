@@ -16,7 +16,7 @@
  PRIVATE HEADER
  */
 
-typedef void (*event_cb_t)(int reason, void *userdata);
+typedef void (*event_cb_t)(int reason, const void* msg, void *userdata);
 typedef void (*event_userTask)( void *userdata);
 
 typedef struct _GrandDispatcher
@@ -84,7 +84,7 @@ void GD_setCallBack1(GrandDispatcher* dispatch, event_cb_t function , void* user
  */
 void GD_setUserTaskCallBack(GrandDispatcher* dispatch, event_userTask function , void* userData);
 
-int GD_sendMessage(GrandDispatcher* dispatch , void* message , size_t size );
+int8_t GD_sendMessage(GrandDispatcher* dispatch , void* message , size_t size );
 
 /* lock/unlock will do _nothing_ if dispatcher is called from the main thread*/
 int GD_lockDispatch( GrandDispatcher* dispatch);
