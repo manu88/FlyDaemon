@@ -93,10 +93,131 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a724d3b73079363c571d57c46a56794a7"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_a_v___object.html#a724d3b73079363c571d57c46a56794a7">sync</a></td></tr>
+<tr class="separator:a724d3b73079363c571d57c46a56794a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a138f554662d07213a93dd489847c1536"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_a_v___object.html#a138f554662d07213a93dd489847c1536">type</a></td></tr>
+<tr class="separator:a138f554662d07213a93dd489847c1536"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac29d674f4ee1eb81f3a572b2f6912009"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_a_v___object.html#ac29d674f4ee1eb81f3a572b2f6912009">length</a></td></tr>
+<tr class="separator:ac29d674f4ee1eb81f3a572b2f6912009"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f9776d6c27238ae2575dbd180041ba6"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_a_v___object.html#a0f9776d6c27238ae2575dbd180041ba6">objectID</a></td></tr>
+<tr class="separator:a0f9776d6c27238ae2575dbd180041ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a0177351fe5dfa20641cca6b91e16f6"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_a_v___object.html#a3a0177351fe5dfa20641cca6b91e16f6">instanceID</a></td></tr>
+<tr class="separator:a3a0177351fe5dfa20641cca6b91e16f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1957445e16245b456f9df6e69a7526cd"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_a_v___object.html#a1957445e16245b456f9df6e69a7526cd">timestamp</a></td></tr>
+<tr class="separator:a1957445e16245b456f9df6e69a7526cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae12f7f2ad7c0f23d89083a2d91eb3ab"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_a_v___object.html#aae12f7f2ad7c0f23d89083a2d91eb3ab">data</a> [<a class="el" href="_u_a_v_talk_8h.html#ab48dbd9ef0a6816dac3ab8bc67d82eff">UAV_DATA_MAX_SIZE</a>]</td></tr>
+<tr class="separator:aae12f7f2ad7c0f23d89083a2d91eb3ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a322100b0086eb3e2ca04695514273934"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_u_a_v___object.html#a322100b0086eb3e2ca04695514273934">checksum</a></td></tr>
+<tr class="separator:a322100b0086eb3e2ca04695514273934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The UAVObject data structure. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a322100b0086eb3e2ca04695514273934"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t UAV_Object::checksum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CRC-8 checksum </p>
+
+</div>
+</div>
+<a class="anchor" id="aae12f7f2ad7c0f23d89083a2d91eb3ab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t UAV_Object::data[<a class="el" href="_u_a_v_talk_8h.html#ab48dbd9ef0a6816dac3ab8bc67d82eff">UAV_DATA_MAX_SIZE</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Serialized (packed) object. The length of data is inherent knowledge about that particular object's size as identified by ObjectID. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3a0177351fe5dfa20641cca6b91e16f6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t UAV_Object::instanceID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Unique object instance ID. Only present in UAVObjects that are NOT of type 'single instance' </p>
+
+</div>
+</div>
+<a class="anchor" id="ac29d674f4ee1eb81f3a572b2f6912009"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t UAV_Object::length</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Not needed since object ID predicts this but useful for blind parsing. Length of header and data, not checksum. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0f9776d6c27238ae2575dbd180041ba6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t UAV_Object::objectID</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Unique object ID (generated by parser, also used for framing and version control) </p>
+
+</div>
+</div>
+<a class="anchor" id="a724d3b73079363c571d57c46a56794a7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t UAV_Object::sync</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Always 0x3C </p>
+
+</div>
+</div>
+<a class="anchor" id="a1957445e16245b456f9df6e69a7526cd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t UAV_Object::timestamp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>For packet types with the timestamp flag (0x80 set) this field will contain a two byte timestamp in milliseconds </p>
+
+</div>
+</div>
+<a class="anchor" id="a138f554662d07213a93dd489847c1536"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t UAV_Object::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The object type </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="_u_a_v_talk_8h.html#ae1a63cdb984d700fcff462191b4e48fb">UAV_Object_TYPE</a>. Note: The most significant 4 bits indicate the protocol version (v2 current). </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/<a class="el" href="_u_a_v_talk_8h_source.html">UAVTalk.h</a></li>
 </ul>
 </div><!-- contents -->

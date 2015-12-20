@@ -1,13 +1,15 @@
 var indexSectionsWithContent =
 {
-  0: "_cdefinprstu",
+  0: "_cdefilnoprstu",
   1: "_du",
   2: "fu",
   3: "cdirs",
-  4: "npu",
+  4: "cdilnopstu",
   5: "e",
   6: "nu",
-  7: "t"
+  7: "t",
+  8: "u",
+  9: "f"
 };
 
 var indexSectionNames =
@@ -19,7 +21,9 @@ var indexSectionNames =
   4: "variables",
   5: "typedefs",
   6: "enums",
-  7: "enumvalues"
+  7: "enumvalues",
+  8: "defines",
+  9: "pages"
 };
 
 var indexSectionLabels =
@@ -31,6 +35,8 @@ var indexSectionLabels =
   4: "Variables",
   5: "Typedefs",
   6: "Enumerations",
-  7: "Enumerator"
+  7: "Enumerator",
+  8: "Macros",
+  9: "Pages"
 };
 
