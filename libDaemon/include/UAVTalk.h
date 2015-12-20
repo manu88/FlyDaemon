@@ -1,27 +1,31 @@
-//
-//  UAVProtocol.h
-//  Dispatcher
-//
-//  Created by Manuel Deneu on 17/12/2015.
-//  Copyright © 2015 Manuel Deneu. All rights reserved.
-//
+/**
+ * \file UAVTalk.h
+ * \brief main API header
+ * \author Manuel Deneu
+ * \version 0.1
+ * \date 17/12/2015
+ *
+ *  PUBLIC HEADER - global definitions for UAVTalk implementation.
+ *  See https://github.com/TauLabs/TauLabs/wiki/Development-UAVTalk-Protocol
+ *
+ */
+
 
 #ifndef UAVTalk_h
 #define UAVTalk_h
 
-/*
- PUBLIC HEADER
- 
- global definitions for UAVTalk implementation.
- See https://github.com/TauLabs/TauLabs/wiki/Development-UAVTalk-Protocol
-
- */
-
 
 #include <stdint.h>
 
+/**
+ *  \def the maximum data size an UAV Object can hold.
+ */
 #define UAV_DATA_MAX_SIZE 255
 
+/**
+ *  The UAVObject data structure.
+ *  \struct UAV_Object
+ */
 struct UAV_Object
 {
     uint8_t     sync; // 0x3C
@@ -49,15 +53,22 @@ struct UAV_Object
     
 };
 
+
+/**
+ * The type of an UAVObject
+ * \enum UAV_Object_TYPE
+ *
+ * \see field type in UAV_Object
+ */
 enum UAV_Object_TYPE
 {
-    Type_OBJ     = 0x20,
-    Type_OBJ_REQ = 0x21,
-    Type_OBJ_ACK = 0x22,
-    Type_ACK     = 0x23,
-    Type_NACK    = 0x24,
+    Type_OBJ     = 0x20,    /*!< UAVObject type. */
+    Type_OBJ_REQ = 0x21,    /*!< UAVObject request . */
+    Type_OBJ_ACK = 0x22,    /*!< UAVObject needs acknowledge . */
+    Type_ACK     = 0x23,    /*!< UAVObject acknowledge response . */
+    Type_NACK    = 0x24,    /*!< UAVObject negative acknowledge response . */
     
-    Type_TimeStamped = 0x80
+    Type_TimeStamped = 0x80 /*!< UAVObject has a timestamp . */
 };
 
 typedef struct UAV_Object UAVObject;

@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		593900481C26BA1300E8A68C /* Dispatch.c in Sources */ = {isa = PBXBuildFile; fileRef = 593900421C26BA1300E8A68C /* Dispatch.c */; };
+		593900491C26BA1300E8A68C /* Dispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 593900431C26BA1300E8A68C /* Dispatch.h */; };
+		5939004A1C26BA1300E8A68C /* DispatchThread.c in Sources */ = {isa = PBXBuildFile; fileRef = 593900441C26BA1300E8A68C /* DispatchThread.c */; };
+		5939004B1C26BA1300E8A68C /* DispatchThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 593900451C26BA1300E8A68C /* DispatchThread.h */; };
+		5939004C1C26BA1300E8A68C /* FlyLab.c in Sources */ = {isa = PBXBuildFile; fileRef = 593900461C26BA1300E8A68C /* FlyLab.c */; };
+		5939004D1C26BA1300E8A68C /* IPCMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 593900471C26BA1300E8A68C /* IPCMessage.h */; };
 		5983D3CB1C255F2B001F9C4C /* FlyLabAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 5983D3C91C255F2B001F9C4C /* FlyLabAPI.h */; };
 		5983D3CC1C255F2B001F9C4C /* UAVTalk.h in Headers */ = {isa = PBXBuildFile; fileRef = 5983D3CA1C255F2B001F9C4C /* UAVTalk.h */; };
-		5983D3D31C255F38001F9C4C /* Dispatch.c in Sources */ = {isa = PBXBuildFile; fileRef = 5983D3CD1C255F38001F9C4C /* Dispatch.c */; };
-		5983D3D41C255F38001F9C4C /* Dispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 5983D3CE1C255F38001F9C4C /* Dispatch.h */; };
-		5983D3D51C255F38001F9C4C /* DispatchThread.c in Sources */ = {isa = PBXBuildFile; fileRef = 5983D3CF1C255F38001F9C4C /* DispatchThread.c */; };
-		5983D3D61C255F38001F9C4C /* DispatchThread.h in Headers */ = {isa = PBXBuildFile; fileRef = 5983D3D01C255F38001F9C4C /* DispatchThread.h */; };
-		5983D3D71C255F38001F9C4C /* FlyLab.c in Sources */ = {isa = PBXBuildFile; fileRef = 5983D3D11C255F38001F9C4C /* FlyLab.c */; };
-		5983D3D81C255F38001F9C4C /* IPCMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5983D3D21C255F38001F9C4C /* IPCMessage.h */; };
 		5983D3E41C259613001F9C4C /* IPCComm.c in Sources */ = {isa = PBXBuildFile; fileRef = 5983D3E21C259613001F9C4C /* IPCComm.c */; };
 		5998AFAA1C007FF900D26FD8 /* libDispatcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F4DBCA1BF61B3D001D8230 /* libDispatcher.a */; };
 		59F4DBD81BF61B52001D8230 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 59F4DBD71BF61B52001D8230 /* main.c */; };
@@ -33,14 +33,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		593900421C26BA1300E8A68C /* Dispatch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Dispatch.c; sourceTree = "<group>"; };
+		593900431C26BA1300E8A68C /* Dispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dispatch.h; sourceTree = "<group>"; };
+		593900441C26BA1300E8A68C /* DispatchThread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DispatchThread.c; sourceTree = "<group>"; };
+		593900451C26BA1300E8A68C /* DispatchThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchThread.h; sourceTree = "<group>"; };
+		593900461C26BA1300E8A68C /* FlyLab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = FlyLab.c; sourceTree = "<group>"; };
+		593900471C26BA1300E8A68C /* IPCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPCMessage.h; sourceTree = "<group>"; };
 		5983D3C91C255F2B001F9C4C /* FlyLabAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlyLabAPI.h; path = include/FlyLabAPI.h; sourceTree = "<group>"; };
 		5983D3CA1C255F2B001F9C4C /* UAVTalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UAVTalk.h; path = include/UAVTalk.h; sourceTree = "<group>"; };
-		5983D3CD1C255F38001F9C4C /* Dispatch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Dispatch.c; path = ../src/Dispatch.c; sourceTree = "<group>"; };
-		5983D3CE1C255F38001F9C4C /* Dispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Dispatch.h; path = ../src/Dispatch.h; sourceTree = "<group>"; };
-		5983D3CF1C255F38001F9C4C /* DispatchThread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = DispatchThread.c; path = ../src/DispatchThread.c; sourceTree = "<group>"; };
-		5983D3D01C255F38001F9C4C /* DispatchThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DispatchThread.h; path = ../src/DispatchThread.h; sourceTree = "<group>"; };
-		5983D3D11C255F38001F9C4C /* FlyLab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = FlyLab.c; path = ../src/FlyLab.c; sourceTree = "<group>"; };
-		5983D3D21C255F38001F9C4C /* IPCMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IPCMessage.h; path = ../src/IPCMessage.h; sourceTree = "<group>"; };
 		5983D3E21C259613001F9C4C /* IPCComm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IPCComm.c; sourceTree = "<group>"; };
 		5983D3E31C259613001F9C4C /* IPCComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPCComm.h; sourceTree = "<group>"; };
 		59F4DBCA1BF61B3D001D8230 /* libDispatcher.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libDispatcher.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +67,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		593900411C26BA1300E8A68C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				593900421C26BA1300E8A68C /* Dispatch.c */,
+				593900431C26BA1300E8A68C /* Dispatch.h */,
+				593900441C26BA1300E8A68C /* DispatchThread.c */,
+				593900451C26BA1300E8A68C /* DispatchThread.h */,
+				593900461C26BA1300E8A68C /* FlyLab.c */,
+				593900471C26BA1300E8A68C /* IPCMessage.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		5983D3E11C259613001F9C4C /* PrivateAPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,24 +95,10 @@
 			children = (
 				5983D3C91C255F2B001F9C4C /* FlyLabAPI.h */,
 				5983D3CA1C255F2B001F9C4C /* UAVTalk.h */,
-				59E439701C244365002A2A55 /* src */,
+				593900411C26BA1300E8A68C /* src */,
 			);
 			name = libDaemon;
 			path = ../libDaemon;
-			sourceTree = "<group>";
-		};
-		59E439701C244365002A2A55 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				5983D3CE1C255F38001F9C4C /* Dispatch.h */,
-				5983D3CD1C255F38001F9C4C /* Dispatch.c */,
-				5983D3D01C255F38001F9C4C /* DispatchThread.h */,
-				5983D3CF1C255F38001F9C4C /* DispatchThread.c */,
-				5983D3D11C255F38001F9C4C /* FlyLab.c */,
-				5983D3D21C255F38001F9C4C /* IPCMessage.h */,
-			);
-			name = src;
-			path = Private;
 			sourceTree = "<group>";
 		};
 		59F4DBC11BF61B3D001D8230 = {
@@ -136,11 +135,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5983D3D81C255F38001F9C4C /* IPCMessage.h in Headers */,
+				5939004D1C26BA1300E8A68C /* IPCMessage.h in Headers */,
 				5983D3CB1C255F2B001F9C4C /* FlyLabAPI.h in Headers */,
 				5983D3CC1C255F2B001F9C4C /* UAVTalk.h in Headers */,
-				5983D3D61C255F38001F9C4C /* DispatchThread.h in Headers */,
-				5983D3D41C255F38001F9C4C /* Dispatch.h in Headers */,
+				5939004B1C26BA1300E8A68C /* DispatchThread.h in Headers */,
+				593900491C26BA1300E8A68C /* Dispatch.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,9 +220,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5983D3D31C255F38001F9C4C /* Dispatch.c in Sources */,
-				5983D3D51C255F38001F9C4C /* DispatchThread.c in Sources */,
-				5983D3D71C255F38001F9C4C /* FlyLab.c in Sources */,
+				593900481C26BA1300E8A68C /* Dispatch.c in Sources */,
+				5939004A1C26BA1300E8A68C /* DispatchThread.c in Sources */,
+				5939004C1C26BA1300E8A68C /* FlyLab.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
