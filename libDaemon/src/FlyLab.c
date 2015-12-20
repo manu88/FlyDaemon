@@ -52,12 +52,12 @@ void cleanup()
         GD_release( instance );
 }
 
-const char* API_getVersion()
+ALWAYS_INLINE const char* API_getVersion()
 {
     return _version;
 }
 
-uint8_t informationsAvailable()
+ALWAYS_INLINE uint8_t informationsAvailable()
 {
     return _runtimeInfos.plateform != Plateform_Unknown;
 }
@@ -70,7 +70,7 @@ const RuntimeInformations * getRuntimeInformations( )
     return NULL;
 }
 
-uint8_t disconnect()
+ALWAYS_INLINE uint8_t disconnect()
 {
     return GD_stop( instance );
 }
@@ -90,12 +90,12 @@ uint8_t runFromNewThread()
     return instance->state >= 1;
 }
 
-uint8_t isConnected()
+ALWAYS_INLINE uint8_t isConnected()
 {
     return instance->state >= 1;
 }
 
-int8_t sendObject( const UAVObject * obj)
+ALWAYS_INLINE int8_t sendObject( const UAVObject * obj)
 {
     return GD_sendMessage( instance ,&obj , sizeof( UAVObject ))  ;
 }
@@ -123,6 +123,16 @@ int8_t respondNacknowledge( uint16_t instanceID )
     createNACK(&obj, instanceID );
     
     return GD_sendMessage( instance ,&obj , sizeof( UAVObject ));
+}
+
+
+ALWAYS_INLINE int lockThread( void )
+{
+    return GD_lockDispatch( instance );
+}
+ALWAYS_INLINE int unlockThread( void )
+{
+    return GD_unlockDispatch( instance );
 }
 
 

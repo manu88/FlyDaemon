@@ -19,7 +19,10 @@ extern "C" {
 #endif
 
 #include "UAVTalk.h"
-
+    
+#ifndef ALWAYS_INLINE 
+#define ALWAYS_INLINE __attribute__((always_inline))
+#endif
     
 /**
  * A list of notifications types passed to notificationsCallBack
@@ -129,7 +132,7 @@ void cleanup(void);
 /*!
  \return a c-string containing the current version, e.g. "0.010"
  */
-const char* API_getVersion(void);
+ALWAYS_INLINE const char* API_getVersion(void);
 
 //! \brief Check if Daemon informations are available
 /*!
@@ -137,7 +140,7 @@ const char* API_getVersion(void);
  
  \return 1 if true, 0 if not
  */
-uint8_t informationsAvailable(void);
+ALWAYS_INLINE uint8_t informationsAvailable(void);
     
 //! \brief get runtime informations
 /*!
@@ -152,7 +155,7 @@ const RuntimeInformations *getRuntimeInformations( void );
 
  \return 1 on sucess, 0 if failed.
  */
-uint8_t disconnect( void );
+ALWAYS_INLINE uint8_t disconnect( void );
 
 //! \brief Run the dispatcher from main thread.
 /*!
@@ -174,9 +177,9 @@ uint8_t runFromNewThread(void);
  
  \return 1 if connected, 0 if not.
  */
-uint8_t isConnected( void );
+ALWAYS_INLINE uint8_t isConnected( void );
 
-int8_t sendObject(const UAVObject * obj);
+ALWAYS_INLINE int8_t sendObject(const UAVObject * obj);
     
 //! \brief Send a UAVObject Request
 /*!
@@ -185,9 +188,35 @@ int8_t sendObject(const UAVObject * obj);
  \return 1 on sucess, 0 if send failed.
  */
 int8_t sendObjectRequest( uint32_t objectID);
+
     
+//! \brief Send a UAVObject 'acknowledge response'
+/*!
+ \param[in] instanceID the requested object's instance ID.
+ 
+ \return 1 on sucess, 0 if send failed.
+ */
 int8_t respondAcknowledge( uint16_t instanceID );
+    
+//! \brief Send a UAVObject 'negative acknowledge response'
+/*!
+ \param[in] instanceID the requested object's instance ID.
+ 
+ \return 1 on sucess, 0 if send failed.
+ */
 int8_t respondNacknowledge( uint16_t instanceID );
+    
+//! \brief Lock the dispatcher thread
+/*!
+ \return 0 on sucess, otherwise an error code is returned. \see pthread_mutex_lock
+ */
+ALWAYS_INLINE int lockThread( void );
+    
+//! \brief Unlock the dispatcher thread
+/*!
+ \return 0 on sucess, otherwise an error code is returned. \see pthread_mutex_unlock
+ */
+ALWAYS_INLINE int unlockThread( void );
     
 #ifdef __cplusplus
 } // closing brace for extern "C"
