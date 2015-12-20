@@ -7,9 +7,15 @@
 #include <assert.h>
 #include "../../PrivateAPI/IPCComm.h"
 #include "../../libDaemon/src/IPCMessage.h"
+#include "../../libDaemon/include/FlyLabAPI.h"
 
 
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** */
+/* Parameters */
 
+uint8_t plateformType = Plateform_Simulator;
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 static volatile int keepRunning = 1;
 static volatile int done = 0;
@@ -111,6 +117,9 @@ void receive(void*data, ssize_t size)
         Message_buf out;
         out.mtype = IPC_ProcessDidRegister;
         
+        
+
+
         if ( IPC_send(&port, &out, sizeof(Message_buf)) < 0)
         {
             perror("send");
@@ -123,12 +132,42 @@ void receive(void*data, ssize_t size)
         removePid( in->pid);
         printList();
     }
+    else if( in->mtype == IPC_PrivateRequest )
+    {
+        printf("IPC_PrivateRequest \n");
+        
+        Message_buf outBuffer;
+        outBuffer.mtype = IPC_PrivateRequestResponse;
+        
+        
+        outBuffer.data.buffer[0] = plateformType;
+        
+        if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)
+        {
+            perror("send");
+        }
+        
+    }
     else if( in->mtype == IPC_DataRequest )
     {
-        printf("Received IPC_DataRequest from %i\n", in->pid);
+//        printf("Received IPC_DataRequest from %i\n", in->pid);
         
         if( findPid( in->pid) != -1)
         {
+            Message_buf outBuffer;
+            UAVObject outObject;
+            dumbUAVObject( &outObject );
+            outBuffer.mtype = IPC_DataSend;
+            dumbUAVObject(&outObject);
+            
+            strcpy((char*)outObject.data, "response");
+            memcpy(outBuffer.data.buffer , &outObject , sizeof(UAVObject) );
+            
+
+            if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)
+            {
+                perror("send");
+            }
             
         }
     }
@@ -138,12 +177,13 @@ void receive(void*data, ssize_t size)
 
 int main(void)
 {
-    //signal(SIGPIPE, SIG_IGN);
-    
+
     initList();
 
     Message_buf inBuffer;
     Message_buf outBuffer;
+    
+    UAVObject outObject;
     
     int err = 0;
 
@@ -204,24 +244,20 @@ int main(void)
             }
             else if( ret == IPC_timeout )
             {
-                static int cout = 0;
+                outBuffer.mtype = IPC_DataSend;
+                dumbUAVObject(&outObject);
+                memcpy(outBuffer.data.buffer , &outObject , sizeof(UAVObject) );
+
+                if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)
+                {
+                    perror("send");
+                }
                 
-
-                    cout = 0;
-
-                    outBuffer.mtype = IPC_DataSend;
-                    
-                    if ( (done == 0 ) && (IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0))
-                    {
-                        perror("send");
-                    }
-                    
-                    if(port.lastSendError == EPIPE )
-                    {
-                        printf("PIPE Send error \n");
-                        break;
-                        
-                    }
+                if(port.lastSendError == EPIPE )
+                {
+                    printf("PIPE Send error \n");
+                    break;
+                }
             }
             
 

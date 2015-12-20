@@ -1,10 +1,12 @@
-//
-//  IPCComm.h
-//  Daemon
-//
-//  Created by Manuel Deneu on 19/12/2015.
-//  Copyright © 2015 Manuel Deneu. All rights reserved.
-//
+/**
+ * \file IPCComm.h
+ * \brief Internal socket communication
+ * \author Manuel Deneu
+ * \version 0.1
+ * \date 19/12/2015
+ *
+ *  PRIVATE HEADER
+ */
 
 #ifndef IPCComm_h
 #define IPCComm_h
@@ -15,6 +17,13 @@
 
 #define SOCK_PATH "/var/tmp/socket"
 
+/**
+ * A list of errors codes returned by every IPC_* functions
+ *
+ * This will give you a hint about the error, you should check erro, lastSendError and lastReceiveError for details
+ *
+ * \enum IPC_errors
+ */
 enum IPC_errors
 {
     IPC_noerror = 0,
@@ -48,6 +57,7 @@ struct _IPCCommunicationPort
     
     /* Stats */
     uint8_t connected; // 0/1
+    
     int lastSendError;
     int lastReceiveError;
 };

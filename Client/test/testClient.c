@@ -50,7 +50,7 @@ static void uavObjectReceived( const UAVObject *obj , void* userData )
 {
     static int count = 0;
     
-    printUAVObject( obj);
+    //printUAVObject( obj);
 
     if( count++ > 20)
         disconnect();
@@ -58,6 +58,8 @@ static void uavObjectReceived( const UAVObject *obj , void* userData )
 
 int main (void)
 {
+    printf(" Flylab API ver %s\n" , API_getVersion() );
+    
     FlyLabParameters params;
     params.parseObjectsCallBack = uavObjectReceived;
     params.notificationsCallBack = onNotification;

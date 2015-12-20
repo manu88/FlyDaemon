@@ -1,17 +1,16 @@
-//
-//  DispatchThread.h
-//  DIspatcher
-//
-//  Created by Manuel Deneu on 04/12/2015.
-//  Copyright © 2015 Manuel Deneu. All rights reserved.
-//
+/**
+ * \file DispatchThread.h
+ * \brief Internal dispatcher thread
+ * \author Manuel Deneu
+ * \version 0.1
+ * \date 04/12/2015
+ *
+ *  PRIVATE HEADER
+ */
 
 #ifndef DispatchThread_h
 #define DispatchThread_h
 
-/*
- PRIVATE HEADER
- */
 #include <stdint.h>
 #include <sys/types.h>
 #include <sys/ipc.h>
@@ -42,11 +41,7 @@ struct dispatchThread
 typedef struct dispatchThread DispatchThread;
 
 int initDispatchThread( DispatchThread *dispatch );
-/*
-int16_t connectToIPCWithKey( DispatchThread *dispatch , key_t key);
-int8_t sendIPCMessage(DispatchThread *dispatch, const void *message );
-uint8_t IPCIsConnected( DispatchThread *dispatch );
-*/
+
 void sendQuitSignal( DispatchThread *dispatch );
 
 void *startMainLoop (void * p_data);
@@ -55,6 +50,10 @@ void dispatch_MainLoop( void* dispatcher );
 uint8_t waitForThreadTerminaison( DispatchThread *dispatch );
 
 
-
+/*
+ int16_t connectToIPCWithKey( DispatchThread *dispatch , key_t key);
+ int8_t sendIPCMessage(DispatchThread *dispatch, const void *message );
+ uint8_t IPCIsConnected( DispatchThread *dispatch );
+ */
 
 #endif /* DispatchThread_h */

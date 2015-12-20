@@ -94,7 +94,6 @@ void dispatch_MainLoop( void* dispatcher )
 
     /**/
 
-    
     dispatch->state = 1;
     
     Message_buf  rbuf;
@@ -114,33 +113,24 @@ void dispatch_MainLoop( void* dispatcher )
     
     uint8_t didReply = 0;
     uint32_t counter = 0;
-    const uint32_t maxTime = 400000;
+    const uint32_t maxTime = 40;
     
     ssize_t t = 0;
     
     while ( counter < maxTime )
     {
-        if ((t = IPC_receive( &dispatch->_thread._port, &rbuf, sizeof(Message_buf) ) > 0))
+        if( IPC_selectRead( &dispatch->_thread._port ) == IPC_noerror )
         {
-            if ( rbuf.mtype == IPC_ProcessDidRegister)
+            if ((t = IPC_receive( &dispatch->_thread._port, &rbuf, sizeof(Message_buf) ) > 0))
             {
-                didReply = 1;
-                break;
+                if ( rbuf.mtype == IPC_ProcessDidRegister)
+                {
+                    didReply = 1;
+                    break;
+                }
             }
         }
-/*
-        else
-        {
-            if (t < 0)
-                perror("recv");
-            else
-                printf("Server closed connection\n");
-            return;
-            
-        }
 
-*/
-        usleep( 10 );
         counter++;
         
     }
@@ -163,9 +153,15 @@ void dispatch_MainLoop( void* dispatcher )
         dispatch->_callBack1( DidRegisterToDispatcher ,NULL, dispatch->_callBackUserData1 );
         GD_lockDispatch( dispatch );
         
+        /* Send an internal info request */
+        
+        sbuf.mtype = IPC_PrivateRequest;
+        IPC_send( &dispatch->_thread._port , &sbuf, sizeof(Message_buf ));
+        
+        
         while ( dispatch->_thread.shouldQuit == 0 )
         {
-            const int8_t ret = IPC_selectRead(&dispatch->_thread._port);
+            const int8_t ret = IPC_selectRead( &dispatch->_thread._port);
             if(  ret == IPC_noerror )
             {
                 if ((t = IPC_receive(&dispatch->_thread._port, &rbuf, sizeof(Message_buf ))> 0))
@@ -181,8 +177,11 @@ void dispatch_MainLoop( void* dispatcher )
                             GD_lockDispatch( dispatch );
                         }
 
-                        else
+                        else if(rbuf.mtype == IPC_PrivateRequestResponse )
                         {
+                            GD_unlockDispatch( dispatch );
+                            dispatch->_callBack1( PrivateInformationsUpdated ,&rbuf, dispatch->_callBackUserData1 );
+                            GD_lockDispatch( dispatch );
                             
                         }
                     }

@@ -18,6 +18,11 @@
 #include "Dispatch.h"
 #include "IPCMessage.h"
 
+
+static const char _version[] = "0.0.1";
+
+static uint8_t _plateform = Plateform_Unknown;
+
 static GrandDispatcher *instance = NULL;
 
 static FlyLabParameters params;
@@ -36,7 +41,7 @@ uint8_t initializeConnection( const FlyLabParameters *parameters )
     return instance != NULL;
 }
 
-void cleanup(void)
+void cleanup()
 {
     if( instance->state > 0)
         GD_stop( instance);
@@ -45,18 +50,39 @@ void cleanup(void)
         GD_release( instance );
 }
 
+const char* API_getVersion()
+{
+    return _version;
+}
 
+uint8_t informationsAvailable()
+{
+    return _plateform != Plateform_Unknown;
+}
 
-uint8_t disconnect( void )
+uint8_t getRuntimeInformations( RuntimeInformations* infos)
+{
+    if( infos == NULL)
+        return 0;
+    
+    if( !informationsAvailable())
+        return 0;
+    
+    infos->plateform = _plateform;
+    
+    return 1;
+}
+
+uint8_t disconnect()
 {
     return GD_stop( instance );
 }
 
-uint8_t runFromThisThread( void )
+uint8_t runFromThisThread()
 {
     return GD_runFromLoop( instance );
 }
-uint8_t runFromNewThread(void)
+uint8_t runFromNewThread()
 {
     if( GD_runFromThread( instance )  == 0 )
         return 0;
@@ -67,9 +93,9 @@ uint8_t runFromNewThread(void)
     return instance->state >= 1;
 }
 
-uint8_t isConnected( void )
+uint8_t isConnected()
 {
-    return instance->state >= 1;
+    return instance->state > 1;
 }
 
 int8_t sendObject( const UAVObject * obj)
@@ -117,9 +143,19 @@ void eventReceived( int reason, const void* msg, void* data)
         {
             UAVObject obj;
             initUAVObject( &obj );
-            parseIPC( msg, &obj);
+//            parseIPC( msg, &obj);
+            memcpy(&obj, ((const Message_buf *) msg)->data.buffer, sizeof( UAVObject ));
+
             params.parseObjectsCallBack(&obj , data);
         }
+    }
+    else if( reason == PrivateInformationsUpdated )
+    {
+
+        const Message_buf *message = (const Message_buf*) msg;
+        _plateform = message->data.buffer[0];
+
+        printf("PrivateInformationsUpdated : Plateform %s \n" , _plateform == Plateform_Drone?"Drone" : "Simulator");
     }
     else
     {

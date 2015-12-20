@@ -69,8 +69,7 @@ typedef struct UAV_Object UAVObject;
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 /**
- * \fn static inline void initUAVObject( UAVObject *obj)
- * \brief Initialize empty UAVObject instance
+ * \brief Initialize an empty UAVObject instance
  *
  * Everything will be set to zero in order to prevent garbage values
  *
@@ -91,14 +90,25 @@ static inline void initUAVObject( UAVObject *obj)
     
 }
 
-
+/**
+ * \brief Initialize an UAVObject 'request' instance
+ *
+ * \param[in,out] obj must _not_ be NULL!
+ * \param[in] objectID the ID you request
+ */
 static inline void createREQ( UAVObject *obj , uint32_t objectID )
 {
     initUAVObject(obj);
-    obj->type = Type_NACK;
+    obj->type = Type_OBJ_REQ;
     obj->objectID = objectID;
 }
 
+/**
+ * \brief Initialize an UAVObject UAVObject 'negative acknowledge' response instance
+ *
+ * \param[in,out] obj must _not_ be NULL!
+ * \param[in] instanceID the ID you want to respond to
+ */
 static inline void createNACK( UAVObject *obj , uint16_t instanceID )
 {
     initUAVObject(obj);
@@ -106,6 +116,12 @@ static inline void createNACK( UAVObject *obj , uint16_t instanceID )
     obj->instanceID = instanceID;
 }
 
+/**
+ * \brief Initialize an UAVObject UAVObject 'acknowledge' response instance
+ *
+ * \param[in,out] obj must _not_ be NULL!
+ * \param[in] instanceID the ID you want to respond to
+ */
 static inline void createACK( UAVObject *obj , uint16_t instanceID )
 {
     initUAVObject(obj);

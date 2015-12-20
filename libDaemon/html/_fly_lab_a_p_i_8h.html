@@ -115,8 +115,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ac247e4018124e3a5876f1d5b5fdf6316"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316">PlateformType</a> { <a class="el" href="_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316a5e5e48b8a48b158a48b1d364722f0bf1">Plateform_Drone</a> = 0, 
-<a class="el" href="_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316a33fd0b865aa6f25a35619552df99889d">Plateform_Simulator</a> = 1
+<tr class="memitem:ac247e4018124e3a5876f1d5b5fdf6316"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316">PlateformType</a> { <a class="el" href="_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316acea7d0e20bee218c6e08abae35932cfc">Plateform_Unknown</a> = 0, 
+<a class="el" href="_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316a5e5e48b8a48b158a48b1d364722f0bf1">Plateform_Drone</a> = 1, 
+<a class="el" href="_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316a33fd0b865aa6f25a35619552df99889d">Plateform_Simulator</a> = 2
  }</td></tr>
 <tr class="separator:ac247e4018124e3a5876f1d5b5fdf6316"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a890c5a8155918e83e3701d687a8eb49a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49a">NotificationId</a> { <a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49aaa5102f045ebd99e3923fc2dad5ceca0f">Connection_Error</a> = -1, 
@@ -224,7 +225,10 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>A list of notifications types passed to notificationsCallBack </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="ac247e4018124e3a5876f1d5b5fdf6316a5e5e48b8a48b158a48b1d364722f0bf1"></a>Plateform_Drone&#160;</td><td class="fielddoc">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="ac247e4018124e3a5876f1d5b5fdf6316acea7d0e20bee218c6e08abae35932cfc"></a>Plateform_Unknown&#160;</td><td class="fielddoc">
+<p>Error : unknown error </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ac247e4018124e3a5876f1d5b5fdf6316a5e5e48b8a48b158a48b1d364722f0bf1"></a>Plateform_Drone&#160;</td><td class="fielddoc">
 <p>A real flying system </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="ac247e4018124e3a5876f1d5b5fdf6316a33fd0b865aa6f25a35619552df99889d"></a>Plateform_Simulator&#160;</td><td class="fielddoc">
@@ -311,7 +315,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Check if Daemon informations are available. </p>
-<dl class="section see"><dt>See also</dt><dd>getInformations()</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>getInformations</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if true, 0 if not </dd></dl>
 
 </div>

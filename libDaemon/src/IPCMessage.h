@@ -5,9 +5,7 @@
  * \version 0.1
  * \date 04/12/2015
  *
- *  PRIVATE HEADER - global definitions for Internal & inter process communication
- *  See https://github.com/TauLabs/TauLabs/wiki/Development-UAVTalk-Protocol
- *
+ *  PRIVATE HEADER
  */
 
 
@@ -39,15 +37,18 @@ enum IPC_Message_Types
     IPC_ProcessDeregistration = 3,
     
     IPC_DataRequest           = 4,
-    IPC_ProcessDidRegister    = 5
+    IPC_ProcessDidRegister    = 5,
+    
+    IPC_PrivateRequest         = 100, /* Reserved */
+    IPC_PrivateRequestResponse = 101  /* Reserved */
 };
-
+/*
 static inline void parseIPC( const Message_buf *message, UAVObject *obj)
 {
     memcpy(obj, message->data.buffer, sizeof( UAVObject ));
 
 }
-
+*/
 
 /* **** **** **** **** **** **** **** **** **** **** */
 

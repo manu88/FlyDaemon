@@ -1,10 +1,13 @@
-//
-//  GrandDispatch.h
-//  DIspatcher
-//
-//  Created by Manuel Deneu on 04/12/2015.
-//  Copyright © 2015 Manuel Deneu. All rights reserved.
-//
+/**
+ * \file Dispatch.h
+ * \brief Internal dispatcher
+ * \author Manuel Deneu
+ * \version 0.1
+ * \date 04/12/2015
+ *
+ *  PRIVATE HEADER
+ */
+
 
 #ifndef GrandDispatch_h
 #define GrandDispatch_h
@@ -12,9 +15,6 @@
 
 #include "DispatchThread.h"
 
-/*
- PRIVATE HEADER
- */
 
 typedef void (*event_cb_t)(int reason, const void* msg, void *userdata);
 typedef void (*event_userTask)( void *userdata);
@@ -43,9 +43,13 @@ enum DispatcherNotifications
     DidRegisterToDispatcher = 1,
     WillTerminateConnection = 2,
     
+
+    
     /* Limit*/
     
-    DidReceiveData          = 20
+    DidReceiveData          = 20,
+    
+    PrivateInformationsUpdated = 100
 };
 
 GrandDispatcher* GD_init( void );
