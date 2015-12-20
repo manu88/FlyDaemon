@@ -123,7 +123,10 @@ void receive(void*data, ssize_t size)
         removePid( in->pid);
         printList();
     }
-    
+    else if( in->mtype == IPC_DataRequest )
+    {
+        printf("Received IPC_DataRequest from %i\n", in->pid);
+    }
 
 }
 
@@ -165,54 +168,57 @@ int main(void)
 
         do
         {
-            n = IPC_receive(&port, &inBuffer, sizeof(Message_buf));
-            err = port.lastReceiveError;
-            if( n>0)
+            const int8_t ret = IPC_selectRead( &port);
+            if( ret == IPC_noerror )
             {
-                receive( &inBuffer, n);
-                
-                memset(&inBuffer,0, 100);
-                
-                
-            }
-            else if (n <= 0)
-            {
-                if( err == ETIMEDOUT)
+                n = IPC_receive(&port, &inBuffer, sizeof(Message_buf));
+                err = port.lastReceiveError;
+                if( n>0)
                 {
-                    printf("Read timeout\n");
-                    break;
-                }
-                else if( err != EAGAIN)
-                {
-                    printf("recv returned unrecoverable error(errno=%d)\n", err);
-                    break;
-                }
-                else if (done == 0)
-                {
-                    static int cout = 0;
+                    receive( &inBuffer, n);
                     
-                    if( cout++ > 10000 )
+                    memset(&inBuffer,0, 100);
+                    
+                    
+                }
+                else if (n <= 0)
+                {
+                    if( err == ETIMEDOUT)
                     {
-                        cout = 0;
+                        printf("Read timeout\n");
+                        
+                        break;
 
-                        outBuffer.mtype = IPC_DataSend;
-                        
-                        if ( (done == 0 ) && (IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0))
-                        {
-                            perror("send");
-                        }
-                        
-                        if(port.lastSendError == EPIPE )
-                        {
-                            printf("PIPE Send error \n");
-                            break;
-                            
-                        }
-                        usleep(5000);
                     }
-
+                    else if( err != EAGAIN)
+                    {
+                        printf("recv returned unrecoverable error(errno=%d)\n", err);
+                        break;
+                    }
                 }
             }
+            else if( ret == IPC_timeout )
+            {
+                static int cout = 0;
+                
+
+                    cout = 0;
+
+                    outBuffer.mtype = IPC_DataSend;
+                    
+                    if ( (done == 0 ) && (IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0))
+                    {
+                        perror("send");
+                    }
+                    
+                    if(port.lastSendError == EPIPE )
+                    {
+                        printf("PIPE Send error \n");
+                        break;
+                        
+                    }
+            }
+            
 
 
             

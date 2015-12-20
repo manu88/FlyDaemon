@@ -41,6 +41,10 @@ struct _IPCCommunicationPort
     struct sockaddr_un _local; // server ONLY
     int _serverSoc; // server ONLY listen to connections
     
+    /* Timer */
+    
+    int _timer;
+    long _timeToWait; // millis
     
     /* Stats */
     uint8_t connected; // 0/1
@@ -54,7 +58,7 @@ typedef struct _IPCCommunicationPort IPCCommunicationPort;
 int8_t IPC_initialize( IPCCommunicationPort *port);
 ssize_t IPC_send( IPCCommunicationPort *port, const void* buffer , size_t size);
 ssize_t IPC_receive( IPCCommunicationPort *port , void * buffer, size_t size);
-
+int8_t IPC_selectRead(IPCCommunicationPort *port );
 /* Server part */
 int8_t IPC_createServer( IPCCommunicationPort *port);
 int8_t IPC_closeServer( IPCCommunicationPort *port);

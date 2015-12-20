@@ -22,7 +22,10 @@
 
 #define FLAG_NO_SIG_PIPE SO_NOSIGPIPE
 
-int8_t setCommonSocketOption( IPCCommunicationPort *port);
+int8_t setCommonSocketOption( IPCCommunicationPort *port );
+
+int8_t createTimer( IPCCommunicationPort *port );
+
 
 
 int8_t IPC_initialize( IPCCommunicationPort *port)
@@ -40,6 +43,9 @@ int8_t IPC_initialize( IPCCommunicationPort *port)
         return IPC_socket;
     }
     
+    
+    port->_timer = -1;
+    port->_timeToWait = 10;
     
     
     return setCommonSocketOption( port );
@@ -142,10 +148,10 @@ int8_t IPC_waitForClient(IPCCommunicationPort *port , struct timeval * timout)
         return IPC_accept;
     }
     
+    /*
     int flags = fcntl( port->_commSoc ,F_GETFL,0);
-
     fcntl( port->_commSoc , F_SETFL, flags | O_NONBLOCK);
-    
+    */
 
     setCommonSocketOption( port );
     
@@ -163,7 +169,17 @@ int8_t setCommonSocketOption( IPCCommunicationPort *port)
         perror("setsockopt");
         return IPC_otherError;
     }
+    /*
+    int flags = fcntl( port->_commSoc ,F_GETFL,0);
+    fcntl( port->_commSoc , F_SETFL, flags | O_NONBLOCK);
+     */
     
+    return IPC_noerror;
+}
+
+
+int8_t createTimer( IPCCommunicationPort *port )
+{
     return IPC_noerror;
 }
 
@@ -176,6 +192,36 @@ ssize_t IPC_send( IPCCommunicationPort *port, const void* buffer , size_t size)
     port->lastSendError = errno;
     
     return n;
+}
+
+int8_t IPC_selectRead(IPCCommunicationPort *port )
+{
+    //SOCKET sockHost, int msecWait
+
+    
+    /* fd_set manages an array of sockets */
+    fd_set          readSockets;
+    struct timeval  tval;
+    
+    /* set host sockat as first and only element */
+    FD_ZERO(&readSockets);
+    FD_SET(port->_commSoc, &readSockets);
+    
+    
+    /* init timeout */
+    tval.tv_sec  = port->_timeToWait / 1000;
+    tval.tv_usec = (port->_timeToWait % 1000) * 1000;
+    
+    const int ret = select(port->_commSoc + 1, &readSockets, NULL, NULL, &tval);
+    
+    if( ret == 0)
+        return IPC_timeout;
+    else if( ret < 0 )
+        return IPC_select;
+    
+
+    return IPC_noerror;
+    
 }
 ssize_t IPC_receive( IPCCommunicationPort *port , void * buffer, size_t size)
 {

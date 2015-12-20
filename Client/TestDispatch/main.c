@@ -6,7 +6,29 @@
 #include <assert.h>
 
 #include "../../libDaemon/src/Dispatch.h"
+#include "../../libDaemon/src/DispatchThread.h"
+#include "../../libDaemon/src/IPCMessage.h"
 
+void userTask(void*userdata)
+{
+    GrandDispatcher* dispatch = (GrandDispatcher*) userdata;
+    
+    printf("User Task\n");
+    Message_buf outBuffer;
+    outBuffer.mtype = IPC_DataRequest;
+    
+    if (IPC_send( &dispatch->_thread._port, &outBuffer, sizeof(Message_buf)) < 0)
+    {
+        perror("send");
+    }
+    
+    if( dispatch->_thread._port.lastSendError == EPIPE )
+    {
+        printf("PIPE Send error \n");
+
+        
+    }
+}
 
 void onData(int reason, const void* msg, void *userdata)
 {
@@ -18,8 +40,8 @@ void onData(int reason, const void* msg, void *userdata)
     }
     else if( reason == DidReceiveData)
     {
-        printf("DidReceiveData \n");
-        if( dataCounter++ > 1000)
+        printf("DidReceiveData %i \n" ,dataCounter);
+        if( dataCounter++ > 100)
         {
             GrandDispatcher* dispatch = (GrandDispatcher*) userdata;
             GD_stop(dispatch);
@@ -41,6 +63,9 @@ int main(void)
 
     dispatch->_callBack1 = onData;
     dispatch->_callBackUserData1 = dispatch;
+    
+    dispatch->_userTaskCallBack = userTask;
+    dispatch->_userTaskData = dispatch;
     
     GD_runFromLoop( dispatch );
     printf("After main Loop\n");

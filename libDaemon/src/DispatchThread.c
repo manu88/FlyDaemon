@@ -133,7 +133,7 @@ void dispatch_MainLoop( void* dispatcher )
                 break;
             }
         }
-
+/*
         else
         {
             if (t < 0)
@@ -144,7 +144,7 @@ void dispatch_MainLoop( void* dispatcher )
             
         }
 
-
+*/
         usleep( 10 );
         counter++;
         
@@ -170,28 +170,32 @@ void dispatch_MainLoop( void* dispatcher )
         
         while ( dispatch->_thread.shouldQuit == 0 )
         {
-            if ((t = IPC_receive(&dispatch->_thread._port, &rbuf, sizeof(Message_buf ))> 0))
+            const int8_t ret = IPC_selectRead(&dispatch->_thread._port);
+            if(  ret == IPC_noerror )
             {
-
-                if( dispatch->_callBack1)
+                if ((t = IPC_receive(&dispatch->_thread._port, &rbuf, sizeof(Message_buf ))> 0))
                 {
 
-                    if( rbuf.mtype == IPC_DataSend )
+                    if( dispatch->_callBack1)
                     {
-                        GD_unlockDispatch( dispatch );
-                        dispatch->_callBack1( DidReceiveData ,&rbuf, dispatch->_callBackUserData1 );
-                        GD_lockDispatch( dispatch );
-                    }
 
-                    else
-                    {
-                        
+                        if( rbuf.mtype == IPC_DataSend )
+                        {
+                            GD_unlockDispatch( dispatch );
+                            dispatch->_callBack1( DidReceiveData ,&rbuf, dispatch->_callBackUserData1 );
+                            GD_lockDispatch( dispatch );
+                        }
+
+                        else
+                        {
+                            
+                        }
                     }
+                    
+
                 }
-                
-
             }
-            else // other tasks
+            else if( ret == IPC_timeout)// other tasks
             {
                 GD_unlockDispatch( dispatch );
                 if( dispatch->threadedLoop == 0)
