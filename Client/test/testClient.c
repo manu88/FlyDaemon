@@ -61,8 +61,13 @@ static void uavObjectReceived( const UAVObject *obj , void* userData )
     
     //printUAVObject( obj);
 
-    if( count++ > 100)
+    count++;
+    if( (count % 50 ) == 0)
+        printf(" received count %i \n" , count);
+    
+    if( count > 10000)
         disconnect();
+
 }
 
 int main (void)

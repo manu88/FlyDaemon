@@ -57,6 +57,12 @@ int8_t IPC_createClient( IPCCommunicationPort *port)
     port->_remote.sun_family = AF_UNIX;
     
     strcpy( port->_remote.sun_path, SOCK_PATH);
+    
+
+    /*
+    int flags = fcntl( port->_commSoc ,F_GETFL,0);
+    fcntl( port->_commSoc , F_SETFL, flags | O_NONBLOCK);
+    */
     return IPC_noerror;
 }
 
@@ -196,19 +202,14 @@ ssize_t IPC_send( IPCCommunicationPort *port, const void* buffer , size_t size)
 
 int8_t IPC_selectRead(IPCCommunicationPort *port )
 {
-    //SOCKET sockHost, int msecWait
-
     
     /* fd_set manages an array of sockets */
     fd_set          readSockets;
     struct timeval  tval;
     
-    /* set host sockat as first and only element */
     FD_ZERO(&readSockets);
     FD_SET(port->_commSoc, &readSockets);
     
-    
-    /* init timeout */
     tval.tv_sec  = port->_timeToWait / 1000;
     tval.tv_usec = (port->_timeToWait % 1000) * 1000;
     

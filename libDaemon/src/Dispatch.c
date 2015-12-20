@@ -101,7 +101,7 @@ uint8_t GD_runFromLoop( GrandDispatcher *dispatch)
 enum
 {
     MAXCOUNT = 10000, // total waited time = MAXCOUNT * SLEEP_TIME
-    SLEEP_TIME = 1000 // uS
+    SLEEP_TIME = 100 // uS
 };
 
 uint8_t GD_waitForCreation(GrandDispatcher *dispatch )

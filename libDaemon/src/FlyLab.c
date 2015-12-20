@@ -92,7 +92,7 @@ uint8_t runFromNewThread()
 
 uint8_t isConnected()
 {
-    return instance->state > 1;
+    return instance->state >= 1;
 }
 
 int8_t sendObject( const UAVObject * obj)
