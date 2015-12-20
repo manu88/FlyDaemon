@@ -12,6 +12,9 @@
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
+
+#include <sys/socket.h>
+
 #include "Dispatch.h"
 #include "IPCMessage.h"
 
@@ -24,7 +27,7 @@ int initDispatchThread( DispatchThread *dispatch )
 {
     if( dispatch == NULL)
         return -1;
-    
+        
     pthread_mutex_init( &dispatch->mutex, NULL);
     
     dispatch->shouldQuit = 0;
@@ -34,6 +37,11 @@ int initDispatchThread( DispatchThread *dispatch )
     
     dispatch->error_ipc = 0;
     dispatch->error_thread = 0;
+    
+
+
+    IPC_initialize( &dispatch->_port);
+    IPC_createClient( &dispatch->_port);
     
     return 1;
 }
@@ -79,13 +87,14 @@ void *startMainLoop (void * p_data)
 
 void dispatch_MainLoop( void* dispatcher )
 {
-
-
-
+    GrandDispatcher *dispatch = (GrandDispatcher*) dispatcher;
+    
+    IPC_connectToServer( &dispatch->_thread._port );
+    
     const pid_t pid = getpid();
 
     /**/
-    GrandDispatcher *dispatch = (GrandDispatcher*) dispatcher;
+
     
     dispatch->state = 1;
     
@@ -229,7 +238,7 @@ uint8_t waitForThreadTerminaison( DispatchThread *dispatch )
 int8_t sendIPCMessage(DispatchThread *dispatch, const void *message )
 {
     const size_t msgSize = sizeof( Message_buf ) - sizeof(long);
-    
+
     const ssize_t ret =msgsnd(dispatch->r_msqid, message, msgSize, 0);
     if (ret == -1)
     {

@@ -14,7 +14,7 @@
  */
 
 #include <stdio.h>
-#include "../FlyLabAPI.h"
+#include "../include/FlyLabAPI.h"
 #include "Dispatch.h"
 #include "IPCMessage.h"
 

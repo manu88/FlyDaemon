@@ -1,3 +1,64 @@
+#include <signal.h>
+#include <stdio.h>
+#include <errno.h>
+#include <string.h>
+#include <stdlib.h>
+#include <assert.h>
+#include "../../PrivateAPI/IPCComm.h"
+
+
+
+int main(void)
+{
+    char str[100];
+     ssize_t t = 0;
+    
+    IPCCommunicationPort port;
+    assert( IPC_initialize( &port)== IPC_noerror );
+    assert( IPC_createClient( &port)== IPC_noerror );
+
+    if(IPC_connectToServer( &port ) == IPC_noerror )
+    {
+        if( port.connected == 1)
+            printf("Connected.\n");
+
+        uint8_t count = 0;
+        while( count < 100)
+        {
+            str[1] = count++;
+            /*
+            if ( IPC_send(&port, str, strlen(str)) == -1)
+            {
+                perror("send");
+                exit(1);
+            }
+             */            
+            if ((t = IPC_receive(&port, str, 100)> 0))
+            {
+                uint8_t val = (uint8_t)str[1];
+                printf("\necho> %i", val);
+            }
+            else
+            {
+                if (t < 0) perror("recv");
+                else printf("Server closed connection\n");
+                exit(1);
+            }
+
+            
+
+        }
+        
+    }
+        else
+            printf("Error Connection.\n");
+    
+    IPC_closeClient( &port);
+    printf("Close Client \n");    
+    return 0;
+}
+
+/*
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -93,3 +154,4 @@ int main (void)
     
     return EXIT_SUCCESS;
 }
+ */

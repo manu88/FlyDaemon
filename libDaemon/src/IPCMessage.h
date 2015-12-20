@@ -13,7 +13,7 @@
     PRIVATE HEADER
  */
 #include <string.h>
-#include "../UAVTalk.h"
+#include "../include/UAVTalk.h"
 
 // this is PRIVATE !!
 #define IPC_KEY  (key_t) 1235

@@ -12,11 +12,13 @@
 /*
  PRIVATE HEADER
  */
-
+#include <stdint.h>
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <pthread.h>
+
+#include "../../PrivateAPI/IPCComm.h"
 
 struct dispatchThread
 {
@@ -29,16 +31,15 @@ struct dispatchThread
     /* IPC Receive */
     int r_msqid;
     key_t r_key;
-    
-    
+
     /* Error codes*/
     int error_thread;
     int error_ipc;
     
+    IPCCommunicationPort _port; // client here
 };
 
 typedef struct dispatchThread DispatchThread;
-
 
 int initDispatchThread( DispatchThread *dispatch );
 
