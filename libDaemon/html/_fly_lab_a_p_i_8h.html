@@ -87,6 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
@@ -103,8 +104,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___fly_lab_parameters.html">_FlyLabParameters</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_fly_lab_parameters.html">FlyLabParameters</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_runtime_informations.html">RuntimeInformations</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a71498a5728584f6dcf5f1eb933f86d30"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a71498a5728584f6dcf5f1eb933f86d30">NAME_MAX_SIZE</a>&#160;&#160;&#160;20</td></tr>
+<tr class="separator:a71498a5728584f6dcf5f1eb933f86d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -122,13 +130,14 @@ Enumerations</h2></td></tr>
 <tr class="separator:ac247e4018124e3a5876f1d5b5fdf6316"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a890c5a8155918e83e3701d687a8eb49a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49a">NotificationId</a> { <a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49aaa5102f045ebd99e3923fc2dad5ceca0f">Connection_Error</a> = -1, 
 <a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49aafa2a4139dafa54dc92add65bef954018">Connection_OK</a> = 1, 
-<a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49aad4237de0c66828719f86fa4c97e1f395">Connection_WillEnd</a> = 2
+<a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49aad4237de0c66828719f86fa4c97e1f395">Connection_WillEnd</a> = 2, 
+<b>InformationsAvailable</b> = 100
  }</td></tr>
 <tr class="separator:a890c5a8155918e83e3701d687a8eb49a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9630067080363b178d82daae1280faf2"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a9630067080363b178d82daae1280faf2">initializeConnection</a> (const <a class="el" href="struct___fly_lab_parameters.html">FlyLabParameters</a> *parameters)</td></tr>
+<tr class="memitem:a9630067080363b178d82daae1280faf2"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a9630067080363b178d82daae1280faf2">initializeConnection</a> (const <a class="el" href="struct_fly_lab_parameters.html">FlyLabParameters</a> *parameters)</td></tr>
 <tr class="memdesc:a9630067080363b178d82daae1280faf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a FlyLab communication.  <a href="#a9630067080363b178d82daae1280faf2">More...</a><br /></td></tr>
 <tr class="separator:a9630067080363b178d82daae1280faf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb94fbd457627182ceee7e505f432541"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#aeb94fbd457627182ceee7e505f432541">cleanup</a> (void)</td></tr>
@@ -140,6 +149,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a21786fcc3aab0a7347d1fd781a6f19a9"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a21786fcc3aab0a7347d1fd781a6f19a9">informationsAvailable</a> (void)</td></tr>
 <tr class="memdesc:a21786fcc3aab0a7347d1fd781a6f19a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if Daemon informations are available.  <a href="#a21786fcc3aab0a7347d1fd781a6f19a9">More...</a><br /></td></tr>
 <tr class="separator:a21786fcc3aab0a7347d1fd781a6f19a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89f348dfc8bb43dba2bb23db73267622"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_runtime_informations.html">RuntimeInformations</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a89f348dfc8bb43dba2bb23db73267622">getRuntimeInformations</a> (void)</td></tr>
+<tr class="memdesc:a89f348dfc8bb43dba2bb23db73267622"><td class="mdescLeft">&#160;</td><td class="mdescRight">get runtime informations  <a href="#a89f348dfc8bb43dba2bb23db73267622">More...</a><br /></td></tr>
+<tr class="separator:a89f348dfc8bb43dba2bb23db73267622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4aa578ed2420bfcf3625cb6ba64b7fe"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#ac4aa578ed2420bfcf3625cb6ba64b7fe">disconnect</a> (void)</td></tr>
 <tr class="memdesc:ac4aa578ed2420bfcf3625cb6ba64b7fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ask for communication end.  <a href="#ac4aa578ed2420bfcf3625cb6ba64b7fe">More...</a><br /></td></tr>
 <tr class="separator:ac4aa578ed2420bfcf3625cb6ba64b7fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,7 +174,22 @@ Functions</h2></td></tr>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>17/12/2015</dd></dl>
 <p>PUBLIC HEADER - This is the main Header for the API. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a class="anchor" id="a71498a5728584f6dcf5f1eb933f86d30"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NAME_MAX_SIZE&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The maximum length of the plateform name</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="struct_runtime_informations.html">RuntimeInformations</a> </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Typedef Documentation</h2>
 <a class="anchor" id="a5e49fabaabc819f7b844dd7e24853257"></a>
 <div class="memitem">
 <div class="memproto">
@@ -255,7 +282,7 @@ Functions</h2></td></tr>
 
 <p>Get the current version. </p>
 <dl class="section return"><dt>Returns</dt><dd>a c-string containing the current version, e.g. "0.010" </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a13">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a21">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -275,7 +302,7 @@ Functions</h2></td></tr>
 
 <p>Clean a FlyLab communication. </p>
 <p>Will fail if initializeConnection wasn't called or failed. </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a21">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a29">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -296,7 +323,28 @@ Functions</h2></td></tr>
 <p>Ask for communication end. </p>
 <p>This call is asynchronous, a stop call will be issued and the dispatcher will still run for some short time</p>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a12">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a20">testClient.c</a>.</dd>
+</dl>
+</div>
+</div>
+<a class="anchor" id="a89f348dfc8bb43dba2bb23db73267622"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_runtime_informations.html">RuntimeInformations</a>* getRuntimeInformations </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>get runtime informations </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_fly_lab_a_p_i_8h.html#a21786fcc3aab0a7347d1fd781a6f19a9" title="Check if Daemon informations are available. ">informationsAvailable</a> <a class="el" href="struct_runtime_informations.html">RuntimeInformations</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to a <a class="el" href="struct_runtime_informations.html">RuntimeInformations</a> readonly instance, can be NULL </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a13">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -315,7 +363,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Check if Daemon informations are available. </p>
-<dl class="section see"><dt>See also</dt><dd>getInformations</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_fly_lab_a_p_i_8h.html#a89f348dfc8bb43dba2bb23db73267622" title="get runtime informations ">getRuntimeInformations</a></dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>1 if true, 0 if not </dd></dl>
 
 </div>
@@ -327,7 +375,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">uint8_t initializeConnection </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct___fly_lab_parameters.html">FlyLabParameters</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_fly_lab_parameters.html">FlyLabParameters</a> *&#160;</td>
           <td class="paramname"><em>parameters</em></td><td>)</td>
           <td></td>
         </tr>
@@ -338,12 +386,12 @@ Functions</h2></td></tr>
 <p>This is just initialization, you still need to start the communication at some point. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="_fly_lab_a_p_i_8h.html#a0277bcb3bd77ba75310452f5e0d76013" title="Run the dispatcher from main thread. ">runFromThisThread</a> <a class="el" href="_fly_lab_a_p_i_8h.html#a0cfcb98a250b7717f6c817993df683c0" title="Run the dispatcher from a new thread. ">runFromNewThread</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">parameters</td><td>an instance of FlyLabParameters containing callback parameters.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parameters</td><td>an instance of <a class="el" href="struct_fly_lab_parameters.html">FlyLabParameters</a> containing callback parameters.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a17">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a25">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -363,7 +411,7 @@ Functions</h2></td></tr>
 
 <p>Check for communication state. </p>
 <dl class="section return"><dt>Returns</dt><dd>1 if connected, 0 if not. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a19">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a27">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -384,7 +432,7 @@ Functions</h2></td></tr>
 <p>Run the dispatcher from a new thread. </p>
 <p>This call will block and return after the thread initialization.</p>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a18">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a26">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -429,7 +477,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if send failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a20">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a28">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>

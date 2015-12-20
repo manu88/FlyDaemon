@@ -12,7 +12,7 @@
 /*
  PRIVATE HEADER
  */
-
+#include <stddef.h>
 #include <stdio.h>
 #include "../include/FlyLabAPI.h"
 #include "Dispatch.h"
@@ -21,7 +21,7 @@
 
 static const char _version[] = "0.0.1";
 
-static uint8_t _plateform = Plateform_Unknown;
+static RuntimeInformations _runtimeInfos;
 
 static GrandDispatcher *instance = NULL;
 
@@ -31,6 +31,8 @@ void eventReceived( int reason, const void* msg, void* data);
 
 uint8_t initializeConnection( const FlyLabParameters *parameters )
 {
+    
+    memset( &_runtimeInfos, 0, sizeof(RuntimeInformations ));
     
     params = *parameters;
     
@@ -57,20 +59,15 @@ const char* API_getVersion()
 
 uint8_t informationsAvailable()
 {
-    return _plateform != Plateform_Unknown;
+    return _runtimeInfos.plateform != Plateform_Unknown;
 }
 
-uint8_t getRuntimeInformations( RuntimeInformations* infos)
+const RuntimeInformations * getRuntimeInformations( )
 {
-    if( infos == NULL)
-        return 0;
+    if (informationsAvailable() )
+        return &_runtimeInfos;
     
-    if( !informationsAvailable())
-        return 0;
-    
-    infos->plateform = _plateform;
-    
-    return 1;
+    return NULL;
 }
 
 uint8_t disconnect()
@@ -153,9 +150,18 @@ void eventReceived( int reason, const void* msg, void* data)
     {
 
         const Message_buf *message = (const Message_buf*) msg;
-        _plateform = message->data.buffer[0];
-
-        printf("PrivateInformationsUpdated : Plateform %s \n" , _plateform == Plateform_Drone?"Drone" : "Simulator");
+        
+        _runtimeInfos.plateform = message->data.buffer[ offsetof(RuntimeInformations, plateform ) ];
+        
+        memcpy(_runtimeInfos.name, message->data.buffer+offsetof(RuntimeInformations, name), NAME_MAX_SIZE );
+        memcpy(_runtimeInfos.constructor, message->data.buffer+offsetof(RuntimeInformations, constructor), NAME_MAX_SIZE );
+        
+        _runtimeInfos.versionMin = message->data.buffer[ offsetof(RuntimeInformations, versionMin ) ];
+        _runtimeInfos.versionMaj = message->data.buffer[ offsetof(RuntimeInformations, versionMaj ) ];
+        //
+        
+        if( params.notificationsCallBack )
+            params.notificationsCallBack( reason , data );
     }
     else
     {

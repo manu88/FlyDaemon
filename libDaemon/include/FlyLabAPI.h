@@ -49,25 +49,40 @@ typedef void (*event_error)( int errorNum , void* userData);
 
 /**
  *  This struct will hold The user parameters.
+ *  \struct FlyLabParameters
  */
-struct _FlyLabParameters
+typedef struct
 {
     event_uav parseObjectsCallBack;     //!< The user callback for receiving UAV Objects
     event_error notificationsCallBack;  //!< The user callback for receiving Notifications
     
     void *userData; //!< A pointer to anything you want to pass with user callback
-};
+} FlyLabParameters;
     
-typedef struct _FlyLabParameters FlyLabParameters;
+
+/** The maximum length of the plateform name
+ *  \def NAME_MAX_SIZE
+ * \see RuntimeInformations
+ */
+#define NAME_MAX_SIZE 20
     
-    
-    
-struct _RuntimeInformations
+/**
+ *  This struct will hold The runtime informations about the system.
+ *  \struct RuntimeInformations
+ */
+typedef struct
 {
-    uint8_t plateform;
-};
+    uint8_t plateform;        //!< Is this a real flying machine or a simulator \see PlateformType
+    /* unused byte here */
+    char name[NAME_MAX_SIZE];        //!< The name of the system
+    char constructor[NAME_MAX_SIZE]; //!< The constructor of the system
+
+    uint8_t versionMin; //!< version minor value
+    uint8_t versionMaj; //!< version major value
     
-typedef struct _RuntimeInformations RuntimeInformations;
+} RuntimeInformations ;
+    
+
 
 /* *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
     
@@ -81,9 +96,12 @@ enum NotificationId
     Connection_Error         = -1, /*!< A fatal error occured during connection. */
     Connection_OK            =  1, /*!< Connected. */
     Connection_WillEnd       =  2, /*!< Connection will end. */
+
     
     /* Limit*/
 //    DidReceiveData          = 20
+    
+    InformationsAvailable    = 100
 };
     
 /* *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
@@ -115,14 +133,18 @@ const char* API_getVersion(void);
 
 //! \brief Check if Daemon informations are available
 /*!
- \see getInformations
+ \see getRuntimeInformations
  
  \return 1 if true, 0 if not
  */
 uint8_t informationsAvailable(void);
     
-    
-uint8_t getRuntimeInformations( RuntimeInformations* infos);
+//! \brief get runtime informations
+/*!
+ \see informationsAvailable RuntimeInformations
+ \return a pointer to a RuntimeInformations readonly instance, can be NULL
+ */
+const RuntimeInformations *getRuntimeInformations( void );
 
 //! \brief Ask for communication end
 /*!

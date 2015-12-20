@@ -40,6 +40,15 @@ static void onNotification(int errorNum, void *userData)
         
         connected = 1;
     }
+    else if( errorNum == InformationsAvailable )
+    {
+        const RuntimeInformations *infos = getRuntimeInformations();
+        
+        printf("Infos Plateform ver %i.%i : %s \n" , infos->versionMin , infos->versionMaj, infos->plateform == Plateform_Drone?"Drone" : "Simulator");
+        printf("           Name : %s \n" , infos->name );
+        printf("    constructor : %s \n" , infos->constructor );
+
+    }
     else
     {
         printf("Notification received %i\n" , errorNum );
@@ -52,7 +61,7 @@ static void uavObjectReceived( const UAVObject *obj , void* userData )
     
     //printUAVObject( obj);
 
-    if( count++ > 20)
+    if( count++ > 100)
         disconnect();
 }
 

@@ -1,10 +1,9 @@
-#include <signal.h>
+
 #include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
-#include <string.h>
 #include <assert.h>
+
 #include "../../PrivateAPI/IPCComm.h"
 #include "../../libDaemon/src/IPCMessage.h"
 #include "../../libDaemon/include/FlyLabAPI.h"
@@ -13,8 +12,13 @@
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** */
 /* Parameters */
 
-uint8_t plateformType = Plateform_Simulator;
+const uint8_t plateformType = Plateform_Simulator;
 
+const char    plateformName[NAME_MAX_SIZE] = "awsomeDroneName";
+const char    constructor[NAME_MAX_SIZE] = "FlyLab inc.";
+
+const uint8_t minVer = 01;
+const uint8_t majVer = 10;
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 static volatile int keepRunning = 1;
@@ -140,7 +144,15 @@ void receive(void*data, ssize_t size)
         outBuffer.mtype = IPC_PrivateRequestResponse;
         
         
-        outBuffer.data.buffer[0] = plateformType;
+        outBuffer.data.buffer[  offsetof(RuntimeInformations, plateform) ] = plateformType;
+        
+//        strcpy((char*)outBuffer.data.buffer+2, plateformName);
+        memcpy(outBuffer.data.buffer+ offsetof(RuntimeInformations, name), plateformName, NAME_MAX_SIZE );
+        memcpy(outBuffer.data.buffer+ offsetof(RuntimeInformations, constructor), constructor, NAME_MAX_SIZE );
+        
+        
+        outBuffer.data.buffer[ offsetof(RuntimeInformations, versionMin )] = minVer;
+        outBuffer.data.buffer[ offsetof(RuntimeInformations, versionMaj )] = majVer;
         
         if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)
         {

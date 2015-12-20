@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['msgsz',['MSGSZ',['../_i_p_c_message_8h.html#af7e3e3ff5bdea6f2dd261476f01e18c1',1,'IPCMessage.h']]]
+  ['uav_5fdata_5fmax_5fsize',['UAV_DATA_MAX_SIZE',['../_u_a_v_talk_8h.html#ab48dbd9ef0a6816dac3ab8bc67d82eff',1,'UAVTalk.h']]]
 ];
