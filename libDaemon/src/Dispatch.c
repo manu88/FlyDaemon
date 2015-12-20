@@ -34,7 +34,7 @@ GrandDispatcher* GD_init()
         
         initDispatchThread( &ret->_thread );
         
-        connectToIPCWithKey(&ret->_thread, IPC_KEY );
+        //connectToIPCWithKey(&ret->_thread, IPC_KEY );
 
         return ret;
     }

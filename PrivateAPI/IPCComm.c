@@ -8,15 +8,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/socket.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
 
-
-
 #include <errno.h>
 
 #include "IPCComm.h"
+
+
+//SO_NOSIGPIPE MSG_NOSIGNAL
+
+#define FLAG_NO_SIG_PIPE SO_NOSIGPIPE
+
+int8_t setCommonSocketOption( IPCCommunicationPort *port);
+
 
 int8_t IPC_initialize( IPCCommunicationPort *port)
 {
@@ -32,7 +39,10 @@ int8_t IPC_initialize( IPCCommunicationPort *port)
         perror("_commSoc");
         return IPC_socket;
     }
-    return IPC_noerror;
+    
+    
+    
+    return setCommonSocketOption( port );
 }
 
 
@@ -78,10 +88,7 @@ int8_t IPC_createServer( IPCCommunicationPort *port)
     
     len = (socklen_t) strlen( port->_local.sun_path) + sizeof(port->_local.sun_family);
     
-    /*
-    const int true = 1;
-    setsockopt(port->_serverSoc,SOL_SOCKET,SO_REUSEADDR,&true,sizeof(int));
-    */
+
     if (bind( port->_serverSoc , (struct sockaddr *)&port->_local, len) == -1)
     {
         perror("bind _serverSoc ");
@@ -140,7 +147,22 @@ int8_t IPC_waitForClient(IPCCommunicationPort *port , struct timeval * timout)
     fcntl( port->_commSoc , F_SETFL, flags | O_NONBLOCK);
     
 
+    setCommonSocketOption( port );
+    
+
     port->connected = 1;
+    
+    return IPC_noerror;
+}
+
+int8_t setCommonSocketOption( IPCCommunicationPort *port)
+{
+    int on = 1;
+    if (setsockopt( port->_commSoc, SOL_SOCKET, SO_NOSIGPIPE, &on, sizeof(on)) == -1)
+    {
+        perror("setsockopt");
+        return IPC_otherError;
+    }
     
     return IPC_noerror;
 }
@@ -149,7 +171,7 @@ int8_t IPC_waitForClient(IPCCommunicationPort *port , struct timeval * timout)
 
 ssize_t IPC_send( IPCCommunicationPort *port, const void* buffer , size_t size)
 {
-    const ssize_t n = send(port->_commSoc, buffer, size, 0);
+    const ssize_t n = send(port->_commSoc, buffer, size, FLAG_NO_SIG_PIPE );
 
     port->lastSendError = errno;
     

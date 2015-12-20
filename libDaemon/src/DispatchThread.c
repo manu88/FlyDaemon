@@ -89,7 +89,8 @@ void dispatch_MainLoop( void* dispatcher )
 {
     GrandDispatcher *dispatch = (GrandDispatcher*) dispatcher;
     
-    IPC_connectToServer( &dispatch->_thread._port );
+    if( IPC_connectToServer( &dispatch->_thread._port ) != IPC_noerror)
+        return;
     
     const pid_t pid = getpid();
 
@@ -110,7 +111,7 @@ void dispatch_MainLoop( void* dispatcher )
     sbuf.pid = pid;
     
     
-    if( sendIPCMessage( &dispatch->_thread, &sbuf ) == 0)
+    if( IPC_send(&dispatch->_thread._port, &sbuf, sizeof(Message_buf))<=0)// sendIPCMessage( &dispatch->_thread, &sbuf ) == 0)
     {
     }
     
@@ -119,9 +120,12 @@ void dispatch_MainLoop( void* dispatcher )
     uint8_t didReply = 0;
     uint32_t counter = 0;
     const uint32_t maxTime = 400000;
+    
+    ssize_t t = 0;
+    
     while ( counter < maxTime )
     {
-        if (msgrcv( dispatch->_thread.r_msqid, &rbuf, msgSize , IPC_ProcessDidRegister , IPC_NOWAIT ) > 0)
+        if ((t = IPC_receive( &dispatch->_thread._port, &rbuf, sizeof(Message_buf) ) > 0))
         {
             if ( rbuf.mtype == IPC_ProcessDidRegister)
             {
@@ -129,6 +133,17 @@ void dispatch_MainLoop( void* dispatcher )
                 break;
             }
         }
+
+        else
+        {
+            if (t < 0)
+                perror("recv");
+            else
+                printf("Server closed connection\n");
+            return;
+            
+        }
+
 
         usleep( 10 );
         counter++;
@@ -155,29 +170,19 @@ void dispatch_MainLoop( void* dispatcher )
         
         while ( dispatch->_thread.shouldQuit == 0 )
         {
-            if (msgrcv( dispatch->_thread.r_msqid, &rbuf, msgSize , 0 , IPC_NOWAIT ) > 0)
+            if ((t = IPC_receive(&dispatch->_thread._port, &rbuf, sizeof(Message_buf ))> 0))
             {
-                //printf("mtype %li \n", rbuf.mtype );
-                
+
                 if( dispatch->_callBack1)
                 {
-                    
-                    
-                    
+
                     if( rbuf.mtype == IPC_DataSend )
                     {
                         GD_unlockDispatch( dispatch );
                         dispatch->_callBack1( DidReceiveData ,&rbuf, dispatch->_callBackUserData1 );
                         GD_lockDispatch( dispatch );
                     }
-                    /*
-                    else if ( rbuf.mtype == IPC_ProcessDidRegister)
-                    {
-                        GD_unlockDispatch( dispatch );
-                        dispatch->_callBack1( DidRegisterToDispatcher , dispatch->_callBackUserData1 );
-                        GD_lockDispatch( dispatch );
-                    }
-                     */
+
                     else
                     {
                         
@@ -211,7 +216,7 @@ void dispatch_MainLoop( void* dispatcher )
         sbuf.pid = pid;
         
         sbuf.mtype = IPC_ProcessDeregistration;
-        if(sendIPCMessage( &dispatch->_thread, &sbuf) == 0)// msgsnd(dispatch->_thread.r_msqid, &sbuf, msgSize, 0) == 0)
+        if( IPC_send(&dispatch->_thread._port, &sbuf, sizeof(Message_buf)) <= 0)// sendIPCMessage( &dispatch->_thread, &sbuf) == 0)// msgsnd(dispatch->_thread.r_msqid, &sbuf, msgSize, 0) == 0)
         {
             
         }

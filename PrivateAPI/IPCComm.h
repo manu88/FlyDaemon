@@ -25,7 +25,11 @@ enum IPC_errors
     IPC_connect = -5,
     IPC_close   = -6,
     IPC_select  = -7,
-    IPC_timeout = 20
+    IPC_timeout = -20,
+    
+    IPC_brokenConnection = -30,
+    
+    IPC_otherError = -40
 };
 
 struct _IPCCommunicationPort

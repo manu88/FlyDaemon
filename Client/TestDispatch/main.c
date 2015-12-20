@@ -4,8 +4,51 @@
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "../../PrivateAPI/IPCComm.h"
 
+#include "../../libDaemon/src/Dispatch.h"
+
+
+void onData(int reason, const void* msg, void *userdata)
+{
+    static int dataCounter = 0;
+    
+    if( reason == DidRegisterToDispatcher)
+    {
+        printf("Did register \n");
+    }
+    else if( reason == DidReceiveData)
+    {
+        printf("DidReceiveData \n");
+        if( dataCounter++ > 1000)
+        {
+            GrandDispatcher* dispatch = (GrandDispatcher*) userdata;
+            GD_stop(dispatch);
+        }
+    }
+    else if( reason == WillTerminateConnection)
+    {
+        printf("WillTerminateConnection\n");
+    }
+    else
+        printf(" Did receive data %i \n" , reason );
+    
+}
+
+
+int main(void)
+{
+    GrandDispatcher *dispatch = GD_init();
+
+    dispatch->_callBack1 = onData;
+    dispatch->_callBackUserData1 = dispatch;
+    
+    GD_runFromLoop( dispatch );
+    printf("After main Loop\n");
+    GD_release( dispatch );
+    return 0;
+}
+/*
+#include "../../PrivateAPI/IPCComm.h"
 
 
 int main(void)
@@ -26,13 +69,15 @@ int main(void)
         while( count < 100)
         {
             str[1] = count++;
-            /*
+
+
+            
             if ( IPC_send(&port, str, strlen(str)) == -1)
             {
                 perror("send");
                 exit(1);
             }
-             */            
+      
             if ((t = IPC_receive(&port, str, 100)> 0))
             {
                 uint8_t val = (uint8_t)str[1];
@@ -57,7 +102,7 @@ int main(void)
     printf("Close Client \n");    
     return 0;
 }
-
+*/
 /*
 #include <stdio.h>
 #include <stdlib.h>
