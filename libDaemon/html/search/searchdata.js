@@ -1,13 +1,13 @@
 var indexSectionsWithContent =
 {
-  0: "_cdefilnoprstu",
+  0: "_acdefilnoprstu",
   1: "_du",
-  2: "fiu",
-  3: "cdirs",
+  2: "dfiu",
+  3: "acdirs",
   4: "cdilnopstu",
   5: "e",
-  6: "nu",
-  7: "ct",
+  6: "npu",
+  7: "cpt",
   8: "u",
   9: "f"
 };

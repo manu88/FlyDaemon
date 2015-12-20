@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['ipc_5fdatarequest',['IPC_DataRequest',['../_i_p_c_message_8h.html#a317faff5885ae072c9062f049711c428a5564c7273de6a25cd77f061d9862b40e',1,'IPCMessage.h']]],
-  ['ipc_5fdatasend',['IPC_DataSend',['../_i_p_c_message_8h.html#a317faff5885ae072c9062f049711c428a8137ca5fd1a26beb798d154a18721ec3',1,'IPCMessage.h']]],
-  ['ipc_5fprocessderegistration',['IPC_ProcessDeregistration',['../_i_p_c_message_8h.html#a317faff5885ae072c9062f049711c428ad85998453260ae7d575105f43649cbb3',1,'IPCMessage.h']]],
-  ['ipc_5fprocessdidregister',['IPC_ProcessDidRegister',['../_i_p_c_message_8h.html#a317faff5885ae072c9062f049711c428a8be00f2f16feb93c9160e596dd5f361a',1,'IPCMessage.h']]],
-  ['ipc_5fprocessregistration',['IPC_ProcessRegistration',['../_i_p_c_message_8h.html#a317faff5885ae072c9062f049711c428aa63f621f2b4c0019bad9e7076c6a1295',1,'IPCMessage.h']]]
+  ['type_5fack',['Type_ACK',['../_u_a_v_talk_8h.html#ae1a63cdb984d700fcff462191b4e48fba9bdbea6f486d1859cdf75560b9617bb3',1,'UAVTalk.h']]],
+  ['type_5fnack',['Type_NACK',['../_u_a_v_talk_8h.html#ae1a63cdb984d700fcff462191b4e48fba7b5889afe6447e9a201d0693518b93d4',1,'UAVTalk.h']]],
+  ['type_5fobj',['Type_OBJ',['../_u_a_v_talk_8h.html#ae1a63cdb984d700fcff462191b4e48fba12db9b91af74c7797600fc7abafce08e',1,'UAVTalk.h']]],
+  ['type_5fobj_5fack',['Type_OBJ_ACK',['../_u_a_v_talk_8h.html#ae1a63cdb984d700fcff462191b4e48fba23c08c73101e0c8fe7866e3197885849',1,'UAVTalk.h']]],
+  ['type_5fobj_5freq',['Type_OBJ_REQ',['../_u_a_v_talk_8h.html#ae1a63cdb984d700fcff462191b4e48fbaee5001e5b5530e980a9a6ff20029e1c6',1,'UAVTalk.h']]],
+  ['type_5ftimestamped',['Type_TimeStamped',['../_u_a_v_talk_8h.html#ae1a63cdb984d700fcff462191b4e48fbaf8b4bab9d89f32432c3d3d03e622e8d0',1,'UAVTalk.h']]]
 ];

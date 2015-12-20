@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -92,6 +93,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">DispatchThread.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Internal dispatcher thread.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;sys/types.h&gt;</code><br />
 <code>#include &lt;sys/ipc.h&gt;</code><br />
@@ -101,198 +105,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <p><a href="_dispatch_thread_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdispatch_thread.html">dispatchThread</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a10b618118d2a11bc8f3bd57e05681664"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdispatch_thread.html">dispatchThread</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a></td></tr>
-<tr class="separator:a10b618118d2a11bc8f3bd57e05681664"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4eafa9c09e937df194511d91c1c660b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_thread_8h.html#a4eafa9c09e937df194511d91c1c660b7">initDispatchThread</a> (<a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *dispatch)</td></tr>
-<tr class="separator:a4eafa9c09e937df194511d91c1c660b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae442a7d613b56cf7ea9d4c90aafd507e"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_thread_8h.html#ae442a7d613b56cf7ea9d4c90aafd507e">connectToIPCWithKey</a> (<a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *dispatch, key_t key)</td></tr>
-<tr class="separator:ae442a7d613b56cf7ea9d4c90aafd507e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab48490a7208ff63bac6b26c03e035cba"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_thread_8h.html#ab48490a7208ff63bac6b26c03e035cba">IPCIsConnected</a> (<a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *dispatch)</td></tr>
-<tr class="separator:ab48490a7208ff63bac6b26c03e035cba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cc4603a388e1b2f2a9d00ebe65b86f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_thread_8h.html#a4cc4603a388e1b2f2a9d00ebe65b86f1">sendQuitSignal</a> (<a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *dispatch)</td></tr>
-<tr class="separator:a4cc4603a388e1b2f2a9d00ebe65b86f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99ad6157099aa57e8a3376cd7467363f"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_thread_8h.html#a99ad6157099aa57e8a3376cd7467363f">startMainLoop</a> (void *p_data)</td></tr>
-<tr class="separator:a99ad6157099aa57e8a3376cd7467363f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac89a1725abdce3b9a0c6d711c1358c06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_thread_8h.html#ac89a1725abdce3b9a0c6d711c1358c06">dispatch_MainLoop</a> (void *dispatcher)</td></tr>
-<tr class="separator:ac89a1725abdce3b9a0c6d711c1358c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afee97840219cc8fe14f02883fa14f7ec"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_thread_8h.html#afee97840219cc8fe14f02883fa14f7ec">waitForThreadTerminaison</a> (<a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *dispatch)</td></tr>
-<tr class="separator:afee97840219cc8fe14f02883fa14f7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b8420fa60166c728704702fbfafeb3c"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_thread_8h.html#a0b8420fa60166c728704702fbfafeb3c">sendIPCMessage</a> (<a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *dispatch, const void *message)</td></tr>
-<tr class="separator:a0b8420fa60166c728704702fbfafeb3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a class="anchor" id="a10b618118d2a11bc8f3bd57e05681664"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef struct <a class="el" href="structdispatch_thread.html">dispatchThread</a> <a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="ae442a7d613b56cf7ea9d4c90aafd507e"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t connectToIPCWithKey </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *&#160;</td>
-          <td class="paramname"><em>dispatch</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">key_t&#160;</td>
-          <td class="paramname"><em>key</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ac89a1725abdce3b9a0c6d711c1358c06"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void dispatch_MainLoop </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>dispatcher</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a4eafa9c09e937df194511d91c1c660b7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int initDispatchThread </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *&#160;</td>
-          <td class="paramname"><em>dispatch</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ab48490a7208ff63bac6b26c03e035cba"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t IPCIsConnected </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *&#160;</td>
-          <td class="paramname"><em>dispatch</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a0b8420fa60166c728704702fbfafeb3c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int8_t sendIPCMessage </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *&#160;</td>
-          <td class="paramname"><em>dispatch</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>message</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a4cc4603a388e1b2f2a9d00ebe65b86f1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void sendQuitSignal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *&#160;</td>
-          <td class="paramname"><em>dispatch</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a99ad6157099aa57e8a3376cd7467363f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* startMainLoop </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>p_data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="afee97840219cc8fe14f02883fa14f7ec"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8_t waitForThreadTerminaison </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="_dispatch_thread_8h.html#a10b618118d2a11bc8f3bd57e05681664">DispatchThread</a> *&#160;</td>
-          <td class="paramname"><em>dispatch</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Internal dispatcher thread. </p>
+<dl class="section author"><dt>Author</dt><dd>Manuel Deneu </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>04/12/2015</dd></dl>
+<p>PRIVATE HEADER </p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

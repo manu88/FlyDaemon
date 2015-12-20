@@ -115,6 +115,10 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:ac247e4018124e3a5876f1d5b5fdf6316"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316">PlateformType</a> { <a class="el" href="_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316a5e5e48b8a48b158a48b1d364722f0bf1">Plateform_Drone</a> = 0, 
+<a class="el" href="_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316a33fd0b865aa6f25a35619552df99889d">Plateform_Simulator</a> = 1
+ }</td></tr>
+<tr class="separator:ac247e4018124e3a5876f1d5b5fdf6316"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a890c5a8155918e83e3701d687a8eb49a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49a">NotificationId</a> { <a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49aaa5102f045ebd99e3923fc2dad5ceca0f">Connection_Error</a> = -1, 
 <a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49aafa2a4139dafa54dc92add65bef954018">Connection_OK</a> = 1, 
 <a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49aad4237de0c66828719f86fa4c97e1f395">Connection_WillEnd</a> = 2
@@ -129,6 +133,12 @@ Functions</h2></td></tr>
 <tr class="memitem:aeb94fbd457627182ceee7e505f432541"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#aeb94fbd457627182ceee7e505f432541">cleanup</a> (void)</td></tr>
 <tr class="memdesc:aeb94fbd457627182ceee7e505f432541"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clean a FlyLab communication.  <a href="#aeb94fbd457627182ceee7e505f432541">More...</a><br /></td></tr>
 <tr class="separator:aeb94fbd457627182ceee7e505f432541"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad09bc188e0ce11a1a292190d52c5bf39"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#ad09bc188e0ce11a1a292190d52c5bf39">API_getVersion</a> (void)</td></tr>
+<tr class="memdesc:ad09bc188e0ce11a1a292190d52c5bf39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current version.  <a href="#ad09bc188e0ce11a1a292190d52c5bf39">More...</a><br /></td></tr>
+<tr class="separator:ad09bc188e0ce11a1a292190d52c5bf39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21786fcc3aab0a7347d1fd781a6f19a9"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a21786fcc3aab0a7347d1fd781a6f19a9">informationsAvailable</a> (void)</td></tr>
+<tr class="memdesc:a21786fcc3aab0a7347d1fd781a6f19a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if Daemon informations are available.  <a href="#a21786fcc3aab0a7347d1fd781a6f19a9">More...</a><br /></td></tr>
+<tr class="separator:a21786fcc3aab0a7347d1fd781a6f19a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4aa578ed2420bfcf3625cb6ba64b7fe"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#ac4aa578ed2420bfcf3625cb6ba64b7fe">disconnect</a> (void)</td></tr>
 <tr class="memdesc:ac4aa578ed2420bfcf3625cb6ba64b7fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ask for communication end.  <a href="#ac4aa578ed2420bfcf3625cb6ba64b7fe">More...</a><br /></td></tr>
 <tr class="separator:ac4aa578ed2420bfcf3625cb6ba64b7fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -203,7 +213,48 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac247e4018124e3a5876f1d5b5fdf6316"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316">PlateformType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>A list of notifications types passed to notificationsCallBack </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="ac247e4018124e3a5876f1d5b5fdf6316a5e5e48b8a48b158a48b1d364722f0bf1"></a>Plateform_Drone&#160;</td><td class="fielddoc">
+<p>A real flying system </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ac247e4018124e3a5876f1d5b5fdf6316a33fd0b865aa6f25a35619552df99889d"></a>Plateform_Simulator&#160;</td><td class="fielddoc">
+<p>A simulated flying system </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ad09bc188e0ce11a1a292190d52c5bf39"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* API_getVersion </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the current version. </p>
+<dl class="section return"><dt>Returns</dt><dd>a c-string containing the current version, e.g. "0.010" </dd></dl>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a13">testClient.c</a>.</dd>
+</dl>
+</div>
+</div>
 <a class="anchor" id="aeb94fbd457627182ceee7e505f432541"></a>
 <div class="memitem">
 <div class="memproto">
@@ -220,7 +271,7 @@ Functions</h2></td></tr>
 
 <p>Clean a FlyLab communication. </p>
 <p>Will fail if initializeConnection wasn't called or failed. </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a20">main.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a21">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -241,8 +292,28 @@ Functions</h2></td></tr>
 <p>Ask for communication end. </p>
 <p>This call is asynchronous, a stop call will be issued and the dispatcher will still run for some short time</p>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a12">main.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a12">testClient.c</a>.</dd>
 </dl>
+</div>
+</div>
+<a class="anchor" id="a21786fcc3aab0a7347d1fd781a6f19a9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t informationsAvailable </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if Daemon informations are available. </p>
+<dl class="section see"><dt>See also</dt><dd>getInformations()</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if true, 0 if not </dd></dl>
+
 </div>
 </div>
 <a class="anchor" id="a9630067080363b178d82daae1280faf2"></a>
@@ -268,7 +339,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a16">main.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a17">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -288,7 +359,7 @@ Functions</h2></td></tr>
 
 <p>Check for communication state. </p>
 <dl class="section return"><dt>Returns</dt><dd>1 if connected, 0 if not. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a18">main.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a19">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -309,7 +380,7 @@ Functions</h2></td></tr>
 <p>Run the dispatcher from a new thread. </p>
 <p>This call will block and return after the thread initialization.</p>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a17">main.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a18">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -354,7 +425,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if send failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a19">main.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a20">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
