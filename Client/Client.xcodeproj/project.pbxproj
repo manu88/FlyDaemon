@@ -17,7 +17,7 @@
 		5983D3CC1C255F2B001F9C4C /* UAVTalk.h in Headers */ = {isa = PBXBuildFile; fileRef = 5983D3CA1C255F2B001F9C4C /* UAVTalk.h */; };
 		5983D3E41C259613001F9C4C /* IPCComm.c in Sources */ = {isa = PBXBuildFile; fileRef = 5983D3E21C259613001F9C4C /* IPCComm.c */; };
 		5998AFAA1C007FF900D26FD8 /* libDispatcher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F4DBCA1BF61B3D001D8230 /* libDispatcher.a */; };
-		59F4DBD81BF61B52001D8230 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 59F4DBD71BF61B52001D8230 /* main.c */; };
+		59F04A491C2701650072E4CE /* testClient.c in Sources */ = {isa = PBXBuildFile; fileRef = 59F04A481C2701650072E4CE /* testClient.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,9 +43,9 @@
 		5983D3CA1C255F2B001F9C4C /* UAVTalk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UAVTalk.h; path = include/UAVTalk.h; sourceTree = "<group>"; };
 		5983D3E21C259613001F9C4C /* IPCComm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IPCComm.c; sourceTree = "<group>"; };
 		5983D3E31C259613001F9C4C /* IPCComm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPCComm.h; sourceTree = "<group>"; };
+		59F04A481C2701650072E4CE /* testClient.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = testClient.c; sourceTree = "<group>"; };
 		59F4DBCA1BF61B3D001D8230 /* libDispatcher.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libDispatcher.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59F4DBD51BF61B52001D8230 /* TestDispatch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestDispatch; sourceTree = BUILT_PRODUCTS_DIR; };
-		59F4DBD71BF61B52001D8230 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,12 +101,20 @@
 			path = ../libDaemon;
 			sourceTree = "<group>";
 		};
+		59F04A471C2701650072E4CE /* test */ = {
+			isa = PBXGroup;
+			children = (
+				59F04A481C2701650072E4CE /* testClient.c */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
 		59F4DBC11BF61B3D001D8230 = {
 			isa = PBXGroup;
 			children = (
+				59F04A471C2701650072E4CE /* test */,
 				5983D3E11C259613001F9C4C /* PrivateAPI */,
 				59E4396E1C244365002A2A55 /* libDaemon */,
-				59F4DBD61BF61B52001D8230 /* TestDispatch */,
 				59F4DBCB1BF61B3D001D8230 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,14 +126,6 @@
 				59F4DBD51BF61B52001D8230 /* TestDispatch */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		59F4DBD61BF61B52001D8230 /* TestDispatch */ = {
-			isa = PBXGroup;
-			children = (
-				59F4DBD71BF61B52001D8230 /* main.c */,
-			);
-			path = TestDispatch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,8 +230,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59F04A491C2701650072E4CE /* testClient.c in Sources */,
 				5983D3E41C259613001F9C4C /* IPCComm.c in Sources */,
-				59F4DBD81BF61B52001D8230 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

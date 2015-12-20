@@ -6,27 +6,13 @@
 * \date 17/12/2015
 *
 *  PUBLIC HEADER - This is the main Header for the API.
+*  @example main.c
 *
 */
 
 
 #ifndef FlyLabAPI_h
 #define FlyLabAPI_h
-
-
-/* DOC STYLE */
-
-//! \brief Initialize empty UAVObject instance
-/*!
- Everything will be set to zero in order to prevent garbage values
- 
- \param obj must _not_ be NULL!
- 
- \return void
- */
-
-
-
 
 #ifdef __cplusplus
 extern "C" {
@@ -38,14 +24,11 @@ extern "C" {
     
 /**
  *  Callback signature for receiving UAV Objects
- *
- *
  */
 typedef void (*event_uav)( const UAVObject *obj , void* userData);
     
 /**
  *  Callback signature for receiving state notifications
- *
  */
 typedef void (*event_error)( int errorNum , void* userData);
     
@@ -74,13 +57,11 @@ typedef struct _FlyLabParameters FlyLabParameters;
 enum NotificationId
 {
     /* Must match DispatcherNotifications in Dispatch.h ! Do not reorder*/
-    
-    Connection_Error         = -1,
-    Connection_OK            =  1,
-    Connection_WillEnd       =  2,
+    Connection_Error         = -1, /*!< A fatal error occured during connection. */
+    Connection_OK            =  1, /*!< Connected. */
+    Connection_WillEnd       =  2, /*!< Connection will end. */
     
     /* Limit*/
-    
 //    DidReceiveData          = 20
 };
     
@@ -95,7 +76,6 @@ This is just initialization, you still need to start the communication at some p
  
  \return 1 on sucess, 0 if failed.
  */
-
 uint8_t initializeConnection( const FlyLabParameters *parameters );
 
     

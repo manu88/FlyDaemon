@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="examples.html"><span>Examples</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -108,16 +109,15 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a7bbaa63a6700910e762d05de7902d51c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a7bbaa63a6700910e762d05de7902d51c">event_uav</a>) (const <a class="el" href="struct_u_a_v___object.html">UAVObject</a> *obj, void *userData)</td></tr>
-<tr class="memdesc:a7bbaa63a6700910e762d05de7902d51c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize empty UAVObject instance.  <a href="#a7bbaa63a6700910e762d05de7902d51c">More...</a><br /></td></tr>
 <tr class="separator:a7bbaa63a6700910e762d05de7902d51c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e49fabaabc819f7b844dd7e24853257"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a5e49fabaabc819f7b844dd7e24853257">event_error</a>) (int errorNum, void *userData)</td></tr>
 <tr class="separator:a5e49fabaabc819f7b844dd7e24853257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a890c5a8155918e83e3701d687a8eb49a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49a">NotificationId</a> { <b>Connection_Error</b> = -1, 
-<b>Connection_OK</b> = 1, 
-<b>Connection_WillEnd</b> = 2
+<tr class="memitem:a890c5a8155918e83e3701d687a8eb49a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49a">NotificationId</a> { <a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49aaa5102f045ebd99e3923fc2dad5ceca0f">Connection_Error</a> = -1, 
+<a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49aafa2a4139dafa54dc92add65bef954018">Connection_OK</a> = 1, 
+<a class="el" href="_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49aad4237de0c66828719f86fa4c97e1f395">Connection_WillEnd</a> = 2
  }</td></tr>
 <tr class="separator:a890c5a8155918e83e3701d687a8eb49a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -174,16 +174,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Initialize empty UAVObject instance. </p>
-<p>Everything will be set to zero in order to prevent garbage values</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">obj</td><td>must <em>not</em> be NULL!</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>void Callback signature for receiving UAV Objects </dd></dl>
+<p>Callback signature for receiving UAV Objects </p>
 
 </div>
 </div>
@@ -198,6 +189,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>A list of notifications types passed to notificationsCallBack </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a890c5a8155918e83e3701d687a8eb49aaa5102f045ebd99e3923fc2dad5ceca0f"></a>Connection_Error&#160;</td><td class="fielddoc">
+<p>A fatal error occured during connection. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a890c5a8155918e83e3701d687a8eb49aafa2a4139dafa54dc92add65bef954018"></a>Connection_OK&#160;</td><td class="fielddoc">
+<p>Connected. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a890c5a8155918e83e3701d687a8eb49aad4237de0c66828719f86fa4c97e1f395"></a>Connection_WillEnd&#160;</td><td class="fielddoc">
+<p>Connection will end. </p>
+</td></tr>
+</table>
 
 </div>
 </div>
@@ -218,7 +220,8 @@ Functions</h2></td></tr>
 
 <p>Clean a FlyLab communication. </p>
 <p>Will fail if initializeConnection wasn't called or failed. </p>
-
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a20">main.c</a>.</dd>
+</dl>
 </div>
 </div>
 <a class="anchor" id="ac4aa578ed2420bfcf3625cb6ba64b7fe"></a>
@@ -238,7 +241,8 @@ Functions</h2></td></tr>
 <p>Ask for communication end. </p>
 <p>This call is asynchronous, a stop call will be issued and the dispatcher will still run for some short time</p>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a12">main.c</a>.</dd>
+</dl>
 </div>
 </div>
 <a class="anchor" id="a9630067080363b178d82daae1280faf2"></a>
@@ -264,7 +268,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a16">main.c</a>.</dd>
+</dl>
 </div>
 </div>
 <a class="anchor" id="a33e8feed953e073ec8db0a34be4f4ff9"></a>
@@ -283,7 +288,8 @@ Functions</h2></td></tr>
 
 <p>Check for communication state. </p>
 <dl class="section return"><dt>Returns</dt><dd>1 if connected, 0 if not. </dd></dl>
-
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a18">main.c</a>.</dd>
+</dl>
 </div>
 </div>
 <a class="anchor" id="a0cfcb98a250b7717f6c817993df683c0"></a>
@@ -303,7 +309,8 @@ Functions</h2></td></tr>
 <p>Run the dispatcher from a new thread. </p>
 <p>This call will block and return after the thread initialization.</p>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a17">main.c</a>.</dd>
+</dl>
 </div>
 </div>
 <a class="anchor" id="a0277bcb3bd77ba75310452f5e0d76013"></a>
@@ -347,7 +354,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if send failed. </dd></dl>
-
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="main_8c-example.html#a19">main.c</a>.</dd>
+</dl>
 </div>
 </div>
 </div><!-- contents -->

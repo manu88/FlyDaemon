@@ -111,7 +111,7 @@ void receive(void*data, ssize_t size)
         Message_buf out;
         out.mtype = IPC_ProcessDidRegister;
         
-        if ((done == 0) &&(IPC_send(&port, &out, sizeof(Message_buf)) < 0))
+        if ( IPC_send(&port, &out, sizeof(Message_buf)) < 0)
         {
             perror("send");
         }
@@ -126,6 +126,11 @@ void receive(void*data, ssize_t size)
     else if( in->mtype == IPC_DataRequest )
     {
         printf("Received IPC_DataRequest from %i\n", in->pid);
+        
+        if( findPid( in->pid) != -1)
+        {
+            
+        }
     }
 
 }

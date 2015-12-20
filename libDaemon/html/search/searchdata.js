@@ -2,12 +2,12 @@ var indexSectionsWithContent =
 {
   0: "_cdefilnoprstu",
   1: "_du",
-  2: "fu",
+  2: "fiu",
   3: "cdirs",
   4: "cdilnopstu",
   5: "e",
   6: "nu",
-  7: "t",
+  7: "ct",
   8: "u",
   9: "f"
 };

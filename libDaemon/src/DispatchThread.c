@@ -32,7 +32,7 @@ int initDispatchThread( DispatchThread *dispatch )
     
     dispatch->shouldQuit = 0;
 
-    dispatch->r_key = -1;
+//    dispatch->r_key = -1;
 
     
     dispatch->error_ipc = 0;
@@ -47,7 +47,7 @@ int initDispatchThread( DispatchThread *dispatch )
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-
+/*
 int16_t connectToIPCWithKey( DispatchThread *dispatch , key_t key)
 {
     if( dispatch->r_key != -1 )
@@ -66,13 +66,11 @@ int16_t connectToIPCWithKey( DispatchThread *dispatch , key_t key)
     
 }
 
-/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-
 uint8_t IPCIsConnected( DispatchThread *dispatch )
 {
     return dispatch->r_key > 0;
 }
-
+*/
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void *startMainLoop (void * p_data)
@@ -101,9 +99,6 @@ void dispatch_MainLoop( void* dispatcher )
     
     Message_buf  rbuf;
     Message_buf  sbuf;
-    
-    const size_t msgSize = sizeof( Message_buf ) - sizeof(long);
-
     
     /* Send registration request */
     
@@ -243,7 +238,7 @@ uint8_t waitForThreadTerminaison( DispatchThread *dispatch )
 
 
 
-
+/*
 int8_t sendIPCMessage(DispatchThread *dispatch, const void *message )
 {
     const size_t msgSize = sizeof( Message_buf ) - sizeof(long);
@@ -258,3 +253,5 @@ int8_t sendIPCMessage(DispatchThread *dispatch, const void *message )
     return ret == 0? 1 : 0;
     
 }
+ 
+ */

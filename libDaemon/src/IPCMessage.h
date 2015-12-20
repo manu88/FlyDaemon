@@ -1,25 +1,24 @@
-//
-//  IPCMessage.h
-//  Dispatcher
-//
-//  Created by Manuel Deneu on 04/12/2015.
-//  Copyright © 2015 Manuel Deneu. All rights reserved.
-//
+/**
+ * \file IPCMessage.h
+ * \brief UAVTalk IPC definitions
+ * \author Manuel Deneu
+ * \version 0.1
+ * \date 04/12/2015
+ *
+ *  PRIVATE HEADER - global definitions for Internal & inter process communication
+ *  See https://github.com/TauLabs/TauLabs/wiki/Development-UAVTalk-Protocol
+ *
+ */
+
 
 #ifndef IPCMessage_h
 #define IPCMessage_h
 
-/*
-    PRIVATE HEADER
- */
+
 #include <string.h>
 #include "../include/UAVTalk.h"
 
-// this is PRIVATE !!
-#define IPC_KEY  (key_t) 1235
-
-
-#define MSGSZ     sizeof( struct UAV_Object)
+#define DATA_MSG_SIZE     sizeof( struct UAV_Object)
 
 typedef struct _msgbuf
 {
@@ -28,7 +27,7 @@ typedef struct _msgbuf
     
     struct data
     {
-        uint8_t buffer[MSGSZ];   
+        uint8_t buffer[DATA_MSG_SIZE];   
     }data;
 } Message_buf;
 

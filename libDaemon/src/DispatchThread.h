@@ -29,8 +29,8 @@ struct dispatchThread
     uint8_t shouldQuit;
     
     /* IPC Receive */
-    int r_msqid;
-    key_t r_key;
+//    int r_msqid;
+//    key_t r_key;
 
     /* Error codes*/
     int error_thread;
@@ -42,10 +42,11 @@ struct dispatchThread
 typedef struct dispatchThread DispatchThread;
 
 int initDispatchThread( DispatchThread *dispatch );
-
+/*
 int16_t connectToIPCWithKey( DispatchThread *dispatch , key_t key);
+int8_t sendIPCMessage(DispatchThread *dispatch, const void *message );
 uint8_t IPCIsConnected( DispatchThread *dispatch );
-
+*/
 void sendQuitSignal( DispatchThread *dispatch );
 
 void *startMainLoop (void * p_data);
@@ -53,7 +54,7 @@ void dispatch_MainLoop( void* dispatcher );
 
 uint8_t waitForThreadTerminaison( DispatchThread *dispatch );
 
-int8_t sendIPCMessage(DispatchThread *dispatch, const void *message );
+
 
 
 #endif /* DispatchThread_h */

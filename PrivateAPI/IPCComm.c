@@ -45,7 +45,7 @@ int8_t IPC_initialize( IPCCommunicationPort *port)
     
     
     port->_timer = -1;
-    port->_timeToWait = 10;
+    port->_timeToWait = 5;
     
     
     return setCommonSocketOption( port );
