@@ -39,8 +39,11 @@ enum IPC_Message_Types
     IPC_DataRequest           = 4,
     IPC_ProcessDidRegister    = 5,
     
-    IPC_PrivateRequest         = 100, /* Reserved */
-    IPC_PrivateRequestResponse = 101  /* Reserved */
+    /* Reserved */
+    IPC_PrivateRequest         = 100,
+    IPC_PrivateRequestResponse = 101,
+    IPC_PingRequest            = 102,
+    IPC_PingResponse           = 103
 };
 /*
 static inline void parseIPC( const Message_buf *message, UAVObject *obj)

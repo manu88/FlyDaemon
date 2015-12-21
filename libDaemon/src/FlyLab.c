@@ -166,7 +166,22 @@ void eventReceived( int reason, const void* msg, void* data)
 
         }
     }
-    else if( reason == PrivateInformationsUpdated )
+    else if( reason == IPC_PingRequest )
+    {
+
+        printf("received ping request \n");
+        Message_buf buff;
+        buff.mtype = IPC_PingResponse;
+        
+        /*
+        static int c = 0;
+         c++;
+        if( c < 3 || c > 6)*/
+        IPC_send( &instance->_thread._port, &buff, sizeof(Message_buf ));
+
+
+    }
+    else if( reason == IPC_PrivateRequestResponse )
     {
 
         const Message_buf *message = (const Message_buf*) msg;
@@ -181,7 +196,7 @@ void eventReceived( int reason, const void* msg, void* data)
         //
         
         if( params.notificationsCallBack )
-            params.notificationsCallBack( reason , data );
+            params.notificationsCallBack( InformationsAvailable , data );
     }
     else
     {

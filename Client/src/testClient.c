@@ -72,16 +72,19 @@ static void uavObjectReceived( const UAVObject *obj , void* userData )
     
     if( obj->type == Type_OBJ_ACK )
     {
-        printf("respondAcknowledge %i %li \n", obj->instanceID , count);
+        //printf("respondAcknowledge %i %li \n", obj->instanceID , count);
         respondAcknowledge( obj->instanceID );
     }
     //printUAVObject( obj);
 
     count++;
+
     if( (count % 50 ) == 0)
-        printf(" received count %li \n" , count);
+    {
+      //  printf(" received count %li \n" , count);
+    }
     
-    if( count > 500000 )
+    if( count > 10000 )
         disconnect();
 
 }

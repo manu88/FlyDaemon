@@ -29,13 +29,8 @@ const char SOCK_PATH[] = "/var/tmp/socket";
 
 int8_t setCommonSocketOption( IPCCommunicationPort *port );
 
-
-
-
-
 int8_t IPC_initialize( IPCCommunicationPort *port)
 {
-    
     port->_commSoc = -1;
     port->_serverSoc = -1;
     
@@ -192,14 +187,7 @@ int8_t setCommonSocketOption( IPCCommunicationPort *port)
     return IPC_noerror;
 }
 
-ssize_t IPC_send( IPCCommunicationPort *port, const void* buffer , size_t size)
-{
-    const ssize_t n = send(port->_commSoc, buffer, size, FLAG_NO_SIG_PIPE );
 
-    port->lastSendError = errno;
-    
-    return n;
-}
 
 int8_t IPC_selectRead(IPCCommunicationPort *port )
 {
@@ -230,6 +218,38 @@ ssize_t IPC_receive( IPCCommunicationPort *port , void * buffer, size_t size)
     const ssize_t n = recv( port->_commSoc, buffer, size, 0);
     
     port->lastReceiveError = errno;
+    return n;
+}
+
+
+int8_t IPC_selectWrite(IPCCommunicationPort *port )
+{
+    /* fd_set manages an array of sockets */
+    fd_set          writeSockets;
+    struct timeval  tval;
+    
+    FD_ZERO(&writeSockets);
+    FD_SET(port->_commSoc, &writeSockets);
+    
+    tval.tv_sec  = port->_timeToWait / 1000;
+    tval.tv_usec = (port->_timeToWait % 1000) * 1000;
+    
+    const int ret = select(port->_commSoc + 1,  NULL, &writeSockets , NULL, &tval);
+    
+    if( ret == 0)
+        return IPC_timeout;
+    
+    if (FD_ISSET(port->_commSoc , &writeSockets ) )
+        return IPC_noerror;
+    
+    return  IPC_select;
+}
+ssize_t IPC_send( IPCCommunicationPort *port, const void* buffer , size_t size)
+{
+    const ssize_t n = send(port->_commSoc, buffer, size, FLAG_NO_SIG_PIPE );
+    
+    port->lastSendError = errno;
+    
     return n;
 }
 

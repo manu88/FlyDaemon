@@ -12,7 +12,6 @@
 #include <stdio.h>
 #include <errno.h>
 #include <string.h>
-
 #include <sys/socket.h>
 
 #include "Dispatch.h"
@@ -105,8 +104,9 @@ void dispatch_MainLoop( void* dispatcher )
     sbuf.pid = pid;
     
     
-    if( IPC_send(&dispatch->_thread._port, &sbuf, sizeof(Message_buf))<=0)// sendIPCMessage( &dispatch->_thread, &sbuf ) == 0)
+    if( IPC_send(&dispatch->_thread._port, &sbuf, sizeof(Message_buf))<=0)
     {
+        printf("Error send IPC_ProcessRegistration \n");
     }
     
     /* Wait for reply ... */
@@ -158,9 +158,12 @@ void dispatch_MainLoop( void* dispatcher )
         sbuf.mtype = IPC_PrivateRequest;
         IPC_send( &dispatch->_thread._port , &sbuf, sizeof(Message_buf ));
         
-        
+
         while ( dispatch->_thread.shouldQuit == 0 )
         {
+
+
+
             const int8_t ret = IPC_selectRead( &dispatch->_thread._port);
             if(  ret == IPC_noerror )
             {
@@ -177,13 +180,14 @@ void dispatch_MainLoop( void* dispatcher )
                             //GD_lockDispatch( dispatch );
                         }
 
-                        else if(rbuf.mtype == IPC_PrivateRequestResponse )
+                        else if(rbuf.mtype >= IPC_PrivateRequest )
                         {
                             //GD_unlockDispatch( dispatch );
-                            dispatch->_callBack1( PrivateInformationsUpdated ,&rbuf, dispatch->_callBackUserData1 );
+                            dispatch->_callBack1( (int) rbuf.mtype ,&rbuf, dispatch->_callBackUserData1 );
                             //GD_lockDispatch( dispatch );
                             
                         }
+
                     }
 
 

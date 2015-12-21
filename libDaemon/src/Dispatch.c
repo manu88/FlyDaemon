@@ -153,16 +153,18 @@ void GD_setUserTaskCallBack(GrandDispatcher* dispatch, event_userTask function ,
 
 int8_t GD_sendMessage(GrandDispatcher* dispatch, void* message , size_t size )
 {
-    Message_buf msg;
-    
-    msg.mtype = IPC_DataRequest;
-    msg.pid = getpid();
-
-    memcpy(msg.data.buffer , message , size );
-    
-//    GD_lockDispatch( dispatch );
     if( GD_tryLockDispatch(dispatch) == 0)
     {
+        
+        Message_buf msg;
+    
+        msg.mtype = IPC_DataRequest;
+        msg.pid = getpid();
+
+        memcpy(msg.data.buffer , message , size );
+    
+//    GD_lockDispatch( dispatch );
+
         const int8_t ret = IPC_send( &dispatch->_thread._port,&msg, size) > 0? 1 : 0;
 //        const int8_t ret = sendIPCMessage( &dispatch->_thread, &msg );
         GD_unlockDispatch( dispatch );

@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <assert.h>
+#include <time.h>
 
 #include "../../PrivateAPI/IPCComm.h"
 #include "../../libDaemon/src/IPCMessage.h"
@@ -15,15 +16,21 @@
 
 const uint8_t plateformType = Plateform_Simulator;
 
-const char    plateformName[NAME_MAX_SIZE] = "My drone";
-const char    constructor[NAME_MAX_SIZE] = "FlyLab inc.";
+const char    plateformName[] = "My drone";
+const char    constructor[] = "FlyLab inc.";
 
 const uint8_t minVer = 01;
 const uint8_t majVer = 10;
+
+const uint8_t maxPendingPing = 5;
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 static volatile int keepRunning = 1;
 static volatile int done = 0;
+
+uint8_t pingCount = 0;
+
+
 IPCCommunicationPort port;
 
 void initList( void );
@@ -132,7 +139,7 @@ void receive(void*data, ssize_t size)
         
         
 
-
+        if( IPC_selectWrite(  &port ) == IPC_noerror)
         if ( IPC_send(&port, &out, sizeof(Message_buf)) < 0)
         {
             perror("send");
@@ -163,11 +170,17 @@ void receive(void*data, ssize_t size)
         outBuffer.data.buffer[ offsetof(RuntimeInformations, versionMin )] = minVer;
         outBuffer.data.buffer[ offsetof(RuntimeInformations, versionMaj )] = majVer;
         
+        if( IPC_selectWrite(  &port ) == IPC_noerror)
         if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)
         {
             perror("send");
         }
         
+    }
+    else if( in->mtype == IPC_PingResponse )
+    {
+        printf("Received PING Response \n");
+        pingCount = 0;
     }
     else if( in->mtype == IPC_DataRequest )
     {
@@ -178,8 +191,9 @@ void receive(void*data, ssize_t size)
         if( findPid( in->pid) != -1)
         {
             if( inObj->type == Type_ACK)
-                printf("Received acknowledge for %i \n" , inObj->instanceID );
-            
+            {
+//                printf("Received acknowledge for %i \n" , inObj->instanceID );
+            }
 
             
 
@@ -196,8 +210,9 @@ void receive(void*data, ssize_t size)
                 strcpy((char*)outObject.data, "response");
                 memcpy(outBuffer.data.buffer , &outObject , sizeof(UAVObject) );
                 
-                printf("Received Object request for %i \n" , inObj->objectID );
+                //printf("Received Object request for %i \n" , inObj->objectID );
                 
+                if( IPC_selectWrite(  &port ) == IPC_noerror)
                 if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)
                 {
                     perror("send");
@@ -247,9 +262,43 @@ int main(void)
             printf("Error IPC_waitForClient \n");
 
         ssize_t n = 0;
-
+        
+        
+        clock_t last = clock();
+        
+        pingCount = 0;
+        
         do
         {
+            
+//            time = clock();
+            
+            const unsigned long diffMS = (clock() -last )* 1000 / CLOCKS_PER_SEC;
+
+            
+            if( diffMS > 30   )
+            {
+                last = clock();
+                printf("Timer FIre count %i \n" , pingCount);
+                outBuffer.mtype = IPC_PingRequest;
+                
+                if( IPC_selectWrite(  &port ) == IPC_noerror)
+                if( IPC_send( &port , &outBuffer, sizeof(Message_buf))<=0)
+                {
+                    printf("Error send IPC_ProcessRegistration \n");
+                }
+                
+                pingCount++;
+                
+                if( pingCount >= maxPendingPing)
+                {
+                    printf("Client not responding \n");
+                    break;
+                }
+            }
+
+            
+            
             const int8_t retSelect = IPC_selectRead( &port);
             if( retSelect == IPC_noerror )
             {
@@ -288,6 +337,7 @@ int main(void)
                 outObject.instanceID = 42;
                 memcpy(outBuffer.data.buffer , &outObject , sizeof(UAVObject) );
 
+                if( IPC_selectWrite(  &port ) == IPC_noerror)
                 if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)
                 {
                     perror("send");
