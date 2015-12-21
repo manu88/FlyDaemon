@@ -179,13 +179,10 @@ void receive(void*data, ssize_t size)
     }
     else if( in->mtype == IPC_PingResponse )
     {
-        printf("Received PING Response \n");
         pingCount = 0;
     }
     else if( in->mtype == IPC_DataRequest )
     {
-//        printf("Received IPC_DataRequest from %i\n", in->pid);
-        
         const UAVObject* inObj = (const UAVObject*) in->data.buffer;
         
         if( findPid( in->pid) != -1)
@@ -200,17 +197,25 @@ void receive(void*data, ssize_t size)
             
             if( inObj->type == Type_OBJ_REQ)
             {
+                static uint32_t id = 0;
                 Message_buf outBuffer;
                 UAVObject outObject;
-                dumbUAVObject( &outObject );
+
                 outBuffer.mtype = IPC_DataSend;
                 dumbUAVObject(&outObject);
                 outObject.type = Type_OBJ_ACK;
                 
+                if( inObj->objectID != id)
+                {
+                    printf("objectID mismatch %i %i \n", inObj->objectID , id);
+                    
+                    id = inObj->objectID;
+                }
+                id++;
                 strcpy((char*)outObject.data, "response");
                 memcpy(outBuffer.data.buffer , &outObject , sizeof(UAVObject) );
                 
-                //printf("Received Object request for %i \n" , inObj->objectID );
+//                printf("Received Object request for %i \n" , inObj->objectID );
                 
                 if( IPC_selectWrite(  &port ) == IPC_noerror)
                 if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)
@@ -279,7 +284,7 @@ int main(void)
             if( diffMS > 30   )
             {
                 last = clock();
-                printf("Timer FIre count %i \n" , pingCount);
+
                 outBuffer.mtype = IPC_PingRequest;
                 
                 if( IPC_selectWrite(  &port ) == IPC_noerror)

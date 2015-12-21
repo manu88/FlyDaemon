@@ -175,17 +175,12 @@ void dispatch_MainLoop( void* dispatcher )
 
                         if( rbuf.mtype == IPC_DataSend )
                         {
-                            //GD_unlockDispatch( dispatch );
                             dispatch->_callBack1( DidReceiveData ,&rbuf, dispatch->_callBackUserData1 );
-                            //GD_lockDispatch( dispatch );
                         }
 
                         else if(rbuf.mtype >= IPC_PrivateRequest )
                         {
-                            //GD_unlockDispatch( dispatch );
                             dispatch->_callBack1( (int) rbuf.mtype ,&rbuf, dispatch->_callBackUserData1 );
-                            //GD_lockDispatch( dispatch );
-                            
                         }
 
                     }
@@ -194,9 +189,9 @@ void dispatch_MainLoop( void* dispatcher )
                 }
                 else
                 {
-                    printf("No read bro! \n");
+                    printf("No read error, quit! \n");
                     GD_stop( dispatch );
-                    //assert( 0 );
+
                 }
             }
             else if( ret == IPC_timeout)// other tasks

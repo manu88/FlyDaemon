@@ -110,7 +110,7 @@ int main (void)
         while ( isConnected() )
         {
             sendObjectRequest( objectID++ );
-            usleep( 100 );
+            usleep( 1000 );
         }
         printf("thread ended\n");
     }
