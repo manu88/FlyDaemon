@@ -176,12 +176,14 @@ int8_t IPC_waitForClient(IPCCommunicationPort *port , struct timeval * timout)
 
 int8_t setCommonSocketOption( IPCCommunicationPort *port)
 {
+#if defined(__APPLE__) && defined(__MACH__)
     int on = 1;
     if (setsockopt( port->_commSoc, SOL_SOCKET, FLAG_NO_SIG_PIPE, &on, sizeof(on)) == -1)
     {
         perror("setsockopt");
         return IPC_otherError;
     }
+#endif
     /*
     int flags = fcntl( port->_commSoc ,F_GETFL,0);
     fcntl( port->_commSoc , F_SETFL, flags | O_NONBLOCK);

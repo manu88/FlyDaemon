@@ -5,11 +5,13 @@ MINOR=3
 REVISON=0
 LIB_NAME = FlyLab
 LIBDIR=/usr/lib
-BASENAME=lib$(LIB_NAME).so
-EXECUTABLE=$(BASENAME).$(MAJOR).$(MINOR).$(REVISON)
+BASENAME=lib$(LIB_NAME).a
+EXECUTABLE=$(BASENAME)
+
+#.$(MAJOR).$(MINOR).$(REVISON)
 
 CFLAGS=-O0 -g -fPIC -c -Wall -I$(shell pwd) -std=gnu99 -pedantic -D_XOPEN_SOURCE=700 -D _BSD_SOURCE
-LDFLAGS=-shared -ldl -Wl,-soname,$(EXECUTABLE)
+LDFLAGS=-static -ldl -Wl,-soname,$(EXECUTABLE) -lpthread
 
 SOURCES=$(shell echo src/*.c)
 
@@ -20,7 +22,8 @@ OBJECTS=$(SOURCES:.c=.o)
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS) 
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+	ar rcs $(EXECUTABLE) $(OBJECTS) 
+	#$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
 .c.o:
 	$(CC) $(CFLAGS) $< -o $@
