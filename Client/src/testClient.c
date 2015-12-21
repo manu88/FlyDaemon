@@ -6,7 +6,7 @@
 #include "../../libDaemon/include/FlyLabAPI.h"
 
 
-#define UNUSED_PARAMETER(x) (void)(x)
+
 
 
 void printInformations( void );
@@ -105,7 +105,7 @@ int main (int argc, char *argv[])
     clock_t begin, end;
     double time_spent;
     
-    unsigned int usDT = 1;
+    unsigned int usDT = 100;
     int nbIter = 10000;
     
     if( argc >= 3)

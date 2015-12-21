@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['flylabparameters',['FlyLabParameters',['../struct_fly_lab_parameters.html',1,'']]]
+  ['granddispatcher',['GrandDispatcher',['../struct_grand_dispatcher.html',1,'']]]
 ];

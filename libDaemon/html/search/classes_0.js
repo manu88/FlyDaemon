@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_5fmsgbuf',['_msgbuf',['../struct__msgbuf.html',1,'']]]
+  ['data',['data',['../struct_message__buf_1_1data.html',1,'Message_buf']]],
+  ['dispatchthread',['dispatchThread',['../structdispatch_thread.html',1,'']]]
 ];

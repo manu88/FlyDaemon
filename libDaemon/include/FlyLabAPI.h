@@ -18,11 +18,10 @@
 extern "C" {
 #endif
 
+#include "Commons.h"
 #include "UAVTalk.h"
     
-#ifndef ALWAYS_INLINE 
-#define ALWAYS_INLINE __attribute__((always_inline))
-#endif
+
     
 /**
  * A list of notifications types passed to notificationsCallBack
@@ -118,7 +117,7 @@ This is just initialization, you still need to start the communication at some p
  
  \return 1 on sucess, 0 if failed.
  */
-uint8_t initializeConnection( const FlyLabParameters *parameters );
+BOOLEAN_RETURN uint8_t initializeConnection( const FlyLabParameters *parameters );
 
     
 //! \brief Clean a FlyLab communication
@@ -140,7 +139,7 @@ ALWAYS_INLINE const char* API_getVersion(void);
  
  \return 1 if true, 0 if not
  */
-ALWAYS_INLINE uint8_t informationsAvailable(void);
+BOOLEAN_RETURN ALWAYS_INLINE uint8_t informationsAvailable(void);
     
 //! \brief get runtime informations
 /*!
@@ -155,14 +154,14 @@ const RuntimeInformations *getRuntimeInformations( void );
 
  \return 1 on sucess, 0 if failed.
  */
-ALWAYS_INLINE uint8_t disconnect( void );
+BOOLEAN_RETURN ALWAYS_INLINE uint8_t disconnect( void );
 
 //! \brief Run the dispatcher from main thread.
 /*!
  This call will block until disconnect is issued
  \return 1 on sucess, 0 if failed.
  */
-uint8_t runFromThisThread( void );
+BOOLEAN_RETURN uint8_t runFromThisThread( void );
     
 //! \brief Run the dispatcher from a new thread.
 /*!
@@ -170,7 +169,7 @@ uint8_t runFromThisThread( void );
  
  \return 1 on sucess, 0 if failed.
  */
-uint8_t runFromNewThread(void);
+BOOLEAN_RETURN uint8_t runFromNewThread(void);
 
 //! \brief Check for communication state
 /*!
@@ -198,9 +197,9 @@ uint8_t runFromNewThread(void);
  
  \return 1 if connected, 0 if not.
  */
-ALWAYS_INLINE uint8_t isConnected( void );
+BOOLEAN_RETURN ALWAYS_INLINE uint8_t isConnected( void );
 
-ALWAYS_INLINE int8_t sendObject(const UAVObject * obj);
+BOOLEAN_RETURN ALWAYS_INLINE int8_t sendObject(const UAVObject * obj);
     
 //! \brief Send a UAVObject Request
 /*!
@@ -208,7 +207,7 @@ ALWAYS_INLINE int8_t sendObject(const UAVObject * obj);
  
  \return 1 on sucess, 0 if send failed.
  */
-int8_t sendObjectRequest( uint32_t objectID);
+BOOLEAN_RETURN int8_t sendObjectRequest( uint32_t objectID);
 
     
 //! \brief Send a UAVObject 'acknowledge response'

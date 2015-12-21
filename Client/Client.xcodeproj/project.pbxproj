@@ -46,6 +46,7 @@
 		59EA208D1C28153700E23F75 /* testClient.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = testClient.c; path = src/testClient.c; sourceTree = SOURCE_ROOT; };
 		59F4DBCA1BF61B3D001D8230 /* libFlyLab.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libFlyLab.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		59F4DBD51BF61B52001D8230 /* TestDispatch */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestDispatch; sourceTree = BUILT_PRODUCTS_DIR; };
+		59F4E7D41C28B5700079D873 /* Commons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Commons.h; path = include/Commons.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				5983D3C91C255F2B001F9C4C /* FlyLabAPI.h */,
+				59F4E7D41C28B5700079D873 /* Commons.h */,
 				5983D3CA1C255F2B001F9C4C /* UAVTalk.h */,
 				593900411C26BA1300E8A68C /* src */,
 			);

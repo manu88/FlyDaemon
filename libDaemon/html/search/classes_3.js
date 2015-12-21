@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['granddispatcher',['GrandDispatcher',['../struct_grand_dispatcher.html',1,'']]]
+  ['message_5fbuf',['Message_buf',['../struct_message__buf.html',1,'']]]
 ];

@@ -41,6 +41,8 @@ struct dispatchThread
 typedef struct dispatchThread DispatchThread;
 
 int initDispatchThread( DispatchThread *dispatch );
+void releaseDispatchThread(  DispatchThread *dispatch );
+
 
 void sendQuitSignal( DispatchThread *dispatch );
 

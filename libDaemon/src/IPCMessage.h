@@ -18,7 +18,7 @@
 
 #define DATA_MSG_SIZE     sizeof( struct UAV_Object)
 
-typedef struct _msgbuf
+typedef struct
 {
     long    mtype;
     pid_t   pid;

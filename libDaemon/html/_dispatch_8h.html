@@ -97,7 +97,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>Internal dispatcher.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="_dispatch_thread_8h_source.html">DispatchThread.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_commons_8h_source.html">../include/Commons.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_dispatch_thread_8h_source.html">DispatchThread.h</a>&quot;</code><br />
 </div>
 <p><a href="_dispatch_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -108,6 +109,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:a5998ad8545a71fcfe7bace13c2dc169b"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a5998ad8545a71fcfe7bace13c2dc169b">event_cb_t</a>) (int reason, const void *msg, void *userdata)</td></tr>
+<tr class="separator:a5998ad8545a71fcfe7bace13c2dc169b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a092b07e3da7a4a2c5b5c42f62f22c269"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a092b07e3da7a4a2c5b5c42f62f22c269">event_userTask</a>) (void *userdata)</td></tr>
+<tr class="separator:a092b07e3da7a4a2c5b5c42f62f22c269"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -127,6 +132,33 @@ Functions</h2></td></tr>
 <tr class="memitem:a9922ccab85fa98234a57adf2bfde4521"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a9922ccab85fa98234a57adf2bfde4521">GD_init</a> (void)</td></tr>
 <tr class="memdesc:a9922ccab85fa98234a57adf2bfde4521"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a <a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> instance.  <a href="#a9922ccab85fa98234a57adf2bfde4521">More...</a><br /></td></tr>
 <tr class="separator:a9922ccab85fa98234a57adf2bfde4521"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52168f8151218378eea26472686123fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a52168f8151218378eea26472686123fb">GD_release</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
+<tr class="memdesc:a52168f8151218378eea26472686123fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release a <a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> instance.  <a href="#a52168f8151218378eea26472686123fb">More...</a><br /></td></tr>
+<tr class="separator:a52168f8151218378eea26472686123fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a740d5bf5b08475527f21138cc6c0da07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a740d5bf5b08475527f21138cc6c0da07">GD_runFromThread</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
+<tr class="memdesc:a740d5bf5b08475527f21138cc6c0da07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the dispatcher on a dedicated thread.  <a href="#a740d5bf5b08475527f21138cc6c0da07">More...</a><br /></td></tr>
+<tr class="separator:a740d5bf5b08475527f21138cc6c0da07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68946117ef454705456782d0a26715de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a68946117ef454705456782d0a26715de">GD_runFromLoop</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
+<tr class="memdesc:a68946117ef454705456782d0a26715de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the dispatcher on the current thread.  <a href="#a68946117ef454705456782d0a26715de">More...</a><br /></td></tr>
+<tr class="separator:a68946117ef454705456782d0a26715de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1470d099b4ee9bfa4cf14c7cdefa82f5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a1470d099b4ee9bfa4cf14c7cdefa82f5">GD_waitForCreation</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
+<tr class="memdesc:a1470d099b4ee9bfa4cf14c7cdefa82f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until the dispatch loop is fully running.  <a href="#a1470d099b4ee9bfa4cf14c7cdefa82f5">More...</a><br /></td></tr>
+<tr class="separator:a1470d099b4ee9bfa4cf14c7cdefa82f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a76a36c0383dcbf38db49184cae5c2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a5a76a36c0383dcbf38db49184cae5c2f">GD_stop</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
+<tr class="memdesc:a5a76a36c0383dcbf38db49184cae5c2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send an asynchronous signal to stop the dispatcher.  <a href="#a5a76a36c0383dcbf38db49184cae5c2f">More...</a><br /></td></tr>
+<tr class="separator:a5a76a36c0383dcbf38db49184cae5c2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7619e66b9cb8abeb3f925c95a65a3c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#aa7619e66b9cb8abeb3f925c95a65a3c2">GD_setUserTaskCallBack</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch, <a class="el" href="_dispatch_8h.html#a092b07e3da7a4a2c5b5c42f62f22c269">event_userTask</a> function, void *userData)</td></tr>
+<tr class="memdesc:aa7619e66b9cb8abeb3f925c95a65a3c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the user task callback.  <a href="#aa7619e66b9cb8abeb3f925c95a65a3c2">More...</a><br /></td></tr>
+<tr class="separator:aa7619e66b9cb8abeb3f925c95a65a3c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ad729ecd4db4be214e6de8c04704bf5"><td class="memItemLeft" align="right" valign="top">ALWAYS_INLINE int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a6ad729ecd4db4be214e6de8c04704bf5">GD_tryLockDispatch</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
+<tr class="memdesc:a6ad729ecd4db4be214e6de8c04704bf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to lock GrandDispatch's mutex.  <a href="#a6ad729ecd4db4be214e6de8c04704bf5">More...</a><br /></td></tr>
+<tr class="separator:a6ad729ecd4db4be214e6de8c04704bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96c5d5279cff699a4a036200cbfa720a"><td class="memItemLeft" align="right" valign="top">ALWAYS_INLINE int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a96c5d5279cff699a4a036200cbfa720a">GD_lockDispatch</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
+<tr class="memdesc:a96c5d5279cff699a4a036200cbfa720a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lock GrandDispatch's mutex.  <a href="#a96c5d5279cff699a4a036200cbfa720a">More...</a><br /></td></tr>
+<tr class="separator:a96c5d5279cff699a4a036200cbfa720a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac76813951559e8eb441e1d3e52b3b209"><td class="memItemLeft" align="right" valign="top">ALWAYS_INLINE int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#ac76813951559e8eb441e1d3e52b3b209">GD_unlockDispatch</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
+<tr class="memdesc:ac76813951559e8eb441e1d3e52b3b209"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlock GrandDispatch's mutex.  <a href="#ac76813951559e8eb441e1d3e52b3b209">More...</a><br /></td></tr>
+<tr class="separator:ac76813951559e8eb441e1d3e52b3b209"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Internal dispatcher. </p>
@@ -134,7 +166,34 @@ Functions</h2></td></tr>
 <dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>04/12/2015</dd></dl>
 <p>PRIVATE HEADER </p>
-</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a class="anchor" id="a5998ad8545a71fcfe7bace13c2dc169b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* event_cb_t) (int reason, const void *msg, void *userdata)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Callback signature for dispatch notifications </p>
+
+</div>
+</div>
+<a class="anchor" id="a092b07e3da7a4a2c5b5c42f62f22c269"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* event_userTask) (void *userdata)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Callback signature for user task </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
 <a class="anchor" id="a3006cd40652ccece1889272aa491dbe1"></a>
 <div class="memitem">
 <div class="memproto">
@@ -183,6 +242,253 @@ Functions</h2></td></tr>
 <p>Initialize a <a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> instance. </p>
 <p>This is just initialization, you still need to start the dispatcher at some point.</p>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the instance. You own this instance! </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_dispatch_8h.html#a52168f8151218378eea26472686123fb" title="Release a GrandDispatcher instance. ">GD_release</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a96c5d5279cff699a4a036200cbfa720a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ALWAYS_INLINE int GD_lockDispatch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *&#160;</td>
+          <td class="paramname"><em>dispatch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lock GrandDispatch's mutex. </p>
+<dl class="section see"><dt>See also</dt><dd>pthread_mutex_lock man page for error codes </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">dispatch</td><td>A pointer to the instance you want to run </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on sucess, an error code on fail </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a52168f8151218378eea26472686123fb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GD_release </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *&#160;</td>
+          <td class="paramname"><em>dispatch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Release a <a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">dispatch</td><td>A pointer to the instance you want to release. It will be NULLed. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a68946117ef454705456782d0a26715de"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t GD_runFromLoop </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *&#160;</td>
+          <td class="paramname"><em>dispatch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start the dispatcher on the current thread. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">dispatch</td><td>A pointer to the instance you want to run </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 on fail </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a740d5bf5b08475527f21138cc6c0da07"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t GD_runFromThread </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *&#160;</td>
+          <td class="paramname"><em>dispatch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start the dispatcher on a dedicated thread. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">dispatch</td><td>A pointer to the instance you want to run </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 on fail </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa7619e66b9cb8abeb3f925c95a65a3c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GD_setUserTaskCallBack </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *&#160;</td>
+          <td class="paramname"><em>dispatch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_dispatch_8h.html#a092b07e3da7a4a2c5b5c42f62f22c269">event_userTask</a>&#160;</td>
+          <td class="paramname"><em>function</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>userData</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the user task callback. </p>
+<p>In case you're using 'GD_runFromLoop', you can define an user function to be called regularly.</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> userTask( <span class="keywordtype">void</span>* data )</div><div class="line">{</div><div class="line">   <a class="code" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch = ( <a class="code" href="struct_grand_dispatcher.html">GrandDispatcher</a>*)data;</div><div class="line">   <span class="comment">// .. do quick stuff</span></div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main (<span class="keywordtype">void</span>)</div><div class="line">{</div><div class="line">   <a class="code" href="struct_grand_dispatcher.html">GrandDispatcher</a>* dispatch = <a class="code" href="_dispatch_8h.html#a9922ccab85fa98234a57adf2bfde4521">GD_init</a>();</div><div class="line"></div><div class="line">   <a class="code" href="_dispatch_8h.html#aa7619e66b9cb8abeb3f925c95a65a3c2">GD_setUserTaskCallBack</a>( dispatch , userTask, dispatch );</div><div class="line">   <a class="code" href="_dispatch_8h.html#a68946117ef454705456782d0a26715de">GD_runFromLoop</a>( dispatch ); <span class="comment">// main thread is blocked here</span></div><div class="line">}</div></div><!-- fragment --><p>Note : the userCallback will not be called if 'GD_runFromThread' is used instead.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">dispatch</td><td>A pointer to the instance you want to run </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">function</td><td>the function to be called </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">userData</td><td>the user pointer to be passed with the call </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5a76a36c0383dcbf38db49184cae5c2f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t GD_stop </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *&#160;</td>
+          <td class="paramname"><em>dispatch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send an asynchronous signal to stop the dispatcher. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">dispatch</td><td>A pointer to the instance you want to run </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 on fail </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a6ad729ecd4db4be214e6de8c04704bf5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ALWAYS_INLINE int GD_tryLockDispatch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *&#160;</td>
+          <td class="paramname"><em>dispatch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Try to lock GrandDispatch's mutex. </p>
+<dl class="section see"><dt>See also</dt><dd>pthread_mutex_trylock man page for error codes </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">dispatch</td><td>A pointer to the instance you want to run </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on sucess, an error code on fail </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac76813951559e8eb441e1d3e52b3b209"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ALWAYS_INLINE int GD_unlockDispatch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *&#160;</td>
+          <td class="paramname"><em>dispatch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unlock GrandDispatch's mutex. </p>
+<dl class="section see"><dt>See also</dt><dd>pthread_mutex_unlock man page for error codes </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">dispatch</td><td>A pointer to the instance you want to run </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 on sucess, an error code on fail </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1470d099b4ee9bfa4cf14c7cdefa82f5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t GD_waitForCreation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *&#160;</td>
+          <td class="paramname"><em>dispatch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Wait until the dispatch loop is fully running. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">dispatch</td><td>A pointer to the instance you want to run </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 on fail </dd></dl>
 
 </div>
 </div>

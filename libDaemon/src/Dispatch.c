@@ -45,6 +45,9 @@ GrandDispatcher* GD_init()
 
 void GD_release( GrandDispatcher* dispatch)
 {
+    
+    releaseDispatchThread( &dispatch->_thread );
+    
     free( dispatch );
     
     dispatch = NULL;
@@ -162,11 +165,8 @@ int8_t GD_sendMessage(GrandDispatcher* dispatch, void* message , size_t size )
         msg.pid = getpid();
 
         memcpy(msg.data.buffer , message , size );
-    
-//    GD_lockDispatch( dispatch );
 
         const int8_t ret = IPC_send( &dispatch->_thread._port,&msg, size) > 0? 1 : 0;
-//        const int8_t ret = sendIPCMessage( &dispatch->_thread, &msg );
         GD_unlockDispatch( dispatch );
         
         return ret;
@@ -183,18 +183,12 @@ int GD_tryLockDispatch( GrandDispatcher* dispatch)
 }
 int GD_lockDispatch( GrandDispatcher* dispatch)
 {
-    if( dispatch->threadedLoop == 1)
-        return pthread_mutex_lock( &dispatch->_thread.mutex );
-    
-    return 1;
+    return pthread_mutex_lock( &dispatch->_thread.mutex );
 }
 
 int GD_unlockDispatch( GrandDispatcher* dispatch)
 {
-    if( dispatch->threadedLoop == 1)
-        return pthread_mutex_unlock( &dispatch->_thread.mutex );
-    
-    return 1;
+    return pthread_mutex_unlock( &dispatch->_thread.mutex );
 }
 
 

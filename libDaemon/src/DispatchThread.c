@@ -45,6 +45,17 @@ int initDispatchThread( DispatchThread *dispatch )
     return 1;
 }
 
+void releaseDispatchThread(  DispatchThread *dispatch )
+{
+    if( dispatch == NULL)
+        return;
+    
+    pthread_mutex_destroy( &dispatch->mutex );
+    
+    IPC_closeClient( &dispatch->_port );
+
+}
+
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 /*
 int16_t connectToIPCWithKey( DispatchThread *dispatch , key_t key)
@@ -137,11 +148,7 @@ void dispatch_MainLoop( void* dispatcher )
     
     if( didReply == 0)
     {
-        printf(" TimeOut : Server did not reply .. \n");
-        //GD_unlockDispatch( dispatch );
         dispatch->_callBack1( ConnectionError ,NULL,  dispatch->_callBackUserData1 );
-        //GD_lockDispatch( dispatch );
-
     }
     else // we're good!
     {
@@ -149,9 +156,7 @@ void dispatch_MainLoop( void* dispatcher )
 
         dispatch->state = 2;
         
-        //GD_unlockDispatch( dispatch );
         dispatch->_callBack1( DidRegisterToDispatcher ,NULL, dispatch->_callBackUserData1 );
-        //GD_lockDispatch( dispatch );
         
         /* Send an internal info request */
         
@@ -161,8 +166,6 @@ void dispatch_MainLoop( void* dispatcher )
 
         while ( dispatch->_thread.shouldQuit == 0 )
         {
-
-
 
             const int8_t ret = IPC_selectRead( &dispatch->_thread._port);
             if(  ret == IPC_noerror )
@@ -191,39 +194,28 @@ void dispatch_MainLoop( void* dispatcher )
                 {
                     
                     printf("Read error, quit! %i \n" , dispatch->_thread._port.lastReceiveError);
-
                     GD_stop( dispatch );
 
                 }
             }
-            else if( ret == IPC_timeout)// other tasks
+            else if( ret == IPC_timeout)
             {
-                //GD_unlockDispatch( dispatch );
                 if( dispatch->threadedLoop == 0)
                 {
                     if( dispatch->_userTaskCallBack != NULL)
                         dispatch->_userTaskCallBack(dispatch->_userTaskData );
                 }
-                /*
-                else
-                    usleep(100);
-                 */
-                //GD_lockDispatch( dispatch );
             }
             
         } // end of while
         
-        //GD_unlockDispatch( dispatch );
         dispatch->_callBack1( WillTerminateConnection , NULL , dispatch->_callBackUserData1 );
-        //GD_lockDispatch( dispatch );
-        
-        
+    
         sbuf.pid = pid;
         
         sbuf.mtype = IPC_ProcessDeregistration;
-        if( IPC_send(&dispatch->_thread._port, &sbuf, sizeof(Message_buf)) <= 0)// sendIPCMessage( &dispatch->_thread, &sbuf) == 0)// msgsnd(dispatch->_thread.r_msqid, &sbuf, msgSize, 0) == 0)
+        if( IPC_send(&dispatch->_thread._port, &sbuf, sizeof(Message_buf)) <= 0)
         {
-            
         }
     }
     
@@ -244,20 +236,3 @@ uint8_t waitForThreadTerminaison( DispatchThread *dispatch )
 
 
 
-/*
-int8_t sendIPCMessage(DispatchThread *dispatch, const void *message )
-{
-    const size_t msgSize = sizeof( Message_buf ) - sizeof(long);
-
-    const ssize_t ret =msgsnd(dispatch->r_msqid, message, msgSize, 0);
-    if (ret == -1)
-    {
-        const int err = errno;
-        printf("Erno msgsnd %i - %s\n " , err , strerror( err ));
-    }
-    
-    return ret == 0? 1 : 0;
-    
-}
- 
- */
