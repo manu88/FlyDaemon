@@ -4,12 +4,15 @@
 #include "../../libDaemon/include/FlyLabAPI.h"
 
 
-uint8_t connected = 0;
+#define UNUSED_PARAMETER(x) (void)(x)
+
+
+void printInformations( void );
+void printUAVObject( const UAVObject *obj );
 
 
 void printUAVObject( const UAVObject *obj )
 {
-
     printf("***************\n");
     printf("sync %i \n" , obj->sync );
     printf("type %i \n" , obj->type );
@@ -23,31 +26,27 @@ void printUAVObject( const UAVObject *obj )
 
 static void onNotification(int errorNum, void *userData)
 {
-
+    UNUSED_PARAMETER(userData);
+    
     if( errorNum == Connection_Error )
     {
         printf("ConnectionError \n");
-        connected = 0;
+
     }
     else if( errorNum == Connection_WillEnd )
     {
         printf("WillTerminateConnection \n");
-        connected = 0;
+
     }
     else if( errorNum == Connection_OK )
     {
         printf("IsConnected \n");
         
-        connected = 1;
+
     }
     else if( errorNum == InformationsAvailable )
     {
-        const RuntimeInformations *infos = getRuntimeInformations();
-        
-        printf("Infos Plateform ver %i.%i : %s \n" , infos->versionMin , infos->versionMaj, infos->plateform == Plateform_Drone?"Drone" : "Simulator");
-        printf("           Name : %s \n" , infos->name );
-        printf("    constructor : %s \n" , infos->constructor );
-
+        printInformations();
     }
     else
     {
@@ -55,8 +54,19 @@ static void onNotification(int errorNum, void *userData)
     }
 }
 
-static const UAVObject * uavObjectReceived( const UAVObject *obj , void* userData )
+void printInformations()
 {
+    const RuntimeInformations *infos = getRuntimeInformations();
+    
+    printf("Infos Plateform ver %i.%i : %s \n" , infos->versionMin , infos->versionMaj, infos->plateform == Plateform_Drone?"Drone" : "Simulator");
+    printf("           Name : %s \n" , infos->name );
+    printf("    constructor : %s \n" , infos->constructor );
+}
+
+static void uavObjectReceived( const UAVObject *obj , void* userData )
+{
+    UNUSED_PARAMETER(userData);
+    
     static long count = 0;
     
     
@@ -71,10 +81,9 @@ static const UAVObject * uavObjectReceived( const UAVObject *obj , void* userDat
     if( (count % 50 ) == 0)
         printf(" received count %li \n" , count);
     
-    if( count > 1000000 )
+    if( count > 500000 )
         disconnect();
 
-    return NULL;
 }
 
 int main (void)
@@ -90,10 +99,15 @@ int main (void)
     uint32_t objectID = 0;
     if( runFromNewThread() == 1)
     {
+        while ( isConnected() != 1)
+        {
+            usleep( 1000 );
+            printf("Wait for connection ... \n");
+        }
         while ( isConnected() )
         {
             sendObjectRequest( objectID++ );
-            usleep( 10000 );
+            usleep( 100 );
         }
         printf("thread ended\n");
     }

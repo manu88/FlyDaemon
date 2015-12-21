@@ -1,52 +1,44 @@
-# source files.
-SRC =  	src/Dispatch.c \
-		src/DispatchThread.c \
+CC= cc
 
- 
-OBJ = $(SRC:.c=.o)
- 
-OUT = libFlyLab.a
- 
-# include directories
-INCLUDES = -I. -I./include/  	-I/usr/local/include
- 
-# C++ compiler flags (-g -O2 -Wall)
-CFLAGS = -g -Wall -lm
- 
-# compiler
-CCC = cc -std=c99
- 
-# library paths
-LIBS = -L../ -L/usr/local/lib -lm
- 
-# compile flags
-LDFLAGS = -g
- 
-.SUFFIXES: .c
- 
-default: dep $(OUT)
- 
+MAJOR=3
+MINOR=3
+REVISON=0
+LIB_NAME = FlyLab
+LIBDIR=/usr/lib
+BASENAME=lib$(LIB_NAME).so
+EXECUTABLE=$(BASENAME).$(MAJOR).$(MINOR).$(REVISON)
+
+CFLAGS=-O0 -g -fPIC -c -Wall -I$(shell pwd) -std=gnu99 -pedantic -D_XOPEN_SOURCE=700 -D _BSD_SOURCE
+LDFLAGS=-shared -ldl -Wl,-soname,$(EXECUTABLE)
+
+SOURCES=$(shell echo src/*.c)
+
+SOURCES+= ../PrivateAPI/IPCComm.c
+
+OBJECTS=$(SOURCES:.c=.o)
+
+all: $(SOURCES) $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+
 .c.o:
-	$(CCC) $(INCLUDES) $(CFLAGS) -c $< -o $@
- 
-$(OUT): $(OBJ)
-	ar rcs $(OUT) $(OBJ)
- 
-depend: dep
- 
-dep:
-	makedepend -Y -- $(CFLAGS) -- $(INCLUDES) $(SRC)
- 
+	$(CC) $(CFLAGS) $< -o $@
+
 clean:
-	rm -f $(OBJ) $(OUT) Makefile.bak# DO NOT DELETE
+	echo $(VERSION)
+	rm -rf *.o $(EXECUTABLE)
 
-src/Dispatch.o: src/Dispatch.h src/DispatchThread.h src/IPCMessage.h
-src/Dispatch.o: include/UAVTalk.h
-src/DispatchThread.o: src/Dispatch.h src/DispatchThread.h src/IPCMessage.h
-src/DispatchThread.o: include/UAVTalk.h
-# DO NOT DELETE
+install:
+	mkdir -p -m 655 /usr/include/$(LIB_NAME)
+	install -c $(EXECUTABLE) $(LIBDIR)
+	ln -sf $(LIBDIR)/$(EXECUTABLE) /usr/include/$(BASENAME)
+	ln -sf $(LIBDIR)/$(EXECUTABLE) /usr/include/$(LIB_NAME)/$(BASENAME)
+	ldconfig
+	cp -Rn . /usr/include/$(LIB_NAME)
+	find /usr/include/$(LIB_NAME) ! -name "*.h" -delete
 
-src/Dispatch.o: src/Dispatch.h src/DispatchThread.h src/IPCMessage.h
-src/Dispatch.o: include/UAVTalk.h
-src/DispatchThread.o: src/Dispatch.h src/DispatchThread.h src/IPCMessage.h
-src/DispatchThread.o: include/UAVTalk.h
+uninstall:
+	rm -rf $(LIBDIR)/$(EXECUTABLE)
+	rm -rf /usr/include/$(LIB_NAME)
+	rm -rf /usr/include/$(BASENAME)

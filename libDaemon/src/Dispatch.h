@@ -91,6 +91,7 @@ void GD_setUserTaskCallBack(GrandDispatcher* dispatch, event_userTask function ,
 int8_t GD_sendMessage(GrandDispatcher* dispatch , void* message , size_t size );
 
 /* lock/unlock will do _nothing_ if dispatcher is called from the main thread*/
+int GD_tryLockDispatch( GrandDispatcher* dispatch);
 int GD_lockDispatch( GrandDispatcher* dispatch);
 int GD_unlockDispatch( GrandDispatcher* dispatch);
 

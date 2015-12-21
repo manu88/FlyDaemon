@@ -8,13 +8,14 @@
 #include "../../libDaemon/src/IPCMessage.h"
 #include "../../libDaemon/include/FlyLabAPI.h"
 
+#define UNUSED_PARAMETER(x) (void)(x)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** */
 /* Parameters */
 
 const uint8_t plateformType = Plateform_Simulator;
 
-const char    plateformName[NAME_MAX_SIZE] = "awsomeDroneName";
+const char    plateformName[NAME_MAX_SIZE] = "My drone";
 const char    constructor[NAME_MAX_SIZE] = "FlyLab inc.";
 
 const uint8_t minVer = 01;
@@ -25,9 +26,13 @@ static volatile int keepRunning = 1;
 static volatile int done = 0;
 IPCCommunicationPort port;
 
-/* **** **** **** **** **** **** **** **** **** **** **** **** **** */
-/* List Util */
-
+void initList( void );
+int findPid( const pid_t pid );
+int removePid( const pid_t pid );
+int addPid( const pid_t pid );
+uint8_t getNumClients(void);
+void printList( void );
+void receive(void*data, ssize_t size);
 
 #define MAX_CLIENTS 10
 
@@ -109,7 +114,11 @@ void printList()
 
 void receive(void*data, ssize_t size)
 {
-    
+    if( size > ( (ssize_t) sizeof(Message_buf ) ) )
+    {
+        printf("Message size is %zi - expected %lu\n" , size , sizeof(Message_buf ));
+        assert( 0 );
+    }
     const Message_buf* in = ( const Message_buf*) data;
     
     if( in->mtype == IPC_ProcessRegistration)
@@ -241,8 +250,8 @@ int main(void)
 
         do
         {
-            const int8_t ret = IPC_selectRead( &port);
-            if( ret == IPC_noerror )
+            const int8_t retSelect = IPC_selectRead( &port);
+            if( retSelect == IPC_noerror )
             {
                 n = IPC_receive(&port, &inBuffer, sizeof(Message_buf));
                 err = port.lastReceiveError;
@@ -271,7 +280,7 @@ int main(void)
                 }
             }
 
-            else if( ret == IPC_timeout )
+            else if( retSelect == IPC_timeout )
             {
                 outBuffer.mtype = IPC_DataSend;
                 dumbUAVObject(&outObject);
@@ -291,14 +300,12 @@ int main(void)
                 }
             }
 
-            
-
-
-            
         } while (!done);
         
         IPC_closeServer( &port );
         printf("Connection closed\n");
+        
+        initList();
         done = 0;
     }
 

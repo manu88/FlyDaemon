@@ -6,7 +6,7 @@
 //  Copyright © 2015 Manuel Deneu. All rights reserved.
 //
 
-
+#include <assert.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -138,9 +138,9 @@ void dispatch_MainLoop( void* dispatcher )
     if( didReply == 0)
     {
         printf(" TimeOut : Server did not reply .. \n");
-        GD_unlockDispatch( dispatch );
+        //GD_unlockDispatch( dispatch );
         dispatch->_callBack1( ConnectionError ,NULL,  dispatch->_callBackUserData1 );
-        GD_lockDispatch( dispatch );
+        //GD_lockDispatch( dispatch );
 
     }
     else // we're good!
@@ -149,9 +149,9 @@ void dispatch_MainLoop( void* dispatcher )
 
         dispatch->state = 2;
         
-        GD_unlockDispatch( dispatch );
+        //GD_unlockDispatch( dispatch );
         dispatch->_callBack1( DidRegisterToDispatcher ,NULL, dispatch->_callBackUserData1 );
-        GD_lockDispatch( dispatch );
+        //GD_lockDispatch( dispatch );
         
         /* Send an internal info request */
         
@@ -172,26 +172,32 @@ void dispatch_MainLoop( void* dispatcher )
 
                         if( rbuf.mtype == IPC_DataSend )
                         {
-                            GD_unlockDispatch( dispatch );
+                            //GD_unlockDispatch( dispatch );
                             dispatch->_callBack1( DidReceiveData ,&rbuf, dispatch->_callBackUserData1 );
-                            GD_lockDispatch( dispatch );
+                            //GD_lockDispatch( dispatch );
                         }
 
                         else if(rbuf.mtype == IPC_PrivateRequestResponse )
                         {
-                            GD_unlockDispatch( dispatch );
+                            //GD_unlockDispatch( dispatch );
                             dispatch->_callBack1( PrivateInformationsUpdated ,&rbuf, dispatch->_callBackUserData1 );
-                            GD_lockDispatch( dispatch );
+                            //GD_lockDispatch( dispatch );
                             
                         }
                     }
-                    
 
+
+                }
+                else
+                {
+                    printf("No read bro! \n");
+                    GD_stop( dispatch );
+                    //assert( 0 );
                 }
             }
             else if( ret == IPC_timeout)// other tasks
             {
-                GD_unlockDispatch( dispatch );
+                //GD_unlockDispatch( dispatch );
                 if( dispatch->threadedLoop == 0)
                 {
                     if( dispatch->_userTaskCallBack != NULL)
@@ -201,14 +207,14 @@ void dispatch_MainLoop( void* dispatcher )
                 else
                     usleep(100);
                  */
-                GD_lockDispatch( dispatch );
+                //GD_lockDispatch( dispatch );
             }
             
         } // end of while
         
-        GD_unlockDispatch( dispatch );
+        //GD_unlockDispatch( dispatch );
         dispatch->_callBack1( WillTerminateConnection , NULL , dispatch->_callBackUserData1 );
-        GD_lockDispatch( dispatch );
+        //GD_lockDispatch( dispatch );
         
         
         sbuf.pid = pid;

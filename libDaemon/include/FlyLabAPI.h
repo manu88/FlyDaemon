@@ -40,7 +40,7 @@ enum PlateformType
 /**
  *  Callback signature for receiving UAV Objects
  */
-typedef const UAVObject* (*event_uav)( const UAVObject *obj , void* userData);
+typedef void (*event_uav)( const UAVObject *obj , void* userData);
     
 /**
  *  Callback signature for receiving state notifications
@@ -63,7 +63,7 @@ typedef struct
 } FlyLabParameters;
     
 
-/** The maximum length of the plateform name
+/** The maximum length of plateform & constructor names
  *  \def NAME_MAX_SIZE
  * \see RuntimeInformations
  */
@@ -174,6 +174,27 @@ uint8_t runFromNewThread(void);
 
 //! \brief Check for communication state
 /*!
+ 
+ In case of a threaded Dispatch, you can use this in your main Thread
+ \code{.c}
+ FlyLabParameters params;
+ // set parameters ...
+
+ initializeConnection( &params );
+ 
+ if( runFromNewThread() == 1)
+ {
+    while ( isConnected() != 1) // Wait for connection
+    {
+        usleep( 1000 );
+    }
+    while ( isConnected() )
+    {
+        // do stuff
+    }
+    // thread ended here
+ }
+ \endcode
  
  \return 1 if connected, 0 if not.
  */

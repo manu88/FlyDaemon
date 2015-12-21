@@ -23,10 +23,10 @@
 static const char _version[] = "0.0.1";
 
 static RuntimeInformations _runtimeInfos;
-
 static GrandDispatcher *instance = NULL;
-
 static FlyLabParameters params;
+
+static uint8_t _connected = 0;
 
 void eventReceived( int reason, const void* msg, void* data);
 
@@ -38,6 +38,8 @@ uint8_t initializeConnection( const FlyLabParameters *parameters )
     params = *parameters;
     
     instance = GD_init();
+    
+    _connected = 0;
     
     GD_setCallBack1( instance, eventReceived, parameters->userData );
 
@@ -93,7 +95,7 @@ uint8_t runFromNewThread()
 
 ALWAYS_INLINE uint8_t isConnected()
 {
-    return instance->state >= 1;
+    return _connected;// instance->state >= 1;
 }
 
 ALWAYS_INLINE int8_t sendObject( const UAVObject * obj)
@@ -142,6 +144,12 @@ void eventReceived( int reason, const void* msg, void* data)
     
     if( reason < DidReceiveData )
     {
+        if( reason == DidRegisterToDispatcher)
+            _connected = 1;
+        
+        else if( (reason == Connection_Error) || ( reason == WillTerminateConnection ) )
+            _connected = 0;
+        
         if( params.notificationsCallBack )
             params.notificationsCallBack( reason , data );
     }
@@ -154,13 +162,8 @@ void eventReceived( int reason, const void* msg, void* data)
 //            parseIPC( msg, &obj);
             memcpy(&obj, ((const Message_buf *) msg)->data.buffer, sizeof( UAVObject ));
 
-            const UAVObject*retObject = params.parseObjectsCallBack(&obj , data);
-            
-            if( retObject != NULL)
-            {
+            params.parseObjectsCallBack(&obj , data);
 
-                
-            }
         }
     }
     else if( reason == PrivateInformationsUpdated )

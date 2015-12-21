@@ -17,14 +17,19 @@
 
 #include "IPCComm.h"
 
+const char SOCK_PATH[] = "/var/tmp/socket";
 
-//SO_NOSIGPIPE MSG_NOSIGNAL
+// will need other def for linux
 
+#if defined(__APPLE__) && defined(__MACH__)
 #define FLAG_NO_SIG_PIPE SO_NOSIGPIPE
+#elif defined(__linux__)
+#define FLAG_NO_SIG_PIPE MSG_NOSIGNAL
+#endif
 
 int8_t setCommonSocketOption( IPCCommunicationPort *port );
 
-int8_t createTimer( IPCCommunicationPort *port );
+
 
 
 
@@ -96,11 +101,13 @@ int8_t IPC_createServer( IPCCommunicationPort *port)
     
     port->_local.sun_family = AF_UNIX;
     strcpy( port->_local.sun_path, SOCK_PATH );
+    
+    
+
     unlink( port->_local.sun_path );
     
     len = (socklen_t) strlen( port->_local.sun_path) + sizeof(port->_local.sun_family);
-    
-
+ 
     if (bind( port->_serverSoc , (struct sockaddr *)&port->_local, len) == -1)
     {
         perror("bind _serverSoc ");
@@ -117,7 +124,7 @@ int8_t IPC_createServer( IPCCommunicationPort *port)
 }
 
 
-int8_t IPC_closeClient( IPCCommunicationPort *port)
+int IPC_closeClient( IPCCommunicationPort *port)
 {
     return close( port->_commSoc );
 }
@@ -170,7 +177,7 @@ int8_t IPC_waitForClient(IPCCommunicationPort *port , struct timeval * timout)
 int8_t setCommonSocketOption( IPCCommunicationPort *port)
 {
     int on = 1;
-    if (setsockopt( port->_commSoc, SOL_SOCKET, SO_NOSIGPIPE, &on, sizeof(on)) == -1)
+    if (setsockopt( port->_commSoc, SOL_SOCKET, FLAG_NO_SIG_PIPE, &on, sizeof(on)) == -1)
     {
         perror("setsockopt");
         return IPC_otherError;
@@ -182,14 +189,6 @@ int8_t setCommonSocketOption( IPCCommunicationPort *port)
     
     return IPC_noerror;
 }
-
-
-int8_t createTimer( IPCCommunicationPort *port )
-{
-    return IPC_noerror;
-}
-
-
 
 ssize_t IPC_send( IPCCommunicationPort *port, const void* buffer , size_t size)
 {

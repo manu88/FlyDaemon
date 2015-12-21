@@ -116,8 +116,8 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a55a15889adc4aa3d156908e7c2ebc8c1"><td class="memItemLeft" align="right" valign="top">typedef const <a class="el" href="struct_u_a_v___object.html">UAVObject</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a55a15889adc4aa3d156908e7c2ebc8c1">event_uav</a>) (const <a class="el" href="struct_u_a_v___object.html">UAVObject</a> *obj, void *userData)</td></tr>
-<tr class="separator:a55a15889adc4aa3d156908e7c2ebc8c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bbaa63a6700910e762d05de7902d51c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a7bbaa63a6700910e762d05de7902d51c">event_uav</a>) (const <a class="el" href="struct_u_a_v___object.html">UAVObject</a> *obj, void *userData)</td></tr>
+<tr class="separator:a7bbaa63a6700910e762d05de7902d51c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e49fabaabc819f7b844dd7e24853257"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a5e49fabaabc819f7b844dd7e24853257">event_error</a>) (int errorNum, void *userData)</td></tr>
 <tr class="separator:a5e49fabaabc819f7b844dd7e24853257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -196,7 +196,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The maximum length of the plateform name</p>
+<p>The maximum length of plateform &amp; constructor names</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="struct_runtime_informations.html">RuntimeInformations</a> </dd></dl>
 
 </div>
@@ -215,12 +215,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a55a15889adc4aa3d156908e7c2ebc8c1"></a>
+<a class="anchor" id="a7bbaa63a6700910e762d05de7902d51c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef const <a class="el" href="struct_u_a_v___object.html">UAVObject</a>*(* event_uav) (const <a class="el" href="struct_u_a_v___object.html">UAVObject</a> *obj, void *userData)</td>
+          <td class="memname">typedef void(* event_uav) (const <a class="el" href="struct_u_a_v___object.html">UAVObject</a> *obj, void *userData)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -422,7 +422,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Check for communication state. </p>
-<dl class="section return"><dt>Returns</dt><dd>1 if connected, 0 if not. </dd></dl>
+<p>In case of a threaded Dispatch, you can use this in your main Thread </p><div class="fragment"><div class="line"><a class="code" href="struct_fly_lab_parameters.html">FlyLabParameters</a> params;</div><div class="line"><span class="comment">// set parameters ...</span></div><div class="line"></div><div class="line"><a class="code" href="_fly_lab_a_p_i_8h.html#a9630067080363b178d82daae1280faf2">initializeConnection</a>( &amp;params );</div><div class="line"></div><div class="line"><span class="keywordflow">if</span>( <a class="code" href="_fly_lab_a_p_i_8h.html#a0cfcb98a250b7717f6c817993df683c0">runFromNewThread</a>() == 1)</div><div class="line">{</div><div class="line">   <span class="keywordflow">while</span> ( <a class="code" href="_fly_lab_a_p_i_8h.html#ac36b22973da7d61be7c1677a739de432">isConnected</a>() != 1) <span class="comment">// Wait for connection</span></div><div class="line">   {</div><div class="line">       usleep( 1000 );</div><div class="line">   }</div><div class="line">   <span class="keywordflow">while</span> ( <a class="code" href="_fly_lab_a_p_i_8h.html#ac36b22973da7d61be7c1677a739de432">isConnected</a>() )</div><div class="line">   {</div><div class="line">       <span class="comment">// do stuff</span></div><div class="line">   }</div><div class="line">   <span class="comment">// thread ended here</span></div><div class="line">}</div></div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd>1 if connected, 0 if not. </dd></dl>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a29">testClient.c</a>.</dd>
 </dl>
 </div>

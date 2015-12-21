@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include <unistd.h>
 #include "Dispatch.h"
@@ -159,15 +160,29 @@ int8_t GD_sendMessage(GrandDispatcher* dispatch, void* message , size_t size )
 
     memcpy(msg.data.buffer , message , size );
     
-    GD_lockDispatch( dispatch );
-    const int8_t ret = IPC_send( &dispatch->_thread._port,&msg, size) > 0? 1 : 0;
+//    GD_lockDispatch( dispatch );
+    if( GD_tryLockDispatch(dispatch) == 0)
+    {
+        const int8_t ret = IPC_send( &dispatch->_thread._port,&msg, size) > 0? 1 : 0;
 //        const int8_t ret = sendIPCMessage( &dispatch->_thread, &msg );
-    GD_unlockDispatch( dispatch );
-    return ret;
+        GD_unlockDispatch( dispatch );
+        
+        return ret;
+    }
+    else
+    {
+        printf("Error try lock\n");
+    }
+    
+    return -1;
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
+int GD_tryLockDispatch( GrandDispatcher* dispatch)
+{
+    return pthread_mutex_trylock( &dispatch->_thread.mutex );
+}
 int GD_lockDispatch( GrandDispatcher* dispatch)
 {
     if( dispatch->threadedLoop == 1)

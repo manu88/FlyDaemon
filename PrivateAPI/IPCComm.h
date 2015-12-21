@@ -13,9 +13,7 @@
 
 #include <stdint.h>
 #include <sys/un.h>
-
-
-#define SOCK_PATH "/var/tmp/socket"
+#include <sys/time.h>
 
 /**
  * A list of errors codes returned by every IPC_* functions
@@ -35,6 +33,7 @@ enum IPC_errors
     IPC_close   = -6,
     IPC_select  = -7,
     IPC_timeout = -20,
+    IPC_lock    = -21,
     
     IPC_brokenConnection = -30,
     
@@ -87,6 +86,6 @@ int8_t IPC_waitForClient(IPCCommunicationPort *port , struct timeval * timout);
 /* Client part */
 
 int8_t IPC_createClient( IPCCommunicationPort *port);
-int8_t IPC_closeClient( IPCCommunicationPort *port);
+int IPC_closeClient( IPCCommunicationPort *port);
 int8_t IPC_connectToServer( IPCCommunicationPort *port);
 #endif /* IPCComm_h */

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "59F4DBD41BF61B52001D8230"
-               BuildableName = "TestDispatch"
-               BlueprintName = "TestDispatch"
+               BlueprintIdentifier = "59F4DBC91BF61B3D001D8230"
+               BuildableName = "libFlyLab.a"
+               BlueprintName = "FlyLab"
                ReferencedContainer = "container:Client.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "59F4DBC91BF61B3D001D8230"
-               BuildableName = "libDispatcher.a"
-               BlueprintName = "Dispatcher"
+               BlueprintIdentifier = "59F4DBD41BF61B52001D8230"
+               BuildableName = "TestDispatch"
+               BlueprintName = "TestDispatch"
                ReferencedContainer = "container:Client.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +46,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "59F4DBD41BF61B52001D8230"
-            BuildableName = "TestDispatch"
-            BlueprintName = "TestDispatch"
+            BlueprintIdentifier = "59F4DBC91BF61B3D001D8230"
+            BuildableName = "libFlyLab.a"
+            BlueprintName = "FlyLab"
             ReferencedContainer = "container:Client.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -84,16 +84,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "59F4DBD41BF61B52001D8230"
-            BuildableName = "TestDispatch"
-            BlueprintName = "TestDispatch"
+            BlueprintIdentifier = "59F4DBC91BF61B3D001D8230"
+            BuildableName = "libFlyLab.a"
+            BlueprintName = "FlyLab"
             ReferencedContainer = "container:Client.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
