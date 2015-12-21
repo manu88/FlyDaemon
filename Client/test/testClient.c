@@ -55,19 +55,26 @@ static void onNotification(int errorNum, void *userData)
     }
 }
 
-static void uavObjectReceived( const UAVObject *obj , void* userData )
+static const UAVObject * uavObjectReceived( const UAVObject *obj , void* userData )
 {
-    static int count = 0;
+    static long count = 0;
     
+    
+    if( obj->type == Type_OBJ_ACK )
+    {
+        printf("respondAcknowledge %i %li \n", obj->instanceID , count);
+        respondAcknowledge( obj->instanceID );
+    }
     //printUAVObject( obj);
 
     count++;
     if( (count % 50 ) == 0)
-        printf(" received count %i \n" , count);
+        printf(" received count %li \n" , count);
     
-    if( count > 10000)
+    if( count > 1000000 )
         disconnect();
 
+    return NULL;
 }
 
 int main (void)
@@ -86,7 +93,7 @@ int main (void)
         while ( isConnected() )
         {
             sendObjectRequest( objectID++ );
-            usleep( 1000 );
+            usleep( 10000 );
         }
         printf("thread ended\n");
     }

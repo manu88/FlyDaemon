@@ -40,7 +40,7 @@ enum PlateformType
 /**
  *  Callback signature for receiving UAV Objects
  */
-typedef void (*event_uav)( const UAVObject *obj , void* userData);
+typedef const UAVObject* (*event_uav)( const UAVObject *obj , void* userData);
     
 /**
  *  Callback signature for receiving state notifications

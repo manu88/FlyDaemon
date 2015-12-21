@@ -116,8 +116,8 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a7bbaa63a6700910e762d05de7902d51c"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a7bbaa63a6700910e762d05de7902d51c">event_uav</a>) (const <a class="el" href="struct_u_a_v___object.html">UAVObject</a> *obj, void *userData)</td></tr>
-<tr class="separator:a7bbaa63a6700910e762d05de7902d51c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55a15889adc4aa3d156908e7c2ebc8c1"><td class="memItemLeft" align="right" valign="top">typedef const <a class="el" href="struct_u_a_v___object.html">UAVObject</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a55a15889adc4aa3d156908e7c2ebc8c1">event_uav</a>) (const <a class="el" href="struct_u_a_v___object.html">UAVObject</a> *obj, void *userData)</td></tr>
+<tr class="separator:a55a15889adc4aa3d156908e7c2ebc8c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e49fabaabc819f7b844dd7e24853257"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_fly_lab_a_p_i_8h.html#a5e49fabaabc819f7b844dd7e24853257">event_error</a>) (int errorNum, void *userData)</td></tr>
 <tr class="separator:a5e49fabaabc819f7b844dd7e24853257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -215,12 +215,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7bbaa63a6700910e762d05de7902d51c"></a>
+<a class="anchor" id="a55a15889adc4aa3d156908e7c2ebc8c1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(* event_uav) (const <a class="el" href="struct_u_a_v___object.html">UAVObject</a> *obj, void *userData)</td>
+          <td class="memname">typedef const <a class="el" href="struct_u_a_v___object.html">UAVObject</a>*(* event_uav) (const <a class="el" href="struct_u_a_v___object.html">UAVObject</a> *obj, void *userData)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -294,7 +294,7 @@ Functions</h2></td></tr>
 
 <p>Get the current version. </p>
 <dl class="section return"><dt>Returns</dt><dd>a c-string containing the current version, e.g. "0.010" </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a21">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a23">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -314,7 +314,7 @@ Functions</h2></td></tr>
 
 <p>Clean a FlyLab communication. </p>
 <p>Will fail if initializeConnection wasn't called or failed. </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a29">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a31">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -335,7 +335,7 @@ Functions</h2></td></tr>
 <p>Ask for communication end. </p>
 <p>This call is asynchronous, a stop call will be issued and the dispatcher will still run for some short time</p>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a20">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a22">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -403,7 +403,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a25">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a27">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -423,7 +423,7 @@ Functions</h2></td></tr>
 
 <p>Check for communication state. </p>
 <dl class="section return"><dt>Returns</dt><dd>1 if connected, 0 if not. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a27">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a29">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -469,7 +469,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if send failed. </dd></dl>
-
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a21">testClient.c</a>.</dd>
+</dl>
 </div>
 </div>
 <a class="anchor" id="a6b18cbaffc706570cc785aa41e31d8a6"></a>
@@ -514,7 +515,7 @@ Functions</h2></td></tr>
 <p>Run the dispatcher from a new thread. </p>
 <p>This call will block and return after the thread initialization.</p>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a26">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a28">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>
@@ -559,7 +560,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 if send failed. </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a28">testClient.c</a>.</dd>
+<dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a30">testClient.c</a>.</dd>
 </dl>
 </div>
 </div>

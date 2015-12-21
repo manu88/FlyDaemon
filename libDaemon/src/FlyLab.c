@@ -12,6 +12,7 @@
 /*
  PRIVATE HEADER
  */
+#include <stdlib.h> // pour free() : pas bien!
 #include <stddef.h>
 #include <stdio.h>
 #include "../include/FlyLabAPI.h"
@@ -153,7 +154,13 @@ void eventReceived( int reason, const void* msg, void* data)
 //            parseIPC( msg, &obj);
             memcpy(&obj, ((const Message_buf *) msg)->data.buffer, sizeof( UAVObject ));
 
-            params.parseObjectsCallBack(&obj , data);
+            const UAVObject*retObject = params.parseObjectsCallBack(&obj , data);
+            
+            if( retObject != NULL)
+            {
+
+                
+            }
         }
     }
     else if( reason == PrivateInformationsUpdated )

@@ -164,22 +164,38 @@ void receive(void*data, ssize_t size)
     {
 //        printf("Received IPC_DataRequest from %i\n", in->pid);
         
+        const UAVObject* inObj = (const UAVObject*) in->data.buffer;
+        
         if( findPid( in->pid) != -1)
         {
-            Message_buf outBuffer;
-            UAVObject outObject;
-            dumbUAVObject( &outObject );
-            outBuffer.mtype = IPC_DataSend;
-            dumbUAVObject(&outObject);
-            
-            strcpy((char*)outObject.data, "response");
-            memcpy(outBuffer.data.buffer , &outObject , sizeof(UAVObject) );
+            if( inObj->type == Type_ACK)
+                printf("Received acknowledge for %i \n" , inObj->instanceID );
             
 
-            if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)
+            
+
+            
+            if( inObj->type == Type_OBJ_REQ)
             {
-                perror("send");
+                Message_buf outBuffer;
+                UAVObject outObject;
+                dumbUAVObject( &outObject );
+                outBuffer.mtype = IPC_DataSend;
+                dumbUAVObject(&outObject);
+                outObject.type = Type_OBJ_ACK;
+                
+                strcpy((char*)outObject.data, "response");
+                memcpy(outBuffer.data.buffer , &outObject , sizeof(UAVObject) );
+                
+                printf("Received Object request for %i \n" , inObj->objectID );
+                
+                if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)
+                {
+                    perror("send");
+                }
             }
+
+
             
         }
     }
@@ -254,10 +270,13 @@ int main(void)
                     }
                 }
             }
+
             else if( ret == IPC_timeout )
             {
                 outBuffer.mtype = IPC_DataSend;
                 dumbUAVObject(&outObject);
+                outObject.type = Type_OBJ_ACK;
+                outObject.instanceID = 42;
                 memcpy(outBuffer.data.buffer , &outObject , sizeof(UAVObject) );
 
                 if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)
@@ -271,6 +290,7 @@ int main(void)
                     break;
                 }
             }
+
             
 
 
@@ -286,126 +306,3 @@ int main(void)
     
     return 0;
 }
-
-/* *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
-/* *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
-
-
-
-/*
-#include <sys/types.h>
-#include <sys/ipc.h>
-#include <sys/msg.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-
-#include "../../libDaemon/Private/IPCMessage.h"
-
-
-
-
-
-
-
-int main()
-{
-    
-    initList();
-    
-
-    int msqid;
-    int msgflg = IPC_CREAT | 0666;
-    key_t key;
-    
-    Message_buf sbuf;
-    Message_buf  rbuf;
-    size_t buf_length;
-
-    key = IPC_KEY;
-
-    if ((msqid = msgget(key, msgflg )) < 0)
-    {
-        perror("msgget");
-        return -1;
-    }
-    else
-        fprintf(stderr,"msgget: msgget succeeded: msqid = %d\n", msqid);
-    
-
-    
-    sbuf.mtype = 1;
-    
-    buf_length = sizeof( Message_buf ) - sizeof(long);
-
-    while (1)
-    {
-        sbuf.mtype = IPC_DataSend;
-
-
-        if (msgrcv( msqid, &rbuf, buf_length , 0, IPC_NOWAIT ) > 0)
-        {
-            
-            if( rbuf.mtype == IPC_ProcessRegistration)
-            {
-                
-
-                addPid( rbuf.pid );
-
-                printf("New registration from %i , reply count %i \n" , rbuf.pid, getNumClients() );
-
-                addPid( rbuf.pid);
-                printList();                
-                sbuf.mtype = IPC_ProcessDidRegister;
-                if (msgsnd(msqid, &sbuf, buf_length, 0) == 0)
-                {
-                    usleep( 2000);
-                }
-                
-
-            }
-            
-            else if( rbuf.mtype == IPC_ProcessDeregistration)
-            {
-
-                removePid( rbuf.pid);
-
-                printf("New DEregistration from %i count %i \n" , rbuf.pid, getNumClients() );
-                printList();
-
-            }
-            else if( rbuf.mtype == IPC_DataRequest)
-            {
-                
-                UAVObject obj;// =(UAVObject*) &rbuf.data.buffer ;
-                initUAVObject( &obj );
-                parseIPC(&rbuf, &obj);
-                
-                dumbUAVObject( (UAVObject*) &sbuf.data.buffer );
-                
-                strcpy( ((char*)((UAVObject*) &sbuf.data.buffer)->data), "Hello World");
-                
-                
-                ((UAVObject*) &sbuf.data.buffer)->objectID = obj.objectID;
-                
-                if ( (findPid(rbuf.pid) != -1) && msgsnd(msqid, &sbuf, buf_length, IPC_NOWAIT) == 0)
-                {
-                    //printf("Respond to data Request %u ... \n" , obj.objectID);
-                }
-            }
-            
-        }
-        else
-        {
-
-
-        }
-
-
-        
-
-    }
-
-}
-*/
