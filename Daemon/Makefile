@@ -21,3 +21,7 @@ $(EXECUTABLE): $(OBJECTS)
 .c.o:
 	$(CC) -c $(CFLAGS) $< -o $@
 
+clean:
+	rm $(EXECUTABLE)
+	rm src/*.o
+	rm ../PrivateAPI/IPCComm.o
