@@ -227,11 +227,11 @@ int8_t respondAcknowledge( uint16_t instanceID );
  */
 int8_t respondNacknowledge( uint16_t instanceID );
     
-//! \brief Lock the dispatcher thread
+//! \brief Try to lock the dispatcher thread
 /*!
  \return 0 on sucess, otherwise an error code is returned. \see pthread_mutex_lock
  */
-ALWAYS_INLINE int lockThread( void );
+ALWAYS_INLINE int tryLockThread( void );
     
 //! \brief Unlock the dispatcher thread
 /*!

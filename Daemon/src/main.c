@@ -22,8 +22,13 @@ const char    constructor[] = "FlyLab inc.";
 const uint8_t minVer = 01;
 const uint8_t majVer = 10;
 
-const uint8_t maxPendingPing = 5;
+const uint8_t maxPendingPing = 50;
+
+uint32_t errorsCounter = 0;
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+static uint32_t id = 0;
+
 
 static volatile int keepRunning = 1;
 static volatile int done = 0;
@@ -197,7 +202,7 @@ void receive(void*data, ssize_t size)
             
             if( inObj->type == Type_OBJ_REQ)
             {
-                static uint32_t id = 0;
+                
                 Message_buf outBuffer;
                 UAVObject outObject;
 
@@ -207,8 +212,8 @@ void receive(void*data, ssize_t size)
                 
                 if( inObj->objectID != id)
                 {
-                    printf("objectID mismatch %i %i \n", inObj->objectID , id);
-                    
+                    printf("objectID mismatch got %i  expected %i \n", inObj->objectID , id);
+                    errorsCounter++;
                     id = inObj->objectID;
                 }
                 id++;
@@ -247,9 +252,13 @@ int main(void)
     assert( IPC_initialize( &port) == IPC_noerror );
     assert( IPC_createServer( &port )== IPC_noerror );
     
+    
+    
+    
     while( keepRunning )
     {
-
+        id = 0;
+        
         struct timeval tv;
         tv.tv_sec =  3;
         tv.tv_usec = 0;
@@ -272,6 +281,8 @@ int main(void)
         clock_t last = clock();
         
         pingCount = 0;
+        
+        errorsCounter = 0;
         
         do
         {
@@ -359,6 +370,7 @@ int main(void)
         
         IPC_closeServer( &port );
         printf("Connection closed\n");
+        printf("Got %i errors on the session\n",errorsCounter);
         
         initList();
         done = 0;

@@ -171,12 +171,8 @@ int8_t GD_sendMessage(GrandDispatcher* dispatch, void* message , size_t size )
         
         return ret;
     }
-    else
-    {
-        printf("Error try lock\n");
-    }
     
-    return -1;
+    return -2;
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */

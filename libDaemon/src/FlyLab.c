@@ -129,9 +129,9 @@ int8_t respondNacknowledge( uint16_t instanceID )
 }
 
 
-ALWAYS_INLINE int lockThread( void )
+ALWAYS_INLINE int tryLockThread( void )
 {
-    return GD_lockDispatch( instance );
+    return GD_tryLockDispatch( instance );
 }
 ALWAYS_INLINE int unlockThread( void )
 {
@@ -168,8 +168,6 @@ void eventReceived( int reason, const void* msg, void* data)
     }
     else if( reason == IPC_PingRequest )
     {
-
-        printf("received ping request \n");
         Message_buf buff;
         buff.mtype = IPC_PingResponse;
         

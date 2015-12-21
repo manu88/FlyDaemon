@@ -189,7 +189,9 @@ void dispatch_MainLoop( void* dispatcher )
                 }
                 else
                 {
-                    printf("No read error, quit! \n");
+                    
+                    printf("Read error, quit! %i \n" , dispatch->_thread._port.lastReceiveError);
+
                     GD_stop( dispatch );
 
                 }

@@ -1,6 +1,8 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <time.h>
 #include "../../libDaemon/include/FlyLabAPI.h"
 
 
@@ -63,11 +65,15 @@ void printInformations()
     printf("    constructor : %s \n" , infos->constructor );
 }
 
+
+static long rec_count = 0;
+static long lock_errors = 0;
+
 static void uavObjectReceived( const UAVObject *obj , void* userData )
 {
     UNUSED_PARAMETER(userData);
     
-    static long count = 0;
+    
     
     
     if( obj->type == Type_OBJ_ACK )
@@ -77,20 +83,38 @@ static void uavObjectReceived( const UAVObject *obj , void* userData )
     }
     //printUAVObject( obj);
 
-    count++;
+    rec_count++;
 
-    if( (count % 50 ) == 0)
+    if( (rec_count % 50 ) == 0)
     {
       //  printf(" received count %li \n" , count);
     }
-    
+    /*
     if( count > 10000 )
+    {
+        printf("Send Quit signal \n");
         disconnect();
+    }
+     */
 
 }
 
-int main (void)
+int main (int argc, char *argv[])
 {
+    
+    clock_t begin, end;
+    double time_spent;
+    
+    unsigned int usDT = 1;
+    int nbIter = 10000;
+    
+    if( argc >= 3)
+    {
+        usDT   = (unsigned int) atoi( argv[1] );
+        nbIter = atoi( argv[2] );
+    }
+    printf("Start test with DT = %i COUNT = %i\n" , usDT , nbIter);
+    
     printf(" Flylab API ver %s\n" , API_getVersion() );
     
     FlyLabParameters params;
@@ -100,19 +124,47 @@ int main (void)
     initializeConnection( &params );
     
     uint32_t objectID = 0;
+    
+    long count = 0;
     if( runFromNewThread() == 1)
     {
+        begin = clock();
         while ( isConnected() != 1)
         {
             usleep( 1000 );
             printf("Wait for connection ... \n");
         }
+
         while ( isConnected() )
         {
-            sendObjectRequest( objectID++ );
-            usleep( 1000 );
+            
+            const int8_t ret= sendObjectRequest( objectID ) ;
+            if(ret == -2)
+            {
+                lock_errors++;
+            }
+            else if( ret > 0)
+                objectID++;
+                
+            usleep( usDT );
+            count++;
+            
+            if( count > nbIter )
+            {
+                printf("Send Quit signal \n");
+                disconnect();
+            }
+            
         }
-        printf("thread ended\n");
+        printf("thread ended sent Count = %li , received %li\n" , count ,rec_count);
+        
+        end = clock();
+        time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+        
+        printf("Spent %f seconds \n" , time_spent);
+        printf(" Failed Locks %li \n" , lock_errors);
+        
+        
     }
     else
         printf("Error creation thread\n");
