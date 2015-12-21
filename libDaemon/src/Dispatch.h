@@ -19,40 +19,57 @@
 typedef void (*event_cb_t)(int reason, const void* msg, void *userdata);
 typedef void (*event_userTask)( void *userdata);
 
-typedef struct _GrandDispatcher
+
+/**
+ *  An instance of GrandDispatcher
+ *  \struct GrandDispatcher
+ */
+typedef struct
 {
-    DispatchThread _thread;
+    DispatchThread _thread; //!< The internal thread
     
-    uint8_t state; // flag : 0 : not ready 1 : starting 2 : running;
-    uint8_t threadedLoop; // 0 -> run from main thread, 1 -> run from dedicated thread;
+    uint8_t state;          //!< flag : 0 : not ready 1 : starting 2 : running;
+    uint8_t threadedLoop;   //!< 0 -> run from main thread, 1 -> run from dedicated thread;
    
-    event_cb_t _callBack1;
-    void*      _callBackUserData1;
+    event_cb_t _callBack1;          //!< a function called when receiving events
+    void*      _callBackUserData1;  //!< a pointer passed with the function
     
-    event_userTask _userTaskCallBack;
-    void*          _userTaskData;
+    event_userTask _userTaskCallBack; //!< In case the GrandDispatcher in ran on the main loop, the user can define a method to be called as often as possible
+    void*          _userTaskData; //!< a pointer passed with the user function
     
 }GrandDispatcher;
 
+
+/**
+ * A list of notifications types to describe incoming events
+ * \enum DispatcherNotifications
+ */
 enum DispatcherNotifications
 {
     /*
      notifs < DidReceiveData are notifications , notifs >= DidReceiveData are Value dispatch
      */
-    ConnectionError         = -1,
-    DidRegisterToDispatcher = 1,
-    WillTerminateConnection = 2,
-    
+    ConnectionError         = -1, //!< An error occured during connection, fatal!
+    DidRegisterToDispatcher = 1,  //!< Current pid did register
+    WillTerminateConnection = 2,  //!< Connection will be stopped, by the user or by the dispatcher
 
-    
     /* Limit*/
+    DidReceiveData          = 20, //!< Data was received
     
-    DidReceiveData          = 20,
-    
-    PrivateInformationsUpdated = 100
+    PrivateInformationsUpdated = 100 //!< Internal informations updated
 };
 
+
+//! \brief Initialize a GrandDispatcher instance
+/*!
+ This is just initialization, you still need to start the dispatcher at some point.
+ 
+
+ \return A pointer to the instance. You own this instance!
+ */
 GrandDispatcher* GD_init( void );
+
+
 void GD_release( GrandDispatcher* dispatch);
 
 uint8_t GD_runFromThread( GrandDispatcher *dispatch);

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['runtimeinformations',['RuntimeInformations',['../struct_runtime_informations.html',1,'']]]
+  ['granddispatcher',['GrandDispatcher',['../struct_grand_dispatcher.html',1,'']]]
 ];

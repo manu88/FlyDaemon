@@ -1,13 +1,13 @@
 var indexSectionsWithContent =
 {
-  0: "_acdefgilnoprstuv",
-  1: "_dfru",
+  0: "_acdefgilnoprstuvw",
+  1: "_dfgru",
   2: "dfiu",
   3: "acdgirstu",
-  4: "cdilnopstuv",
+  4: "_cdilnopstuv",
   5: "e",
-  6: "npu",
-  7: "cpt",
+  6: "dnpu",
+  7: "cdptw",
   8: "nu",
   9: "f"
 };

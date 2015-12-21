@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['uav_5fobject_5ftype',['UAV_Object_TYPE',['../_u_a_v_talk_8h.html#ae1a63cdb984d700fcff462191b4e48fb',1,'UAVTalk.h']]]
+  ['plateformtype',['PlateformType',['../_fly_lab_a_p_i_8h.html#ac247e4018124e3a5876f1d5b5fdf6316',1,'FlyLabAPI.h']]]
 ];

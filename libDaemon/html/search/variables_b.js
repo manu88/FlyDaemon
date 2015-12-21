@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['r_5fkey',['r_key',['../structdispatch_thread.html#a9a5d5530a296d85d1d61ee6bfcc64f13',1,'dispatchThread']]],
-  ['r_5fmsqid',['r_msqid',['../structdispatch_thread.html#a2d2b4f7ed5c7fb83366a8bc50f887b5b',1,'dispatchThread']]]
+  ['versionmaj',['versionMaj',['../struct_runtime_informations.html#afb558315d45fc1150b30cfe3064b5db8',1,'RuntimeInformations']]],
+  ['versionmin',['versionMin',['../struct_runtime_informations.html#a011c58a6a5c7079d74ebf8d1425b1c1a',1,'RuntimeInformations']]]
 ];

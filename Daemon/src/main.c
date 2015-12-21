@@ -22,7 +22,8 @@ const char    constructor[] = "FlyLab inc.";
 const uint8_t minVer = 01;
 const uint8_t majVer = 10;
 
-const uint8_t maxPendingPing = 50;
+const uint8_t maxPendingPing = 10;
+const unsigned long deltaPing = 1000;
 
 uint32_t errorsCounter = 0;
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -184,6 +185,8 @@ void receive(void*data, ssize_t size)
     }
     else if( in->mtype == IPC_PingResponse )
     {
+        printf("Ping response  last count %i\n" , pingCount );
+        
         pingCount = 0;
     }
     else if( in->mtype == IPC_DataRequest )
@@ -292,7 +295,7 @@ int main(void)
             const unsigned long diffMS = (clock() -last )* 1000 / CLOCKS_PER_SEC;
 
             
-            if( diffMS > 30   )
+            if( diffMS > deltaPing   )
             {
                 last = clock();
 

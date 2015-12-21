@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['notificationid',['NotificationId',['../_fly_lab_a_p_i_8h.html#a890c5a8155918e83e3701d687a8eb49a',1,'FlyLabAPI.h']]]
+  ['dispatchernotifications',['DispatcherNotifications',['../_dispatch_8h.html#a3006cd40652ccece1889272aa491dbe1',1,'Dispatch.h']]]
 ];

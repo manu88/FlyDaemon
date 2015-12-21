@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sleep_5ftime',['SLEEP_TIME',['../_dispatch_8c.html#a06fc87d81c62e9abb8790b6e5713c55ba0630eeb4a5ca6291c07cb15afce74c9e',1,'Dispatch.c']]]
+  ['willterminateconnection',['WillTerminateConnection',['../_dispatch_8h.html#a3006cd40652ccece1889272aa491dbe1a2fda2cc03593633c97c09cb190ea564e',1,'Dispatch.h']]]
 ];
