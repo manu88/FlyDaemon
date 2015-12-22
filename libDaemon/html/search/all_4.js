@@ -2,6 +2,7 @@ var searchData=
 [
   ['data',['data',['../struct_message__buf_1_1data.html',1,'Message_buf']]],
   ['data',['data',['../struct_u_a_v___object.html#aae12f7f2ad7c0f23d89083a2d91eb3ab',1,'UAV_Object']]],
+  ['debug_5fassert',['DEBUG_ASSERT',['../_commons_8h.html#aff8d3f9908bd5c90304b2adccda33ebe',1,'Commons.h']]],
   ['didreceivedata',['DidReceiveData',['../_dispatch_8h.html#a3006cd40652ccece1889272aa491dbe1ad1afc8c02d1d415fac27ca73d87cace6',1,'Dispatch.h']]],
   ['didregistertodispatcher',['DidRegisterToDispatcher',['../_dispatch_8h.html#a3006cd40652ccece1889272aa491dbe1a5e13ac923946b499c846a02761e4a393',1,'Dispatch.h']]],
   ['disconnect',['disconnect',['../_fly_lab_a_p_i_8h.html#a51282baca022dcdcdecd2ca3183b3fef',1,'FlyLab.c']]],

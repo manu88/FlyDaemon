@@ -5,5 +5,7 @@ var searchData=
   ['inituavobject',['initUAVObject',['../_u_a_v_talk_8h.html#a37e4aa405cbbd411c241265939ca2c5c',1,'UAVTalk.h']]],
   ['instanceid',['instanceID',['../struct_u_a_v___object.html#a3a0177351fe5dfa20641cca6b91e16f6',1,'UAV_Object']]],
   ['ipcmessage_2eh',['IPCMessage.h',['../_i_p_c_message_8h.html',1,'']]],
-  ['isconnected',['isConnected',['../_fly_lab_a_p_i_8h.html#aaf66ab0e84701a9c7dbca0a41b831810',1,'FlyLab.c']]]
+  ['isconnected',['isConnected',['../_fly_lab_a_p_i_8h.html#aaf66ab0e84701a9c7dbca0a41b831810',1,'FlyLab.c']]],
+  ['isindebugmode',['isInDebugMode',['../_commons_8h.html#a4a172f9da406c42b9eae7a65577df3f6',1,'Commons.h']]],
+  ['isinreleasemode',['isInReleaseMode',['../_commons_8h.html#a1dcba7c3509c3a90402b76e293ed75db',1,'Commons.h']]]
 ];

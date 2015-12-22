@@ -51,6 +51,48 @@ enum ErrorNum
     
 };
 
+
+//! \brief debug mode checker
+/*!
+ \see isInReleaseMode
+ 
+ \return 1 if the program is build whith DEBUG, 0 otherwise.
+ */
+BOOLEAN_RETURN static inline uint8_t isInDebugMode()
+{
+#ifdef DEBUG
+    return 1;
+#else
+    return 0;
+#endif
+}
+
+//! \brief release mode checker
+/*!
+ \see isInDebugMode
+ 
+ \return 0 if the program is build whith DEBUG, 1 otherwise.
+ */
+BOOLEAN_RETURN static inline uint8_t isInReleaseMode()
+{
+    return !isInDebugMode();
+}
+
+/** Use this macro to assert your code.
+ * Warning : when building for release, DEBUG_ASSERT will be turned into a no-op, so be carefull not to put any real
+ * operations in it.
+ * \code{.c} 
+ *  // Wrong way
+ *  DEBUG_ASSERT( runFromNewThread() == 1 );
+ *  // on release build , the instruction 'runFromNewThread()' will simply diseapear!.
+ *
+ *  // Good here
+ *  const uint8_t ret =runFromNewThread();
+ *  DEBUG_ASSERT( ret == 1 );
+ *
+ * \endcode
+ * \def DEBUG_ASSERT
+ */
 #ifdef DEBUG
     #include <assert.h>
     #define DEBUG_ASSERT(x) assert(x)
