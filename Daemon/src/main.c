@@ -26,6 +26,8 @@ const uint8_t maxPendingPing = 10;
 const unsigned long deltaPing = 1000;
 
 uint32_t errorsCounter = 0;
+
+int8_t hardwareStatus = -1; /* unknown */
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 static uint32_t id = 0;
@@ -175,6 +177,9 @@ void receive(void*data, ssize_t size)
         
         outBuffer.data.buffer[ offsetof(RuntimeInformations, versionMin )] = minVer;
         outBuffer.data.buffer[ offsetof(RuntimeInformations, versionMaj )] = majVer;
+        
+        outBuffer.data.buffer[ offsetof(RuntimeInformations, hardwareStatus)] = (uint8_t) hardwareStatus;
+        
         
         if( IPC_selectWrite(  &port ) == IPC_noerror)
         if ( IPC_send(&port, &outBuffer, sizeof(Message_buf)) < 0)

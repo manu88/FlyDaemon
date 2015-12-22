@@ -63,6 +63,7 @@ void printInformations()
     printf("Infos Plateform ver %i.%i : %s \n" , infos->versionMin , infos->versionMaj, infos->plateform == Plateform_Drone?"Drone" : "Simulator");
     printf("           Name : %s \n" , infos->name );
     printf("    constructor : %s \n" , infos->constructor );
+    printf("hardware status : %i\n",infos->hardwareStatus );
 }
 
 

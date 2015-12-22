@@ -32,9 +32,7 @@ static FlyLabParameters params;
 
 static uint8_t _connected = 0;
 
-
-
-uint8_t initializeConnection( const FlyLabParameters *parameters )
+BOOLEAN_RETURN uint8_t initializeConnection( const FlyLabParameters *parameters )
 {
     
     memset( &_runtimeInfos, 0, sizeof(RuntimeInformations ));
@@ -308,7 +306,7 @@ void eventReceived( int reason, const void* msg, void* data)
         {
             UAVObject obj;
             initUAVObject( &obj );
-//            parseIPC( msg, &obj);
+
             memcpy(&obj, ((const Message_buf *) msg)->data.buffer, sizeof( UAVObject ));
 
             params.parseObjectsCallBack(&obj , data);
@@ -330,7 +328,6 @@ void eventReceived( int reason, const void* msg, void* data)
     }
     else if( reason == IPC_PrivateRequestResponse )
     {
-
         const Message_buf *message = (const Message_buf*) msg;
         
         _runtimeInfos.plateform = message->data.buffer[ offsetof(RuntimeInformations, plateform ) ];
@@ -340,7 +337,8 @@ void eventReceived( int reason, const void* msg, void* data)
         
         _runtimeInfos.versionMin = message->data.buffer[ offsetof(RuntimeInformations, versionMin ) ];
         _runtimeInfos.versionMaj = message->data.buffer[ offsetof(RuntimeInformations, versionMaj ) ];
-        //
+        
+        _runtimeInfos.hardwareStatus = (int8_t) message->data.buffer[ offsetof(RuntimeInformations, hardwareStatus)];
         
         if( params.notificationsCallBack )
             params.notificationsCallBack( InformationsAvailable , data );

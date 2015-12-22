@@ -70,17 +70,20 @@ typedef struct
     
 /**
  *  This struct will hold The runtime informations about the system.
+ *  \see getRuntimeInformations informationsAvailable
  *  \struct RuntimeInformations
  */
 typedef struct
 {
     uint8_t plateform;        //!< Is this a real flying machine or a simulator \see PlateformType
-
+    /* byte pad here */
     char name[NAME_MAX_SIZE];        //!< The name of the system
     char constructor[NAME_MAX_SIZE]; //!< The constructor of the system
 
     uint8_t versionMin; //!< version minor value
     uint8_t versionMaj; //!< version major value
+    
+    int8_t  hardwareStatus; //!< Status code sent by the hardware
     
 } RuntimeInformations ;
 
@@ -150,7 +153,7 @@ BOOLEAN_RETURN ALWAYS_INLINE uint8_t informationsAvailable(void);
  \see informationsAvailable RuntimeInformations
  \return a pointer to a RuntimeInformations readonly instance, can be NULL
  */
-const RuntimeInformations *getRuntimeInformations( void );
+const RuntimeInformations* getRuntimeInformations( void );
 
 //! \brief Ask for communication end
 /*!
