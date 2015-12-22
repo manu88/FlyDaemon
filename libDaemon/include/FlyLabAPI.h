@@ -6,7 +6,8 @@
 * \date 17/12/2015
 *
 *  PUBLIC HEADER - This is the main Header for the API.
-*  @example testClient.c
+*  @example testClient.c 
+*  @example minimal.c
 *
 */
 
@@ -223,7 +224,7 @@ BOOLEAN_RETURN int8_t sendObjectRequest( uint32_t objectID);
  
  \return 1 on sucess, 0 if send failed.
  */
-int8_t respondAcknowledge( uint16_t instanceID );
+ERROR_RETURN int8_t respondAcknowledge( uint16_t instanceID );
     
 //! \brief Send a UAVObject 'negative acknowledge response'
 /*!
@@ -231,19 +232,19 @@ int8_t respondAcknowledge( uint16_t instanceID );
  
  \return 1 on sucess, 0 if send failed.
  */
-int8_t respondNacknowledge( uint16_t instanceID );
+ERROR_RETURN int8_t respondNacknowledge( uint16_t instanceID );
     
 //! \brief Try to lock the dispatcher thread
 /*!
  \return 0 on sucess, otherwise an error code is returned. \see pthread_mutex_lock
  */
-ALWAYS_INLINE int tryLockThread( void );
+ERROR_RETURN ALWAYS_INLINE int tryLockThread( void );
     
 //! \brief Unlock the dispatcher thread
 /*!
  \return 0 on sucess, otherwise an error code is returned. \see pthread_mutex_unlock
  */
-ALWAYS_INLINE int unlockThread( void );
+ERROR_RETURN ALWAYS_INLINE int unlockThread( void );
     
 #ifdef __cplusplus
 } // closing brace for extern "C"

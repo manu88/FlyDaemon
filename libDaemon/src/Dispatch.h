@@ -161,7 +161,7 @@ ERROR_RETURN int8_t GD_sendMessage(GrandDispatcher* dispatch , void* message , s
  \param[in,out] dispatch A pointer to the instance you want to run
  \return 0 on sucess, an error code on fail
  */
-ALWAYS_INLINE int GD_tryLockDispatch( GrandDispatcher* dispatch);
+ERROR_RETURN ALWAYS_INLINE int GD_tryLockDispatch( GrandDispatcher* dispatch);
 
 //! \brief Lock GrandDispatch's mutex
 /*!
@@ -169,7 +169,7 @@ ALWAYS_INLINE int GD_tryLockDispatch( GrandDispatcher* dispatch);
  \param[in,out] dispatch A pointer to the instance you want to run
  \return 0 on sucess, an error code on fail
  */
-ALWAYS_INLINE int GD_lockDispatch( GrandDispatcher* dispatch);
+ERROR_RETURN ALWAYS_INLINE int GD_lockDispatch( GrandDispatcher* dispatch);
 
 //! \brief Unlock GrandDispatch's mutex
 /*!
@@ -177,6 +177,6 @@ ALWAYS_INLINE int GD_lockDispatch( GrandDispatcher* dispatch);
  \param[in,out] dispatch A pointer to the instance you want to run
  \return 0 on sucess, an error code on fail
  */
-ALWAYS_INLINE int GD_unlockDispatch( GrandDispatcher* dispatch);
+ERROR_RETURN ALWAYS_INLINE int GD_unlockDispatch( GrandDispatcher* dispatch);
 
 #endif /* GrandDispatch_h */

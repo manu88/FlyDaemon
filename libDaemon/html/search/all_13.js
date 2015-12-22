@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['willterminateconnection',['WillTerminateConnection',['../_dispatch_8h.html#a3006cd40652ccece1889272aa491dbe1a2fda2cc03593633c97c09cb190ea564e',1,'Dispatch.h']]]
+  ['versionmaj',['versionMaj',['../struct_runtime_informations.html#afb558315d45fc1150b30cfe3064b5db8',1,'RuntimeInformations']]],
+  ['versionmin',['versionMin',['../struct_runtime_informations.html#a011c58a6a5c7079d74ebf8d1425b1c1a',1,'RuntimeInformations']]]
 ];

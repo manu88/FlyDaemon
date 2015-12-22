@@ -217,6 +217,7 @@ void receive(void*data, ssize_t size)
                 outBuffer.mtype = IPC_DataSend;
                 dumbUAVObject(&outObject);
                 outObject.type = Type_OBJ_ACK;
+                outObject.objectID = inObj->objectID;
                 
                 if( inObj->objectID != id)
                 {
@@ -354,6 +355,7 @@ int main(void)
 
             else if( retSelect == IPC_timeout )
             {
+                /*
                 outBuffer.mtype = IPC_DataSend;
                 dumbUAVObject(&outObject);
                 outObject.type = Type_OBJ_ACK;
@@ -371,6 +373,7 @@ int main(void)
                     printf("PIPE Send error \n");
                     break;
                 }
+                 */
             }
 
         } while (!done);

@@ -5,10 +5,6 @@
 #include <time.h>
 #include "../../libDaemon/include/FlyLabAPI.h"
 
-
-
-
-
 void printInformations( void );
 void printUAVObject( const UAVObject *obj );
 
@@ -130,12 +126,12 @@ int main (int argc, char *argv[])
     if( runFromNewThread() == 1)
     {
         begin = clock();
+        printf("Wait for connection ... \n");
         while ( isConnected() != 1)
         {
             usleep( 1000 );
-            printf("Wait for connection ... \n");
         }
-
+        printf("Connected \n");
         while ( isConnected() )
         {
             

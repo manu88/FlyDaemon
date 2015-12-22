@@ -64,7 +64,7 @@ void GD_setDispatchMethod( GrandDispatcher *dispatch , dispatcherFunction functi
     dispatch->_dispatcherUserData = data;
 }
 
-uint8_t GD_stop( GrandDispatcher* dispatch)
+BOOLEAN_RETURN uint8_t GD_stop( GrandDispatcher* dispatch)
 {
     if (dispatch->state == 0)
     {
@@ -85,7 +85,7 @@ uint8_t GD_stop( GrandDispatcher* dispatch)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-uint8_t GD_runFromThread( GrandDispatcher *dispatch)
+BOOLEAN_RETURN uint8_t GD_runFromThread( GrandDispatcher *dispatch)
 {
     if( dispatch->state != 0)
         return 0;
@@ -100,7 +100,7 @@ uint8_t GD_runFromThread( GrandDispatcher *dispatch)
         return 0;
 }
 
-int8_t GD_runFromLoop( GrandDispatcher *dispatch)
+ERROR_RETURN int8_t GD_runFromLoop( GrandDispatcher *dispatch)
 {
     if( dispatch->state != 0)
         return -1;
@@ -121,7 +121,7 @@ enum
     SLEEP_TIME = 100 // uS
 };
 
-uint8_t GD_waitForCreation(GrandDispatcher *dispatch )
+BOOLEAN_RETURN uint8_t GD_waitForCreation(GrandDispatcher *dispatch )
 {
     uint16_t maxCount = 0;
     while( dispatch->state < 1)
@@ -167,7 +167,7 @@ void GD_setUserTaskCallBack(GrandDispatcher* dispatch, event_userTask function ,
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-int8_t GD_sendMessage(GrandDispatcher* dispatch, void* message , size_t size )
+ERROR_RETURN int8_t GD_sendMessage(GrandDispatcher* dispatch, void* message , size_t size )
 {
     if( GD_tryLockDispatch(dispatch) == 0)
     {
@@ -190,16 +190,16 @@ int8_t GD_sendMessage(GrandDispatcher* dispatch, void* message , size_t size )
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-int GD_tryLockDispatch( GrandDispatcher* dispatch)
+ERROR_RETURN ALWAYS_INLINE int GD_tryLockDispatch( GrandDispatcher* dispatch)
 {
     return pthread_mutex_trylock( &dispatch->_thread.mutex );
 }
-int GD_lockDispatch( GrandDispatcher* dispatch)
+ERROR_RETURN ALWAYS_INLINE int GD_lockDispatch( GrandDispatcher* dispatch)
 {
     return pthread_mutex_lock( &dispatch->_thread.mutex );
 }
 
-int GD_unlockDispatch( GrandDispatcher* dispatch)
+ERROR_RETURN ALWAYS_INLINE int GD_unlockDispatch( GrandDispatcher* dispatch)
 {
     return pthread_mutex_unlock( &dispatch->_thread.mutex );
 }

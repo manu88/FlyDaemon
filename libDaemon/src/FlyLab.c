@@ -122,7 +122,7 @@ int8_t sendObjectRequest( uint32_t objectID)
 
 }
 
-int8_t respondAcknowledge( uint16_t instanceID )
+ERROR_RETURN int8_t respondAcknowledge( uint16_t instanceID )
 {
     UAVObject obj;
     createACK(&obj, instanceID );
@@ -130,7 +130,7 @@ int8_t respondAcknowledge( uint16_t instanceID )
     return GD_sendMessage( instance ,&obj , sizeof( UAVObject ));
 }
 
-int8_t respondNacknowledge( uint16_t instanceID )
+ERROR_RETURN int8_t respondNacknowledge( uint16_t instanceID )
 {
     UAVObject obj;
     createNACK(&obj, instanceID );
@@ -139,11 +139,11 @@ int8_t respondNacknowledge( uint16_t instanceID )
 }
 
 
-ALWAYS_INLINE int tryLockThread( void )
+ERROR_RETURN ALWAYS_INLINE int tryLockThread( void )
 {
     return GD_tryLockDispatch( instance );
 }
-ALWAYS_INLINE int unlockThread( void )
+ERROR_RETURN ALWAYS_INLINE int unlockThread( void )
 {
     return GD_unlockDispatch( instance );
 }
