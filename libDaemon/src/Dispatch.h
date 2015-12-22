@@ -104,7 +104,7 @@ BOOLEAN_RETURN uint8_t GD_runFromThread( GrandDispatcher *dispatch);
  \param[in,out] dispatch A pointer to the instance you want to run
  \return -1 or Dispatch loop return value
  */
-int8_t GD_runFromLoop( GrandDispatcher *dispatch);
+ERROR_RETURN int8_t GD_runFromLoop( GrandDispatcher *dispatch);
 
 //! \brief Wait until the dispatch loop is fully running
 /*!
@@ -151,7 +151,7 @@ void GD_setCallBack1(GrandDispatcher* dispatch, event_cb_t function , void* user
  */
 void GD_setUserTaskCallBack(GrandDispatcher* dispatch, event_userTask function , void* userData);
 
-int8_t GD_sendMessage(GrandDispatcher* dispatch , void* message , size_t size );
+ERROR_RETURN int8_t GD_sendMessage(GrandDispatcher* dispatch , void* message , size_t size );
 
 /* lock/unlock will do _nothing_ if dispatcher is called from the main thread*/
 

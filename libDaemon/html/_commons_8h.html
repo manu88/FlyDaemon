@@ -86,7 +86,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">Commons.h File Reference</div>  </div>
 </div><!--header-->
@@ -103,6 +104,14 @@ Macros</h2></td></tr>
 <tr class="separator:a3c95a90e7806e4b0d21edfae15b73465"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af218280b1d41892768e22dc21c087d52"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a></td></tr>
 <tr class="separator:af218280b1d41892768e22dc21c087d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac91445e4ad0b40fc554754bb1aa20317"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commons_8h.html#ac91445e4ad0b40fc554754bb1aa20317">ERROR_RETURN</a></td></tr>
+<tr class="separator:ac91445e4ad0b40fc554754bb1aa20317"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a80e27df941f9227b02ce484853fb0729"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_commons_8h.html#a80e27df941f9227b02ce484853fb0729">ErrorNum</a> { <a class="el" href="_commons_8h.html#a80e27df941f9227b02ce484853fb0729acd8349bd5e288e094c741bf94f5b2731">Error_No</a> = 0
+ }</td></tr>
+<tr class="separator:a80e27df941f9227b02ce484853fb0729"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Commons Definitions. </p>
@@ -124,6 +133,19 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac91445e4ad0b40fc554754bb1aa20317"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ERROR_RETURN</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This macro marks API functions that return 0 on sucess or an error code on fail (usually as int8_t ) </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="_commons_8h.html#a80e27df941f9227b02ce484853fb0729">ErrorNum</a> </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a3c95a90e7806e4b0d21edfae15b73465"></a>
 <div class="memitem">
 <div class="memproto">
@@ -140,6 +162,26 @@ Macros</h2></td></tr>
 <p>Use this macro on unused parameters to silence compiler warning Complains. </p>
 <dl><dt><b>Examples: </b></dt><dd><a class="el" href="test_client_8c-example.html#a9">testClient.c</a>.</dd>
 </dl>
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="a80e27df941f9227b02ce484853fb0729"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="_commons_8h.html#a80e27df941f9227b02ce484853fb0729">ErrorNum</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Error code</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a80e27df941f9227b02ce484853fb0729acd8349bd5e288e094c741bf94f5b2731"></a>Error_No&#160;</td><td class="fielddoc">
+<p>No errors. </p>
+</td></tr>
+</table>
+
 </div>
 </div>
 </div><!-- contents -->

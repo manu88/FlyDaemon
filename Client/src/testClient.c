@@ -122,7 +122,7 @@ int main (int argc, char *argv[])
     params.notificationsCallBack = onNotification;
     
     initializeConnection( &params );
-    
+
     uint32_t objectID = 0;
     
     long count = 0;

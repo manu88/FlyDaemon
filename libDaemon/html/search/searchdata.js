@@ -6,9 +6,9 @@ var indexSectionsWithContent =
   3: "acdgirstu",
   4: "_cdilnopstuv",
   5: "e",
-  6: "dnpu",
-  7: "cdptw",
-  8: "bnu",
+  6: "denpu",
+  7: "cdeptw",
+  8: "benu",
   9: "f"
 };
 

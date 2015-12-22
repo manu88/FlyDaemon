@@ -12,6 +12,10 @@
 #ifndef Commons_h
 #define Commons_h
 
+#ifndef ALWAYS_INLINE
+#define ALWAYS_INLINE __attribute__((always_inline))
+#endif
+
 /** Use this macro on unused parameters to silence compiler warning Complains.
  *  \def UNUSED_PARAMETER
  */
@@ -26,8 +30,25 @@
 #define BOOLEAN_RETURN
 #endif
 
-#ifndef ALWAYS_INLINE
-#define ALWAYS_INLINE __attribute__((always_inline))
+/** This macro marks API functions that return 0 on sucess or an error code on fail (usually as int8_t ) 
+ *  \see ErrorNum
+ *
+ *  \def ERROR_RETURN
+ */
+#ifndef ERROR_RETURN
+#define ERROR_RETURN
 #endif
+
+/**
+ * Error code
+ * \enum ErrorNum
+ *
+ * \see BOOLEAN_RETURN
+ */
+enum ErrorNum
+{
+    Error_No = 0, /*!< No errors. */
+    
+};
 
 #endif /* Commons_h */

@@ -14,7 +14,7 @@
 #include <stdint.h>
 #include <sys/un.h>
 #include <sys/time.h>
-
+#include "../libDaemon/include/Commons.h"
 /**
  * A list of errors codes returned by every IPC_* functions
  *
@@ -24,6 +24,7 @@
  */
 enum IPC_errors
 {
+    /* Must match ErrorNum in Commons.h */
     IPC_noerror = 0,
     IPC_socket  = -1,
     IPC_bind    = -2,
@@ -65,15 +66,15 @@ typedef struct
 
 
 /* Common init for Client & Server */
-int8_t IPC_initialize( IPCCommunicationPort *port);
+ERROR_RETURN int8_t IPC_initialize( IPCCommunicationPort *port);
 ssize_t IPC_send( IPCCommunicationPort *port, const void* buffer , size_t size);
 ssize_t IPC_receive( IPCCommunicationPort *port , void * buffer, size_t size);
 
-int8_t IPC_selectRead(IPCCommunicationPort *port );
-int8_t IPC_selectWrite(IPCCommunicationPort *port );
+ERROR_RETURN int8_t IPC_selectRead(IPCCommunicationPort *port );
+ERROR_RETURN int8_t IPC_selectWrite(IPCCommunicationPort *port );
 /* Server part */
-int8_t IPC_createServer( IPCCommunicationPort *port);
-int8_t IPC_closeServer( IPCCommunicationPort *port);
+ERROR_RETURN int8_t IPC_createServer( IPCCommunicationPort *port);
+ERROR_RETURN int8_t IPC_closeServer( IPCCommunicationPort *port);
 
 //! \brief Wait for a client connection
 /*!
@@ -84,11 +85,13 @@ int8_t IPC_closeServer( IPCCommunicationPort *port);
  
  \return IPC_errors : IPC_noerror on sucess , IPC_timeout if timer expires, IPC_accept if connection fails
  */
-int8_t IPC_waitForClient(IPCCommunicationPort *port , struct timeval * timout);
+ERROR_RETURN int8_t IPC_waitForClient(IPCCommunicationPort *port , struct timeval * timout);
 
 /* Client part */
 
-int8_t IPC_createClient( IPCCommunicationPort *port);
+ERROR_RETURN int8_t IPC_createClient( IPCCommunicationPort *port);
 int IPC_closeClient( IPCCommunicationPort *port);
-int8_t IPC_connectToServer( IPCCommunicationPort *port);
+ERROR_RETURN int8_t IPC_connectToServer( IPCCommunicationPort *port);
+
 #endif /* IPCComm_h */
+

@@ -50,7 +50,7 @@ typedef void (*event_error)( int errorNum , void* userData);
 /* *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
 
 /**
- *  This struct will hold The user parameters.
+ *  This struct will hold the user parameters.
  *  \struct FlyLabParameters
  */
 typedef struct
@@ -75,7 +75,7 @@ typedef struct
 typedef struct
 {
     uint8_t plateform;        //!< Is this a real flying machine or a simulator \see PlateformType
-    /* unused byte here */
+
     char name[NAME_MAX_SIZE];        //!< The name of the system
     char constructor[NAME_MAX_SIZE]; //!< The constructor of the system
 
@@ -83,8 +83,6 @@ typedef struct
     uint8_t versionMaj; //!< version major value
     
 } RuntimeInformations ;
-    
-
 
 /* *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
     

@@ -51,7 +51,7 @@ ALWAYS_INLINE int startThread( DispatchThread *dispatch , void*data);
 ALWAYS_INLINE void sendQuitSignal( DispatchThread *dispatch );
 
 
-uint8_t waitForThreadTerminaison( DispatchThread *dispatch );
+BOOLEAN_RETURN uint8_t waitForThreadTerminaison( DispatchThread *dispatch );
 
 
 /*
