@@ -26,6 +26,7 @@ typedef void (*event_cb_t)(int reason, const void* msg, void *userdata);
  */
 typedef void (*event_userTask)( void *userdata);
 
+typedef int8_t (*dispatcherFunction)(void *userdata);
 
 /**
  *  An instance of GrandDispatcher
@@ -43,6 +44,11 @@ typedef struct
     
     event_userTask _userTaskCallBack; //!< In case the GrandDispatcher in ran on the main loop, the user can define a method to be called as often as possible
     void*          _userTaskData; //!< a pointer passed with the user function
+    
+    dispatcherFunction  _dispatchMainFunction;
+    void               *_dispatcherUserData;
+    
+    int8_t returnValue;
     
 }GrandDispatcher;
 
@@ -83,6 +89,9 @@ GrandDispatcher* GD_init( void );
  */
 void GD_release( GrandDispatcher* dispatch);
 
+
+void GD_setDispatchMethod( GrandDispatcher *dispatch , dispatcherFunction function , void* data);
+
 //! \brief Start the dispatcher on a dedicated thread
 /*!
  \param[in,out] dispatch A pointer to the instance you want to run
@@ -93,9 +102,9 @@ BOOLEAN_RETURN uint8_t GD_runFromThread( GrandDispatcher *dispatch);
 //! \brief Start the dispatcher on the current thread
 /*!
  \param[in,out] dispatch A pointer to the instance you want to run
- \return 1 on sucess, 0 on fail
+ \return -1 or Dispatch loop return value
  */
-BOOLEAN_RETURN uint8_t GD_runFromLoop( GrandDispatcher *dispatch);
+int8_t GD_runFromLoop( GrandDispatcher *dispatch);
 
 //! \brief Wait until the dispatch loop is fully running
 /*!

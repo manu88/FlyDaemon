@@ -7,6 +7,6 @@ var searchData=
   ['disconnect',['disconnect',['../_fly_lab_a_p_i_8h.html#a51282baca022dcdcdecd2ca3183b3fef',1,'FlyLab.c']]],
   ['dispatch_2eh',['Dispatch.h',['../_dispatch_8h.html',1,'']]],
   ['dispatchernotifications',['DispatcherNotifications',['../_dispatch_8h.html#a3006cd40652ccece1889272aa491dbe1',1,'Dispatch.h']]],
-  ['dispatchthread',['dispatchThread',['../structdispatch_thread.html',1,'']]],
+  ['dispatchthread',['DispatchThread',['../struct_dispatch_thread.html',1,'']]],
   ['dispatchthread_2eh',['DispatchThread.h',['../_dispatch_thread_8h.html',1,'']]]
 ];

@@ -19,6 +19,8 @@
  PRIVATE FILE
  */
 
+void *dispatch_MainLoop( void* dispatcher );
+
 GrandDispatcher* GD_init()
 {
     GrandDispatcher * ret =(GrandDispatcher*) malloc( sizeof(GrandDispatcher ));
@@ -33,7 +35,10 @@ GrandDispatcher* GD_init()
         ret->_userTaskData = NULL;
         ret->_userTaskCallBack = NULL;
         
+        ret->_dispatcherUserData = NULL;
+        
         initDispatchThread( &ret->_thread );
+        ret->_thread.threadMainFunction = dispatch_MainLoop;
         
         //connectToIPCWithKey(&ret->_thread, IPC_KEY );
 
@@ -51,6 +56,12 @@ void GD_release( GrandDispatcher* dispatch)
     free( dispatch );
     
     dispatch = NULL;
+}
+
+void GD_setDispatchMethod( GrandDispatcher *dispatch , dispatcherFunction function , void* data)
+{
+    dispatch->_dispatchMainFunction = function;
+    dispatch->_dispatcherUserData = data;
 }
 
 uint8_t GD_stop( GrandDispatcher* dispatch)
@@ -79,7 +90,7 @@ uint8_t GD_runFromThread( GrandDispatcher *dispatch)
     if( dispatch->state != 0)
         return 0;
     
-    const int r = pthread_create ( &dispatch->_thread.thread_id, NULL,startMainLoop, dispatch );
+    const int r = startThread(&dispatch->_thread , dispatch);
     if( r == 0)
     {
         dispatch->threadedLoop = 1;
@@ -89,15 +100,17 @@ uint8_t GD_runFromThread( GrandDispatcher *dispatch)
         return 0;
 }
 
-uint8_t GD_runFromLoop( GrandDispatcher *dispatch)
+int8_t GD_runFromLoop( GrandDispatcher *dispatch)
 {
     if( dispatch->state != 0)
-        return 0;
+        return -1;
     
     dispatch->threadedLoop = 0;
     dispatch_MainLoop( dispatch );
     
-    return 1;
+
+    
+    return dispatch->returnValue;
 }
 
 /* **** **** **** **** **** **** **** */
@@ -128,7 +141,7 @@ uint8_t GD_waitForCreation(GrandDispatcher *dispatch )
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-void sendQuitSignal( DispatchThread *dispatch )
+ALWAYS_INLINE void sendQuitSignal( DispatchThread *dispatch )
 {
     if( dispatch->shouldQuit != 1)
         dispatch->shouldQuit = 1;
@@ -191,14 +204,20 @@ int GD_unlockDispatch( GrandDispatcher* dispatch)
     return pthread_mutex_unlock( &dispatch->_thread.mutex );
 }
 
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+/* Dispatch's entry Point                                                */
 
-/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-/*
-int registerProcess( GrandDispatcher * dispatch)
+void* dispatch_MainLoop( void* dispatcher )
 {
-    return 0;
-}
-*/
+    GrandDispatcher *dispatch = (GrandDispatcher*) dispatcher;
+ 
 
+    dispatch->state = 0;
+    
+    dispatch->returnValue = dispatch->_dispatchMainFunction( dispatch->_dispatcherUserData );
+    
+    dispatch->state = 0;
+    
+    return NULL;
+}
 

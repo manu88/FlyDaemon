@@ -156,7 +156,7 @@ int main (int argc, char *argv[])
             }
             
         }
-        printf("thread ended sent Count = %li , received %li\n" , count ,rec_count);
+        printf("thread ended  sent Count = %li , received %li\n" , count ,rec_count);
         
         end = clock();
         time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
@@ -167,7 +167,7 @@ int main (int argc, char *argv[])
         
     }
     else
-        printf("Error creation thread\n");
+        printf("Error creation thread with code %i \n" ,getReturnValue());
     
     
     cleanup();

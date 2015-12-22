@@ -34,13 +34,14 @@ enum IPC_errors
     IPC_select  = -7,
     IPC_timeout = -20,
     IPC_lock    = -21,
+    IPC_refused = -22,
     
     IPC_brokenConnection = -30,
     
     IPC_otherError = -40
 };
 
-struct _IPCCommunicationPort
+typedef struct
 {
     struct sockaddr_un _remote; // both Clients & server
     int _commSoc;               // both Clients & server communication
@@ -59,9 +60,9 @@ struct _IPCCommunicationPort
     
     int lastSendError;
     int lastReceiveError;
-};
+} IPCCommunicationPort;
 
-typedef struct _IPCCommunicationPort IPCCommunicationPort;
+
 
 /* Common init for Client & Server */
 int8_t IPC_initialize( IPCCommunicationPort *port);

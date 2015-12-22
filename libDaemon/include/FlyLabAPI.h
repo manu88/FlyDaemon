@@ -125,7 +125,13 @@ BOOLEAN_RETURN uint8_t initializeConnection( const FlyLabParameters *parameters 
 Will fail if initializeConnection wasn't called or failed.
  */
 void cleanup(void);
-    
+
+//! \brief Get the return value from the dispatcher.
+/*!
+ Only relevant after the dispatcher has stopped!
+ \return The return value from the dispatcher
+ */
+ALWAYS_INLINE int8_t getReturnValue(void);
     
 //! \brief Get the current version
 /*!

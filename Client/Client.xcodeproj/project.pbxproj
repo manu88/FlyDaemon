@@ -71,10 +71,10 @@
 		593900411C26BA1300E8A68C /* src */ = {
 			isa = PBXGroup;
 			children = (
-				593900421C26BA1300E8A68C /* Dispatch.c */,
 				593900431C26BA1300E8A68C /* Dispatch.h */,
-				593900441C26BA1300E8A68C /* DispatchThread.c */,
+				593900421C26BA1300E8A68C /* Dispatch.c */,
 				593900451C26BA1300E8A68C /* DispatchThread.h */,
+				593900441C26BA1300E8A68C /* DispatchThread.c */,
 				593900461C26BA1300E8A68C /* FlyLab.c */,
 				593900471C26BA1300E8A68C /* IPCMessage.h */,
 			);

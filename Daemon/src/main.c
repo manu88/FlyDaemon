@@ -9,7 +9,7 @@
 #include "../../libDaemon/src/IPCMessage.h"
 #include "../../libDaemon/include/FlyLabAPI.h"
 
-#define UNUSED_PARAMETER(x) (void)(x)
+#include "../../libDaemon/src/Dispatch.h"
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** */
 /* Parameters */
@@ -240,6 +240,7 @@ void receive(void*data, ssize_t size)
 }
 
 
+
 int main(void)
 {
 
@@ -254,10 +255,8 @@ int main(void)
 
     assert( IPC_initialize( &port) == IPC_noerror );
     assert( IPC_createServer( &port )== IPC_noerror );
-    
-    
-    
-    
+
+
     while( keepRunning )
     {
         id = 0;

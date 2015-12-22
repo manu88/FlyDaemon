@@ -18,36 +18,38 @@
 #include <pthread.h>
 
 #include "../../PrivateAPI/IPCComm.h"
+#include "../include/Commons.h"
 
-struct dispatchThread
+typedef void *(*threadMain)( void *data);
+
+typedef struct
 {
     pthread_t thread_id;
 
+    threadMain threadMainFunction;
+    
     pthread_mutex_t mutex;
     
     uint8_t shouldQuit;
     
-    /* IPC Receive */
-//    int r_msqid;
-//    key_t r_key;
-
-    /* Error codes*/
-    int error_thread;
-    int error_ipc;
-    
     IPCCommunicationPort _port; // client here
-};
+    
+    
+    /* IPC Receive */
+    //    int r_msqid;
+    //    key_t r_key;
+} DispatchThread;
 
-typedef struct dispatchThread DispatchThread;
 
 int initDispatchThread( DispatchThread *dispatch );
 void releaseDispatchThread(  DispatchThread *dispatch );
 
 
-void sendQuitSignal( DispatchThread *dispatch );
+ALWAYS_INLINE int startThread( DispatchThread *dispatch , void*data);
 
-void *startMainLoop (void * p_data);
-void dispatch_MainLoop( void* dispatcher );
+
+ALWAYS_INLINE void sendQuitSignal( DispatchThread *dispatch );
+
 
 uint8_t waitForThreadTerminaison( DispatchThread *dispatch );
 

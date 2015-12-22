@@ -12,6 +12,7 @@
 /*
  PRIVATE HEADER
  */
+#include <unistd.h>
 #include <stdlib.h> // pour free() : pas bien!
 #include <stddef.h>
 #include <stdio.h>
@@ -19,6 +20,9 @@
 #include "Dispatch.h"
 #include "IPCMessage.h"
 
+
+void eventReceived( int reason, const void* msg, void* data);
+int8_t dispatchMainLoop(void *data);
 
 static const char _version[] = "0.0.1";
 
@@ -28,7 +32,7 @@ static FlyLabParameters params;
 
 static uint8_t _connected = 0;
 
-void eventReceived( int reason, const void* msg, void* data);
+
 
 uint8_t initializeConnection( const FlyLabParameters *parameters )
 {
@@ -43,6 +47,9 @@ uint8_t initializeConnection( const FlyLabParameters *parameters )
     
     GD_setCallBack1( instance, eventReceived, parameters->userData );
 
+    GD_setDispatchMethod( instance , dispatchMainLoop , instance );
+    
+    
     return instance != NULL;
 }
 
@@ -53,6 +60,11 @@ void cleanup()
     
     if (instance != NULL)
         GD_release( instance );
+}
+
+ALWAYS_INLINE int8_t getReturnValue()
+{
+    return instance->returnValue;
 }
 
 ALWAYS_INLINE const char* API_getVersion()
@@ -80,7 +92,7 @@ ALWAYS_INLINE uint8_t disconnect()
 
 uint8_t runFromThisThread()
 {
-    return GD_runFromLoop( instance );
+    return GD_runFromLoop( instance ) == 0? 1 : 0;
 }
 uint8_t runFromNewThread()
 {
@@ -138,6 +150,143 @@ ALWAYS_INLINE int unlockThread( void )
     return GD_unlockDispatch( instance );
 }
 
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+int8_t dispatchMainLoop(void *data)
+{
+    GrandDispatcher *dispatch = (GrandDispatcher*) data;
+    
+    if( IPC_connectToServer( &dispatch->_thread._port ) != IPC_noerror)
+        return IPC_connect;
+    
+    const pid_t pid = getpid();
+    
+    /**/
+    
+    dispatch->state = 1;
+    
+    Message_buf  rbuf;
+    Message_buf  sbuf;
+    
+    /* Send registration request */
+    
+    sbuf.mtype = IPC_ProcessRegistration;
+    sbuf.pid = pid;
+    
+    
+    if( IPC_send(&dispatch->_thread._port, &sbuf, sizeof(Message_buf))<=0)
+    {
+        printf("Error send IPC_ProcessRegistration \n");
+    }
+    
+    /* Wait for reply ... */
+    
+    uint8_t didReply = 0;
+    uint32_t counter = 0;
+    const uint32_t maxTime = 40;
+    
+    ssize_t t = 0;
+    
+    while ( counter < maxTime )
+    {
+        if( IPC_selectRead( &dispatch->_thread._port ) == IPC_noerror )
+        {
+            if ((t = IPC_receive( &dispatch->_thread._port, &rbuf, sizeof(Message_buf) ) > 0))
+            {
+                if ( rbuf.mtype == IPC_ProcessDidRegister)
+                {
+                    didReply = 1;
+                    break;
+                }
+            }
+        }
+        
+        counter++;
+        
+    }
+    
+    if( didReply == 0)
+    {
+        dispatch->_callBack1( ConnectionError ,NULL,  dispatch->_callBackUserData1 );
+        
+        return IPC_refused;
+    }
+    else // we're good!
+    {
+        
+        
+        dispatch->state = 2;
+        
+        dispatch->_callBack1( DidRegisterToDispatcher ,NULL, dispatch->_callBackUserData1 );
+        
+        /* Send an internal info request */
+        
+        sbuf.mtype = IPC_PrivateRequest;
+        IPC_send( &dispatch->_thread._port , &sbuf, sizeof(Message_buf ));
+        
+        
+        while ( dispatch->_thread.shouldQuit == 0 )
+        {
+            
+            const int8_t ret = IPC_selectRead( &dispatch->_thread._port);
+            if(  ret == IPC_noerror )
+            {
+                if ((t = IPC_receive(&dispatch->_thread._port, &rbuf, sizeof(Message_buf ))> 0))
+                {
+                    
+                    if( dispatch->_callBack1)
+                    {
+                        
+                        if( rbuf.mtype == IPC_DataSend )
+                        {
+                            dispatch->_callBack1( DidReceiveData ,&rbuf, dispatch->_callBackUserData1 );
+                        }
+                        
+                        else if(rbuf.mtype >= IPC_PrivateRequest )
+                        {
+                            dispatch->_callBack1( (int) rbuf.mtype ,&rbuf, dispatch->_callBackUserData1 );
+                        }
+                        
+                    }
+                    
+                    
+                }
+                else
+                {
+                    
+                    printf("Read error, quit! %i \n" , dispatch->_thread._port.lastReceiveError);
+                    GD_stop( dispatch );
+                    
+                }
+            }
+            else if( ret == IPC_timeout)
+            {
+                if( dispatch->threadedLoop == 0)
+                {
+                    if( dispatch->_userTaskCallBack != NULL)
+                        dispatch->_userTaskCallBack(dispatch->_userTaskData );
+                }
+            }
+            
+        } // end of while
+        
+        dispatch->_callBack1( WillTerminateConnection , NULL , dispatch->_callBackUserData1 );
+        
+        sbuf.pid = pid;
+        
+        sbuf.mtype = IPC_ProcessDeregistration;
+        if( IPC_send(&dispatch->_thread._port, &sbuf, sizeof(Message_buf)) <= 0)
+        {
+        }
+    }
+    
+
+
+    return IPC_noerror;
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void eventReceived( int reason, const void* msg, void* data)
 {

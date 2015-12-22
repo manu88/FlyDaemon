@@ -138,9 +138,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a740d5bf5b08475527f21138cc6c0da07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a740d5bf5b08475527f21138cc6c0da07">GD_runFromThread</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
 <tr class="memdesc:a740d5bf5b08475527f21138cc6c0da07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the dispatcher on a dedicated thread.  <a href="#a740d5bf5b08475527f21138cc6c0da07">More...</a><br /></td></tr>
 <tr class="separator:a740d5bf5b08475527f21138cc6c0da07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68946117ef454705456782d0a26715de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a68946117ef454705456782d0a26715de">GD_runFromLoop</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
-<tr class="memdesc:a68946117ef454705456782d0a26715de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the dispatcher on the current thread.  <a href="#a68946117ef454705456782d0a26715de">More...</a><br /></td></tr>
-<tr class="separator:a68946117ef454705456782d0a26715de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8497cdea4cb4f4bf5c3422c7aaf261eb"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a8497cdea4cb4f4bf5c3422c7aaf261eb">GD_runFromLoop</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
+<tr class="memdesc:a8497cdea4cb4f4bf5c3422c7aaf261eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the dispatcher on the current thread.  <a href="#a8497cdea4cb4f4bf5c3422c7aaf261eb">More...</a><br /></td></tr>
+<tr class="separator:a8497cdea4cb4f4bf5c3422c7aaf261eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1470d099b4ee9bfa4cf14c7cdefa82f5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dispatch_8h.html#a1470d099b4ee9bfa4cf14c7cdefa82f5">GD_waitForCreation</a> (<a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch)</td></tr>
 <tr class="memdesc:a1470d099b4ee9bfa4cf14c7cdefa82f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait until the dispatch loop is fully running.  <a href="#a1470d099b4ee9bfa4cf14c7cdefa82f5">More...</a><br /></td></tr>
 <tr class="separator:a1470d099b4ee9bfa4cf14c7cdefa82f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -296,12 +296,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a68946117ef454705456782d0a26715de"></a>
+<a class="anchor" id="a8497cdea4cb4f4bf5c3422c7aaf261eb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="_commons_8h.html#af218280b1d41892768e22dc21c087d52">BOOLEAN_RETURN</a> uint8_t GD_runFromLoop </td>
+          <td class="memname">int8_t GD_runFromLoop </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_grand_dispatcher.html">GrandDispatcher</a> *&#160;</td>
           <td class="paramname"><em>dispatch</em></td><td>)</td>
@@ -317,7 +317,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>1 on sucess, 0 on fail </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>-1 or Dispatch loop return value </dd></dl>
 
 </div>
 </div>
@@ -378,7 +378,7 @@ Functions</h2></td></tr>
 
 <p>Set the user task callback. </p>
 <p>In case you're using 'GD_runFromLoop', you can define an user function to be called regularly.</p>
-<div class="fragment"><div class="line"><span class="keywordtype">void</span> userTask( <span class="keywordtype">void</span>* data )</div><div class="line">{</div><div class="line">   <a class="code" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch = ( <a class="code" href="struct_grand_dispatcher.html">GrandDispatcher</a>*)data;</div><div class="line">   <span class="comment">// .. do quick stuff</span></div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main (<span class="keywordtype">void</span>)</div><div class="line">{</div><div class="line">   <a class="code" href="struct_grand_dispatcher.html">GrandDispatcher</a>* dispatch = <a class="code" href="_dispatch_8h.html#a9922ccab85fa98234a57adf2bfde4521">GD_init</a>();</div><div class="line"></div><div class="line">   <a class="code" href="_dispatch_8h.html#aa7619e66b9cb8abeb3f925c95a65a3c2">GD_setUserTaskCallBack</a>( dispatch , userTask, dispatch );</div><div class="line">   <a class="code" href="_dispatch_8h.html#a68946117ef454705456782d0a26715de">GD_runFromLoop</a>( dispatch ); <span class="comment">// main thread is blocked here</span></div><div class="line">}</div></div><!-- fragment --><p>Note : the userCallback will not be called if 'GD_runFromThread' is used instead.</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> userTask( <span class="keywordtype">void</span>* data )</div><div class="line">{</div><div class="line">   <a class="code" href="struct_grand_dispatcher.html">GrandDispatcher</a> *dispatch = ( <a class="code" href="struct_grand_dispatcher.html">GrandDispatcher</a>*)data;</div><div class="line">   <span class="comment">// .. do quick stuff</span></div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main (<span class="keywordtype">void</span>)</div><div class="line">{</div><div class="line">   <a class="code" href="struct_grand_dispatcher.html">GrandDispatcher</a>* dispatch = <a class="code" href="_dispatch_8h.html#a9922ccab85fa98234a57adf2bfde4521">GD_init</a>();</div><div class="line"></div><div class="line">   <a class="code" href="_dispatch_8h.html#aa7619e66b9cb8abeb3f925c95a65a3c2">GD_setUserTaskCallBack</a>( dispatch , userTask, dispatch );</div><div class="line">   <a class="code" href="_dispatch_8h.html#a8497cdea4cb4f4bf5c3422c7aaf261eb">GD_runFromLoop</a>( dispatch ); <span class="comment">// main thread is blocked here</span></div><div class="line">}</div></div><!-- fragment --><p>Note : the userCallback will not be called if 'GD_runFromThread' is used instead.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in,out]</td><td class="paramname">dispatch</td><td>A pointer to the instance you want to run </td></tr>
