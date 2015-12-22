@@ -77,8 +77,10 @@ static void uavObjectReceived( const UAVObject *obj , void* userData )
     
     if( obj->type == Type_OBJ_ACK )
     {
-        respondAcknowledge( obj->instanceID );
-//        respondNacknowledge( obj->instanceID );
+        if (obj->instanceID % 2)
+            respondAcknowledge( obj->instanceID );
+        else
+            respondNacknowledge( obj->instanceID );
     }
 
 }

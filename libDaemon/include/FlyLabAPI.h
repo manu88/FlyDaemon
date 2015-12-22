@@ -30,7 +30,7 @@ extern "C" {
  */
 enum PlateformType
 {
-    Plateform_Unknown   = 0, /*!< Error : unknown error */
+    Plateform_Unknown   = 0, /*!< Error : unknown plateform */
     Plateform_Drone     = 1,  /*!< A real flying system */
     Plateform_Simulator = 2   /*!< A simulated flying system */
 };
@@ -156,7 +156,11 @@ BOOLEAN_RETURN ALWAYS_INLINE uint8_t informationsAvailable(void);
  */
 const RuntimeInformations* getRuntimeInformations( void );
     
-    
+//! \brief Request an update for runtime informations
+/*!
+ \see informationsAvailable RuntimeInformations
+ \return 1 on sucess, 0 if failed.
+ */
 BOOLEAN_RETURN uint8_t requestRuntimeInformationsUpdate( void );
 
 //! \brief Ask for communication end

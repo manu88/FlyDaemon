@@ -178,7 +178,7 @@ void receive(void*data, ssize_t size)
         outBuffer.data.buffer[ offsetof(RuntimeInformations, versionMin )] = minVer;
         outBuffer.data.buffer[ offsetof(RuntimeInformations, versionMaj )] = majVer;
         
-        outBuffer.data.buffer[ offsetof(RuntimeInformations, hardwareStatus)] = (uint8_t) hardwareStatus;
+        outBuffer.data.buffer[ offsetof(RuntimeInformations, hardwareStatus)] = (uint8_t) hardwareStatus++;
         
         
         if( IPC_selectWrite(  &port ) == IPC_noerror)
@@ -204,9 +204,14 @@ void receive(void*data, ssize_t size)
             {
                 printf("Received acknowledge for %i \n" , inObj->instanceID );
             }
+            else if( inObj->type == Type_NACK)
+            {
+                printf("Received NON acknowledge for %i \n" , inObj->instanceID );
+            }
 
             if( inObj->type == Type_OBJ_REQ)
             {
+                static uint16_t instanceID = 0;
                 printf("Received request for %i \n" , inObj->objectID );
                 Message_buf outBuffer;
                 UAVObject outObject;
@@ -215,6 +220,7 @@ void receive(void*data, ssize_t size)
                 dumbUAVObject(&outObject);
                 outObject.type = Type_OBJ_ACK;
                 outObject.objectID = inObj->objectID;
+                outObject.instanceID = instanceID++;
                 /*
                 if( inObj->objectID != id)
                 {
