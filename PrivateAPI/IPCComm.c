@@ -45,7 +45,8 @@ int8_t IPC_initialize( IPCCommunicationPort *port)
     
     
     port->_timer = -1;
-    port->_timeToWait = 5;
+    port->_timeToWaitMS = 0;
+    port->_timeToWaitUS = 500;
     
     
     return setCommonSocketOption( port );
@@ -199,8 +200,8 @@ int8_t IPC_selectRead(IPCCommunicationPort *port )
     FD_ZERO(&readSockets);
     FD_SET(port->_commSoc, &readSockets);
     
-    tval.tv_sec  = port->_timeToWait / 1000;
-    tval.tv_usec = (port->_timeToWait % 1000) * 1000;
+    tval.tv_sec  = port->_timeToWaitMS;
+    tval.tv_usec = port->_timeToWaitUS;
     
     const int ret = select(port->_commSoc + 1, &readSockets, NULL, NULL, &tval);
     
@@ -231,8 +232,8 @@ int8_t IPC_selectWrite(IPCCommunicationPort *port )
     FD_ZERO(&writeSockets);
     FD_SET(port->_commSoc, &writeSockets);
     
-    tval.tv_sec  = port->_timeToWait / 1000;
-    tval.tv_usec = (port->_timeToWait % 1000) * 1000;
+    tval.tv_sec  = port->_timeToWaitMS;
+    tval.tv_usec = port->_timeToWaitUS;
     
     const int ret = select(port->_commSoc + 1,  NULL, &writeSockets , NULL, &tval);
     

@@ -54,8 +54,8 @@ typedef struct
     /* Timer */
     
     int _timer;
-    long _timeToWait; // millis
-    
+    long _timeToWaitMS; // milliS
+    int  _timeToWaitUS; // microsS
     /* Stats */
     uint8_t connected; // 0/1
     

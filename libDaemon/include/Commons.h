@@ -12,6 +12,12 @@
 #ifndef Commons_h
 #define Commons_h
 
+
+#include <stdint.h>
+#ifdef DEBUG
+    #include <assert.h>
+#endif
+
 #ifndef ALWAYS_INLINE
 #define ALWAYS_INLINE __attribute__((always_inline))
 #endif
@@ -94,7 +100,6 @@ BOOLEAN_RETURN static inline uint8_t isInReleaseMode()
  * \def DEBUG_ASSERT
  */
 #ifdef DEBUG
-    #include <assert.h>
     #define DEBUG_ASSERT(x) assert(x)
 
 #else

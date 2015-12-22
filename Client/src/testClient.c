@@ -70,29 +70,25 @@ static void uavObjectReceived( const UAVObject *obj , void* userData )
 {
     UNUSED_PARAMETER(userData);
     
+    static uint32_t receivedID = 0;
+//    printUAVObject( obj);
     
-    
+    if( obj->objectID == receivedID )
+    {
+        receivedID++;
+    }
+    else
+    {
+        printf(" Error expected %i got %i\n" , receivedID , obj->objectID );
+        receivedID = obj->objectID;
+        rec_count++;
+    }
     
     if( obj->type == Type_OBJ_ACK )
     {
-        //printf("respondAcknowledge %i %li \n", obj->instanceID , count);
         respondAcknowledge( obj->instanceID );
+        respondNacknowledge( obj->instanceID );
     }
-    //printUAVObject( obj);
-
-    rec_count++;
-
-    if( (rec_count % 50 ) == 0)
-    {
-      //  printf(" received count %li \n" , count);
-    }
-    /*
-    if( count > 10000 )
-    {
-        printf("Send Quit signal \n");
-        disconnect();
-    }
-     */
 
 }
 
@@ -102,7 +98,7 @@ int main (int argc, char *argv[])
     clock_t begin, end;
     double time_spent;
     
-    unsigned int usDT = 100;
+    unsigned int usDT = 1000;
     int nbIter = 10000;
     
     if( argc >= 3)
@@ -111,8 +107,7 @@ int main (int argc, char *argv[])
         nbIter = atoi( argv[2] );
     }
     printf("Start test with DT = %i COUNT = %i\n" , usDT , nbIter);
-    
-    printf(" Flylab API ver %s\n" , API_getVersion() );
+    printf(" Flylab API ver %s config %s \n" , API_getVersion() , isInDebugMode()?"DEBUG" : "RELEASE" );
     
     FlyLabParameters params;
     params.parseObjectsCallBack = uavObjectReceived;
@@ -153,7 +148,7 @@ int main (int argc, char *argv[])
             }
             
         }
-        printf("thread ended  sent Count = %li , received %li\n" , count ,rec_count);
+        printf("thread ended  sent Count = %li , Errors %li\n" , count ,rec_count);
         
         end = clock();
         time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
