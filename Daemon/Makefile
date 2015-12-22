@@ -1,6 +1,11 @@
 
 CC=cc
-CFLAGS= -g -fPIC -c -Wall -I$(shell pwd) -std=gnu99 -pedantic -D_XOPEN_SOURCE=700 -D _BSD_SOURCE
+
+
+
+BUILD_CONFIG = -g -DDEBUG
+
+CFLAGS= BUILD_CONFIG -fPIC -c -Wall -I$(shell pwd) -std=gnu99 -pedantic -D_XOPEN_SOURCE=700 -D _BSD_SOURCE
 
 LDFLAGS= -lpthread
 #-L../libDaemon/ -lFlyLab -static 

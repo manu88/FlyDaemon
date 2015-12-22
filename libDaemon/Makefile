@@ -10,7 +10,9 @@ EXECUTABLE=$(BASENAME)
 
 #.$(MAJOR).$(MINOR).$(REVISON)
 
-CFLAGS=-O0 -g -fPIC -c -Wall -I$(shell pwd) -std=gnu99 -pedantic -D_XOPEN_SOURCE=700 -D _BSD_SOURCE
+BUILD_CONFIG = -g -DDEBUG
+
+CFLAGS= BUILD_CONFIG -fPIC -c -Wall -I$(shell pwd) -std=gnu99 -pedantic -D_XOPEN_SOURCE=700 -D _BSD_SOURCE
 LDFLAGS=-static -ldl -Wl,-soname,$(EXECUTABLE) -lpthread
 
 SOURCES=$(shell echo src/*.c)
