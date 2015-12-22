@@ -16,7 +16,7 @@
 		5983D3CB1C255F2B001F9C4C /* FlyLabAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 5983D3C91C255F2B001F9C4C /* FlyLabAPI.h */; };
 		5983D3CC1C255F2B001F9C4C /* UAVTalk.h in Headers */ = {isa = PBXBuildFile; fileRef = 5983D3CA1C255F2B001F9C4C /* UAVTalk.h */; };
 		5998AFAA1C007FF900D26FD8 /* libFlyLab.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F4DBCA1BF61B3D001D8230 /* libFlyLab.a */; };
-		59C5411B1C2958E40089B203 /* minimal.c in Sources */ = {isa = PBXBuildFile; fileRef = 59C5411A1C29503B0089B203 /* minimal.c */; };
+		59C5411C1C2962EB0089B203 /* testClient.c in Sources */ = {isa = PBXBuildFile; fileRef = 59EA208D1C28153700E23F75 /* testClient.c */; };
 		59EA208C1C280EF200E23F75 /* IPCComm.c in Sources */ = {isa = PBXBuildFile; fileRef = 5983D3E21C259613001F9C4C /* IPCComm.c */; };
 /* End PBXBuildFile section */
 
@@ -243,7 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				59C5411B1C2958E40089B203 /* minimal.c in Sources */,
+				59C5411C1C2962EB0089B203 /* testClient.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +355,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = macosx;
 			};
 			name = Release;

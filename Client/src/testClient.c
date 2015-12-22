@@ -98,7 +98,7 @@ static void uavObjectReceived( const UAVObject *obj , void* userData )
 
 int main (int argc, char *argv[])
 {
-    
+    DEBUG_ASSERT(0);
     clock_t begin, end;
     double time_spent;
     

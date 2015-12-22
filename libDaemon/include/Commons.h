@@ -51,4 +51,12 @@ enum ErrorNum
     
 };
 
+#ifdef DEBUG
+    #include <assert.h>
+    #define DEBUG_ASSERT(x) assert(x)
+
+#else
+    #define DEBUG_ASSERT(x)
+#endif
+
 #endif /* Commons_h */

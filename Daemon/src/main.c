@@ -268,7 +268,7 @@ int main(void)
         id = 0;
         
         struct timeval tv;
-        tv.tv_sec =  3;
+        tv.tv_sec =  60;
         tv.tv_usec = 0;
         printf("Wait for a connection \n");
         const int8_t ret = IPC_waitForClient( &port , &tv) ;
