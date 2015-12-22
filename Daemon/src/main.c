@@ -202,15 +202,12 @@ void receive(void*data, ssize_t size)
         {
             if( inObj->type == Type_ACK)
             {
-//                printf("Received acknowledge for %i \n" , inObj->instanceID );
+                printf("Received acknowledge for %i \n" , inObj->instanceID );
             }
 
-            
-
-            
             if( inObj->type == Type_OBJ_REQ)
             {
-                
+                printf("Received request for %i \n" , inObj->objectID );
                 Message_buf outBuffer;
                 UAVObject outObject;
 
@@ -218,7 +215,7 @@ void receive(void*data, ssize_t size)
                 dumbUAVObject(&outObject);
                 outObject.type = Type_OBJ_ACK;
                 outObject.objectID = inObj->objectID;
-                
+                /*
                 if( inObj->objectID != id)
                 {
                     printf("objectID mismatch got %i  expected %i \n", inObj->objectID , id);
@@ -226,6 +223,7 @@ void receive(void*data, ssize_t size)
                     id = inObj->objectID;
                 }
                 id++;
+                 */
                 strcpy((char*)outObject.data, "response");
                 memcpy(outBuffer.data.buffer , &outObject , sizeof(UAVObject) );
                 
@@ -255,7 +253,7 @@ int main(void)
     Message_buf inBuffer;
     Message_buf outBuffer;
     
-    UAVObject outObject;
+//    UAVObject outObject;
     
     int err = 0;
 

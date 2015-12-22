@@ -83,6 +83,14 @@ const RuntimeInformations * getRuntimeInformations( )
     return NULL;
 }
 
+BOOLEAN_RETURN uint8_t requestRuntimeInformationsUpdate( void )
+{
+    Message_buf sbuf;
+    
+    sbuf.mtype = IPC_PrivateRequest;
+    return IPC_send( &instance->_thread._port  , &sbuf, sizeof(Message_buf )) >0?1 : 0;
+}
+
 ALWAYS_INLINE uint8_t disconnect()
 {
     return GD_stop( instance );

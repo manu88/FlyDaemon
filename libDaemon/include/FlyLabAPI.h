@@ -155,6 +155,9 @@ BOOLEAN_RETURN ALWAYS_INLINE uint8_t informationsAvailable(void);
  \return a pointer to a RuntimeInformations readonly instance, can be NULL
  */
 const RuntimeInformations* getRuntimeInformations( void );
+    
+    
+BOOLEAN_RETURN uint8_t requestRuntimeInformationsUpdate( void );
 
 //! \brief Ask for communication end
 /*!

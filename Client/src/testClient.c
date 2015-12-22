@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h> // memset
 #include "../../libDaemon/include/FlyLabAPI.h"
 
 void printInformations( void );
@@ -63,50 +64,27 @@ void printInformations()
 }
 
 
-static long rec_count = 0;
+
 static long lock_errors = 0;
 
 static void uavObjectReceived( const UAVObject *obj , void* userData )
 {
     UNUSED_PARAMETER(userData);
     
-    static uint32_t receivedID = 0;
-//    printUAVObject( obj);
+
+    printUAVObject( obj);
     
-    if( obj->objectID == receivedID )
-    {
-        receivedID++;
-    }
-    else
-    {
-        printf(" Error expected %i got %i\n" , receivedID , obj->objectID );
-        receivedID = obj->objectID;
-        rec_count++;
-    }
     
     if( obj->type == Type_OBJ_ACK )
     {
         respondAcknowledge( obj->instanceID );
-        respondNacknowledge( obj->instanceID );
+//        respondNacknowledge( obj->instanceID );
     }
 
 }
 
-int main (int argc, char *argv[])
+int main (void)
 {
-
-    clock_t begin, end;
-    double time_spent;
-    
-    unsigned int usDT = 1000;
-    int nbIter = 10000;
-    
-    if( argc >= 3)
-    {
-        usDT   = (unsigned int) atoi( argv[1] );
-        nbIter = atoi( argv[2] );
-    }
-    printf("Start test with DT = %i COUNT = %i\n" , usDT , nbIter);
     printf(" Flylab API ver %s config %s \n" , API_getVersion() , isInDebugMode()?"DEBUG" : "RELEASE" );
     
     FlyLabParameters params;
@@ -115,12 +93,14 @@ int main (int argc, char *argv[])
     
     initializeConnection( &params );
 
-    uint32_t objectID = 0;
+
     
-    long count = 0;
+    char word[256];
+    memset(word , 0 , 256);
+    
     if( runFromNewThread() == 1)
     {
-        begin = clock();
+
         printf("Wait for connection ... \n");
         while ( isConnected() != 1)
         {
@@ -129,34 +109,36 @@ int main (int argc, char *argv[])
         printf("Connected \n");
         while ( isConnected() )
         {
+            printf("\n UAV request > ");
+            fgets(word, sizeof(word), stdin);
+            strtok(word, "\n");
             
-            const int8_t ret= sendObjectRequest( objectID ) ;
-            if(ret == -2)
-            {
-                lock_errors++;
-            }
-            else if( ret > 0)
-                objectID++;
-                
-            usleep( usDT );
-            count++;
             
-            if( count > nbIter )
-            {
-                printf("Send Quit signal \n");
+            if( strcmp(word, "quit") == 0 )
                 disconnect();
+            else if( strcmp(word, "infos") == 0 )
+            {
+                requestRuntimeInformationsUpdate();
             }
+            else
+            {
+                const int req = atoi(word);
+                if( req > 0)
+                {
+                    const int8_t ret= sendObjectRequest((uint32_t ) req ) ;
+                    if(ret == -2)
+                    {
+                        lock_errors++;
+                    }
+                }
+            }
+
+
             
         }
-        printf("thread ended  sent Count = %li , Errors %li\n" , count ,rec_count);
+        printf("thread ended  \n");
         
-        end = clock();
-        time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-        
-        printf("Spent %f seconds \n" , time_spent);
-        printf(" Failed Locks %li \n" , lock_errors);
-        
-        
+
     }
     else
         printf("Error creation thread with code %i \n" ,getReturnValue());

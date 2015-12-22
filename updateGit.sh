@@ -1,3 +1,4 @@
-git pull origin master
-#git fetch origin
-#git reset --hard 
+
+git fetch origin -amm
+git reset --hard origin/master
+
